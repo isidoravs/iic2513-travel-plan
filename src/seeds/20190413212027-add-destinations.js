@@ -1,5 +1,8 @@
+// eslint-disable-next-line no-var
+var faker = require('faker');
+
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (queryInterface) => {
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
@@ -10,15 +13,19 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
+    const destinationsData = [];
+    for (let i = 0; i < 50; i += 1) {
+      const record = {
+        destinationPicture: faker.system.filePath(),
+        destinationName: faker.address.city(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      destinationsData.push(record);
+    }
+
+    return queryInterface.bulkInsert('destinations', destinationsData);
   },
 
-  down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('Person', null, {});
-    */
-  },
+  down: queryInterface => queryInterface.bulkDelete('destinations', null, {}),
 };
