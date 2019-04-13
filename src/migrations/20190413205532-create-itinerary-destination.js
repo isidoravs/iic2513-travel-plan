@@ -1,20 +1,16 @@
-
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('days', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('itineraryDestinations', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    date: {
-      type: Sequelize.DATE,
-    },
-    number: {
+    itinerary_id: {
       type: Sequelize.INTEGER,
     },
-    dayPicture: {
-      type: Sequelize.STRING,
+    destination_id: {
+      type: Sequelize.INTEGER,
     },
     createdAt: {
       allowNull: false,
@@ -26,5 +22,5 @@ module.exports = {
     },
   }),
   // eslint-disable-next-line no-unused-vars
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('days'),
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('itineraryDestinations'),
 };
