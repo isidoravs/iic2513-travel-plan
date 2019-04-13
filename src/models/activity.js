@@ -4,8 +4,16 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.TEXT,
     activityPicture: DataTypes.STRING,
   }, {});
-  activity.associate = function(models) {
-    // associations can be defined here
+  // eslint-disable-next-line func-names
+  activity.associate = function (models) {
+    activity.belongsTo(models.day, {
+      foreignKey: 'day_id',
+    });
+    activity.belongsToMany(models.destination, {
+      through: 'activityDestination',
+      as: 'destinations',
+      foreignKey: 'activity_id',
+    });
   };
   return activity;
 };
