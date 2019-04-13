@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     activity.belongsToMany(models.destination, {
       through: 'activityDestination',
-      as: 'destinationes',
+      as: 'destinations',
       foreignKey: 'activity_id',
     });
   };
