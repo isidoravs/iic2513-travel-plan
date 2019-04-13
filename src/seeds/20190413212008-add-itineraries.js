@@ -1,5 +1,8 @@
+// eslint-disable-next-line no-var
+var faker = require('faker');
+
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: (queryInterface) => {
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
@@ -10,15 +13,25 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
+    const itinerariesData = [];
+    for (let i = 0; i < 50; i += 1) {
+      const record = {
+        budget: faker.commerce.price(),
+        startDate: faker.date.past(),
+        endDate: faker.date.past(),
+        labels: faker.lorem.words().split(' '),
+        itineraryPicture: faker.system.filePath(),
+        description: faker.lorem.paragraph(),
+        avgScore: faker.random.number(),
+        itineraryName: faker.random.locale(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+      itinerariesData.push(record);
+    }
+
+    return queryInterface.bulkInsert('itineraries', itinerariesData);
   },
 
-  down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('Person', null, {});
-    */
-  },
+  down: queryInterface => queryInterface.bulkDelete('itineraries', null, {}),
 };
