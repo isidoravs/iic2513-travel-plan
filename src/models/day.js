@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     });
     day.belongsToMany(models.destination, {
       through: 'dayDestination',
-      as: 'destinationes',
+      as: 'destinations',
       foreignKey: 'day_id',
     });
   };
