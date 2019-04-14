@@ -8,6 +8,12 @@
           <th>Username</th>
           <th>Email</th>
           <th>Password</th>
+          <th>Birth Date</th>
+          <th>Gender</th>
+          <th>Country</th>
+          <th>Public Name</th>
+          <th>Score</th>
+          <th>Photo</th>
           <th colspan="2">Actions</th>
         </tr>
     </thead>
@@ -17,6 +23,12 @@
           <td><%- user.username %></td>
           <td><%- user.email %></td>
           <td><%- user.password %></td>
+          <td><%- user.birthDate %></td>
+          <td><%- user.gender %></td>
+          <td><%- user.country %></td>
+          <td><%- user.publicName %></td>
+          <td><%- user.score %></td>
+          <td><%- user.photo %></td>
           <td><a href="<%- editUserPath(user) %>">Edit</a></td>
           <td>
             <form action="<%- deleteUserPath(user) %>" method="POST">

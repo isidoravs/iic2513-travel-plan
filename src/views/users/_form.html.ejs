@@ -23,8 +23,31 @@
       </div>
       <div class="field">
         <label for="password">Password</label>
-        <textarea type="text" name="password"><%= user.password %></textarea>
+        <input type="text" name="password" value="<%= user.password %>" />
       </div>
+      <% if (!(user.isNewRecord)) { %>
+        <div class="field">
+          <label for="birthDate">Birth Date</label>
+          <input type="text" name="birthDate" value="<%= user.birthDate %>" />
+        </div>
+        <div class="field">
+          <label for="gender">Gender</label>
+          <input type="text" name="gender" value="<%= user.gender %>" />
+        </div>
+        <div class="field">
+          <label for="country">Country</label>
+          <input type="text" name="country" value="<%= user.country%>" />
+        </div>
+        <div class="field">
+          <label for="publicName">Public Name</label>
+          <input type="text" name="publicName" value="<%= user.publicName %>" />
+        </div>
+        <div class="field">
+          <label for="photo">Photo</label>
+          <input type="text" name="photo" value="<%= user.photo %>" />
+        </div>
+
+      <% } %>
       <div class="field">
         <% if (user.isNewRecord) { %>
           <input type="submit" name="create" value="Create" />
