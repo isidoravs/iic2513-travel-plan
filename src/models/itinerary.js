@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.TEXT,
     avgScore: DataTypes.FLOAT,
     itineraryName: DataTypes.STRING,
+    user_id: DataTypes.INTEGER,
   }, {});
   // eslint-disable-next-line func-names
   itinerary.associate = function (models) {
