@@ -1,8 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
   const itinerary = sequelize.define('itinerary', {
     budget: DataTypes.FLOAT,
-    startDate: DataTypes.DATE,
-    endDate: DataTypes.DATE,
+    startDate: DataTypes.DATEONLY,
+    endDate: DataTypes.DATEONLY,
     labels: DataTypes.ARRAY(DataTypes.TEXT),
     itineraryPicture: DataTypes.STRING,
     description: DataTypes.TEXT,

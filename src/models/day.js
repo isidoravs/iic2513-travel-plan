@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const day = sequelize.define('day', {
-    date: DataTypes.DATE,
+    date: DataTypes.DATEONLY,
     number: DataTypes.INTEGER,
     dayPicture: DataTypes.STRING,
   }, {});
