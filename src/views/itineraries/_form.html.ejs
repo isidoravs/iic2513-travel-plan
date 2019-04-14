@@ -1,0 +1,41 @@
+<div>
+    <% if (locals.errors) { %>
+      <div class="errors">
+        You need to fix the following errors:
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error.message %></li>
+          <% }); %>
+        </ul>
+      </div>
+    <% } %>
+    <form action="<%= submitItineraryPath %>" method="post">
+      <% if (!itinerary.isNewRecord) { %>
+        <input type="hidden" name="_method" value="patch" />
+      <% } %>
+      <div class="field">
+        <label for="itineraryName">Itinerary Name</label>
+        <input type="text" name="itineraryName" value="<%= itinerary.itineraryName %>" />
+      </div>
+      <div class="field">
+        <label for="budget">Budget</label>
+        <input type="text" name="budget" value="<%= itinerary.budget %>" />
+      </div>
+      <div class="field">
+        <label for="startDate">Start Date</label>
+        <textarea type="text" name="startDate"><%= itinerary.startDate %></textarea>
+      </div>
+      <div class="field">
+        <label for="endDate">End Date</label>
+        <textarea type="text" name="endDate"><%= itinerary.endDate %></textarea>
+      </div>
+      <div class="field">
+        <% if (itinerary.isNewRecord) { %>
+          <input type="submit" name="create" value="Create" />
+        <% } else { %>
+          <input type="submit" name="update" value="Update" />
+        <% } %>
+      </div>
+    </form>
+  </div>
+  
