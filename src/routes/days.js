@@ -12,6 +12,7 @@ router.get('days.list', '/', async (ctx) => {
   await ctx.render('days/index', {
     daysList,
     newDayPath: ctx.router.url('days.new'),
+    showDayPath: day => ctx.router.url('days.show', { id: day.id }),
     editDayPath: day => ctx.router.url('days.edit', { id: day.id }),
     deleteDayPath: day => ctx.router.url('days.delete', { id: day.id }),
   });

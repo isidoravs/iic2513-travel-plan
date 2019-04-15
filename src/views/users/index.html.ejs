@@ -13,8 +13,7 @@
           <th>Country</th>
           <th>Public Name</th>
           <th>Score</th>
-          <th>Photo</th>
-          <th colspan="2">Actions</th>
+          <th colspan="3">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -28,8 +27,13 @@
           <td><%- user.country %></td>
           <td><%- user.publicName %></td>
           <td><%- user.score %></td>
-          <td><%- user.photo %></td>
           <td><a href="<%- editUserPath(user) %>">Edit</a></td>
+          <td>
+            <form action="<%- showUserPath(user) %>" method="GET">
+              <input type="hidden" name="_method" value="show" />
+              <input type="submit" value="Show" />
+            </form>
+          </td>
           <td>
             <form action="<%- deleteUserPath(user) %>" method="POST">
               <input type="hidden" name="_method" value="delete" />

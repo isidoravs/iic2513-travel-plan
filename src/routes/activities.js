@@ -12,6 +12,7 @@ router.get('activities.list', '/', async (ctx) => {
   await ctx.render('activities/index', {
     activitiesList,
     newActivityPath: ctx.router.url('activities.new'),
+    showActivityPath: activity => ctx.router.url('activities.show', { id: activity.id }),
     editActivityPath: activity => ctx.router.url('activities.edit', { id: activity.id }),
     deleteActivityPath: activity => ctx.router.url('activities.delete', { id: activity.id }),
   });

@@ -11,6 +11,7 @@ router.get('itineraries.list', '/', async (ctx) => {
   await ctx.render('itineraries/index', {
     itinerariesList,
     newItineraryPath: ctx.router.url('itineraries.new'),
+    showItineraryPath: itinerary => ctx.router.url('itineraries.show', { id: itinerary.id }),
     editItineraryPath: itinerary => ctx.router.url('itineraries.edit', { id: itinerary.id }),
     deleteItineraryPath: itinerary => ctx.router.url('itineraries.delete', { id: itinerary.id }),
   });
