@@ -6,6 +6,7 @@ const users = require('./routes/users');
 const itineraries = require('./routes/itineraries');
 const days = require('./routes/days');
 const activities = require('./routes/activities');
+const destinations = require('./routes/destinations');
 
 const router = new KoaRouter();
 
@@ -15,6 +16,7 @@ router.use('/users', users.routes());
 router.use('/itineraries', itineraries.routes());
 router.use('/days', days.routes());
 router.use('/activities', activities.routes());
+router.use('/destinations', destinations.routes());
 
 
 module.exports = router;
