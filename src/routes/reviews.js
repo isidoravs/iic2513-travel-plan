@@ -41,10 +41,8 @@ router.get('reviews.show', '/:id', loadReview, async (ctx) => {
 router.post('reviews.create', '/', async (ctx) => {
   const review = ctx.orm.review.build(ctx.request.body);
   try {
-    await review.save({ fields: ['reviewname', 'email', 'password'] });
+    await review.save({ fields: ['comment', 'score', 'reviewDate'] });
     ctx.redirect(ctx.router.url('reviews.list'));
-    const score = 0;
-    await review.update({ score });
   } catch (validationError) {
     await ctx.render('reviews/new', {
       review,
@@ -57,10 +55,10 @@ router.patch('reviews.update', '/:id', loadReview, async (ctx) => {
   const { review } = ctx.state;
   try {
     const {
-      reviewname, email, password, birthDate, gender, country, publicName, photo,
+      comment, score, reviewDate,
     } = ctx.request.body;
     await review.update({
-      reviewname, email, password, birthDate, gender, country, publicName, photo,
+      comment, score, reviewDate,
     });
     ctx.redirect(ctx.router.url('reviews.list'));
   } catch (validationError) {
