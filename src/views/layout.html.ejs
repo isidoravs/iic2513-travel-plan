@@ -3,6 +3,7 @@
 
   <head>
     <meta charset="utf-8">
+    <link rel="shortcut icon" href="<%= assetPath('logo-plane.png') %>">
     <title>IIC2513 - TIP </title>
     <% if (env !== 'development') { %>
       <link rel="stylesheet" href="<%= assetPath('app.css') %>">
@@ -12,7 +13,7 @@
   <body>
     <header>
       <div id="logo">
-        <img src="<%= assetPath('logo.png') %>" height="22" width="22" alt="Logo" />
+        <img src="<%= assetPath('logo-plane.png') %>" height="80" width="80" alt="Logo" />
       </div>
     </header>
     <%- body %>
