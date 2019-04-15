@@ -1,0 +1,33 @@
+<h2>Days</h2>
+<% if (!daysList.length) { %>
+  <p>No results</p>
+<% } else { %>
+  <table id="days-list">
+    <thead>
+        <tr>
+          <th>Number</th>
+          <th>Date</th>
+          <th>Day Picture</th>
+          <th colspan="2">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% daysList.forEach((day) => { %>
+        <tr>
+          <td><%- day.number%></td>
+          <td><%- day.date %></td>
+          <td><%- day.dayPicture%></td>
+          <td><a href="<%- editDayPath(day) %>">Edit</a></td>
+          <td>
+            <form action="<%- deleteDayPath(day) %>" method="POST">
+              <input type="hidden" name="_method" value="delete" />
+              <input type="submit" value="Delete" />
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } %>
+
+<a href="<%- newDayPath %>">New day</a>

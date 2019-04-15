@@ -35,6 +35,8 @@ router.post('itineraries.create', '/', async (ctx) => {
   const itinerary = ctx.orm.itinerary.build(ctx.request.body);
   try {
     await itinerary.save({ fields: ['name', 'budget', 'startDate', 'endDate'] });
+    const avgScore = 0;
+    await itinerary.update({ avgScore });
     ctx.redirect(ctx.router.url('itineraries.list'));
   } catch (validationError) {
     await ctx.render('itineraries/new', {
@@ -48,10 +50,10 @@ router.patch('itineraries.update', '/:id', loadItinerary, async (ctx) => {
   const { itinerary } = ctx.state;
   try {
     const {
-      itineraryName, budget, startDate, endDate,
+      itineraryName, budget, startDate, endDate, description,
     } = ctx.request.body;
     await itinerary.update({
-      itineraryName, budget, startDate, endDate,
+      itineraryName, budget, startDate, endDate, description,
     });
     ctx.redirect(ctx.router.url('itineraries.list'));
   } catch (validationError) {
