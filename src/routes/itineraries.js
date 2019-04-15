@@ -6,22 +6,27 @@ async function loadItinerary(ctx, next) {
   ctx.state.itinerary = await ctx.orm.itinerary.findById(ctx.params.id);
   return next();
 }
-
 router.get('itineraries.list', '/', async (ctx) => {
   const itinerariesList = await ctx.orm.itinerary.findAll();
   await ctx.render('itineraries/index', {
     itinerariesList,
     newItineraryPath: ctx.router.url('itineraries.new'),
+    showItineraryPath: itinerary => ctx.router.url('itineraries.show', { id: itinerary.id }),
     editItineraryPath: itinerary => ctx.router.url('itineraries.edit', { id: itinerary.id }),
     deleteItineraryPath: itinerary => ctx.router.url('itineraries.delete', { id: itinerary.id }),
   });
 });
-
 router.get('itineraries.new', '/new', async (ctx) => {
   const itinerary = ctx.orm.itinerary.build();
   await ctx.render('itineraries/new', {
     itinerary,
     submitItineraryPath: ctx.router.url('itineraries.create'),
+  });
+});
+router.get('itineraries.show', '/:id', loadItinerary, async (ctx) => {
+  await ctx.render('itineraries/show', {
+    editItineraryPath: itinerary => ctx.router.url('itineraries.edit', { id: itinerary.id }),
+    deleteItineraryPath: itinerary => ctx.router.url('itineraries.delete', { id: itinerary.id }),
   });
 });
 router.get('itineraries.edit', '/:id/edit', loadItinerary, async (ctx) => {

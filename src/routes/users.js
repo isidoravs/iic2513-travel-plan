@@ -12,6 +12,7 @@ router.get('users.list', '/', async (ctx) => {
   await ctx.render('users/index', {
     usersList,
     newUserPath: ctx.router.url('users.new'),
+    showUserPath: user => ctx.router.url('users.show', { id: user.id }),
     editUserPath: user => ctx.router.url('users.edit', { id: user.id }),
     deleteUserPath: user => ctx.router.url('users.delete', { id: user.id }),
   });
@@ -29,6 +30,12 @@ router.get('users.edit', '/:id/edit', loadUser, async (ctx) => {
   await ctx.render('users/edit', {
     user,
     submitUserPath: ctx.router.url('users.update', { id: user.id }),
+  });
+});
+router.get('users.show', '/:id', loadUser, async (ctx) => {
+  await ctx.render('users/show', {
+    editUserPath: user => ctx.router.url('users.edit', { id: user.id }),
+    deleteUserPath: user => ctx.router.url('users.delete', { id: user.id }),
   });
 });
 router.post('users.create', '/', async (ctx) => {

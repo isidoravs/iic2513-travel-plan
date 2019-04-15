@@ -23,19 +23,17 @@
       </div>
       <div class="field">
         <label for="startDate">Start Date</label>
-        <textarea type="text" name="startDate"><%= itinerary.startDate %></textarea>
+        <input type="text" name="startDate" value="<%= itinerary.startDate %>" />
       </div>
       <div class="field">
         <label for="endDate">End Date</label>
-        <textarea type="text" name="endDate"><%= itinerary.endDate %></textarea>
+        <input type="text" name="endDate" value="<%= itinerary.endDate %>" />
       </div>
       <% if (!(itinerary.isNewRecord)) { %>
         <div class="field">
           <label for="description">Description</label>
           <textarea type="text" name="description"><%= itinerary.description %></textarea>
-        </div>
-        <a href="<%- newDayPath %>">New Day</a>
-       
+        </div>       
       <% } %>
       <div class="field">
         <% if (itinerary.isNewRecord) { %>
