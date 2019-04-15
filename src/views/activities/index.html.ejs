@@ -1,0 +1,33 @@
+<h2>Activity</h2>
+<% if (!activitiesList.length) { %>
+  <p>No results</p>
+<% } else { %>
+  <table id="activities-list">
+    <thead>
+        <tr>
+          <th>Title</th>
+          <th>Activity Picture</th>
+          <th>Description</th>
+          <th colspan="2">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% activitiesList.forEach((activity) => { %>
+        <tr>
+          <td><%- activity.title%></td>
+          <td><%- activity.activityPicture %></td>
+          <td><%- activity.description%></td>
+          <td><a href="<%- editActivityPath(activity) %>">Edit</a></td>
+          <td>
+            <form action="<%- deleteActivityPath(activity) %>" method="POST">
+              <input type="hidden" name="_method" value="delete" />
+              <input type="submit" value="Delete" />
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } %>
+
+<a href="<%- newActivityPath %>">New activity</a>

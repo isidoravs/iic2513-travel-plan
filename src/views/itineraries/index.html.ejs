@@ -1,0 +1,37 @@
+<h2>Itineraries</h2>
+<% if (!itinerariesList.length) { %>
+  <p>No results</p>
+<% } else { %>
+  <table id="itineraries-list">
+    <thead>
+        <tr>
+          <th>Name</th>
+          <th>Budget</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Description</th>
+          <th colspan="2">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% itinerariesList.forEach((itinerary) => { %>
+        <tr>
+          <td><%- itinerary.itineraryName %></td>
+          <td><%- itinerary.budget %></td>
+          <td><%- itinerary.startDate %></td>
+          <td><%- itinerary.endDate %></td>
+          <td><%- itinerary.description %></td>
+          <td><a href="<%- editItineraryPath(itinerary) %>">Edit</a></td>
+          <td>
+            <form action="<%- deleteItineraryPath(itinerary) %>" method="POST">
+              <input type="hidden" name="_method" value="delete" />
+              <input type="submit" value="Delete" />
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } %>
+
+<a href="<%- newItineraryPath %>">New itinerary</a>
