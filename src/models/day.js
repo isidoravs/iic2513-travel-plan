@@ -3,6 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     date: DataTypes.DATE,
     number: DataTypes.INTEGER,
     dayPicture: DataTypes.STRING,
+    itinerary_id: DataTypes.INTEGER,
   }, {});
   // eslint-disable-next-line func-names
   day.associate = function (models) {
