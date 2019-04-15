@@ -17,12 +17,6 @@ router.get('days.list', '/', async (ctx) => {
     deleteDayPath: day => ctx.router.url('days.delete', { id: day.id }),
   });
 });
-router.get('days.show', '/:id', loadDay, async (ctx) => {
-  await ctx.render('days/show', {
-    editDayPath: day => ctx.router.url('day.edit', { id: day.id }),
-    deleteDayPath: day => ctx.router.url('day.delete', { id: day.id }),
-  });
-});
 router.get('days.new', '/new', async (ctx) => {
   const day = ctx.orm.day.build();
   await ctx.render('days/new', {
@@ -35,6 +29,12 @@ router.get('days.edit', '/:id/edit', loadDay, async (ctx) => {
   await ctx.render('days/edit', {
     day,
     submitDayPath: ctx.router.url('days.update', { id: day.id }),
+  });
+});
+router.get('days.show', '/:id', loadDay, async (ctx) => {
+  await ctx.render('days/show', {
+    editDayPath: day => ctx.router.url('days.edit', { id: day.id }),
+    deleteDayPath: day => ctx.router.url('days.delete', { id: day.id }),
   });
 });
 router.post('days.create', '/', async (ctx) => {
