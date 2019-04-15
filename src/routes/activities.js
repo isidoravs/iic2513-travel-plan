@@ -16,7 +16,12 @@ router.get('activities.list', '/', async (ctx) => {
     deleteActivityPath: activity => ctx.router.url('activities.delete', { id: activity.id }),
   });
 });
-
+router.get('activities.show', '/:id', loadActivity, async (ctx) => {
+  await ctx.render('activities/show', {
+    editActivityPath: activity => ctx.router.url('activity.edit', { id: activity.id }),
+    deleteActivityPath: activity => ctx.router.url('activity.delete', { id: activity.id }),
+  });
+});
 router.get('activities.new', '/new', async (ctx) => {
   const activity = ctx.orm.activity.build();
   await ctx.render('activities/new', {
