@@ -12,6 +12,7 @@ router.get('destinations.list', '/', async (ctx) => {
   await ctx.render('destinations/index', {
     destinationsList,
     newDestinationPath: ctx.router.url('destinations.new'),
+    showDestinationPath: destination => ctx.router.url('destinations.show', { id: destination.id }),
     editDestinationPath: destination => ctx.router.url('destinations.edit', { id: destination.id }),
     deleteDestinationPath: destination => ctx.router.url('destinations.delete', { id: destination.id }),
   });
@@ -30,6 +31,13 @@ router.get('destinations.edit', '/:id/edit', loadDestination, async (ctx) => {
   await ctx.render('destinations/edit', {
     destination,
     submitDestinationPath: ctx.router.url('destinations.update', { id: destination.id }),
+  });
+});
+
+router.get('destinations.show', '/:id', loadDestination, async (ctx) => {
+  await ctx.render('destinations/show', {
+    editDestinationPath: destination => ctx.router.url('destinations.edit', { id: destination.id }),
+    deleteDestinationPath: destination => ctx.router.url('destinations.delete', { id: destination.id }),
   });
 });
 

@@ -1,4 +1,5 @@
 <h2>Reviews</h2>
+<a href="<%- newReviewPath %>">New review</a>
 <% if (!reviewsList.length) { %>
   <p>No results</p>
 <% } else { %>
@@ -35,5 +36,3 @@
     </tbody>
   </table>
 <% } %>
-
-<a href="<%- newReviewPath %>">New review</a>

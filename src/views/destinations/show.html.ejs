@@ -1,28 +1,17 @@
 <h2>Destinations</h2>
-<a href="<%- newDestinationPath %>">New destination</a>
-<% if (!destinationsList.length) { %>
-  <p>No results</p>
-<% } else { %>
-  <table id="destinations-list">
+  <table id="one-destination">
     <thead>
         <tr>
           <th>Name</th>
           <th>Picture</th>
-          <th colspan="3">Actions</th>
+          <th colspan="2">Actions</th>
         </tr>
     </thead>
     <tbody>
-      <% destinationsList.forEach((destination) => { %>
         <tr>
           <td><%- destination.destinationName %></td>
           <td><%- destination.destinationPicture %></td>
           <td><a href="<%- editDestinationPath(destination) %>">Edit</a></td>
-          <td>
-            <form action="<%- showDestinationPath(destination) %>" method="GET">
-              <input type="hidden" name="_method" value="show" />
-              <input type="submit" value="Show" />
-            </form>
-          </td>
           <td>
             <form action="<%- deleteDestinationPath(destination) %>" method="POST">
               <input type="hidden" name="_method" value="delete" />
@@ -30,7 +19,5 @@
             </form>
           </td>
         </tr>
-      <% }) %>
     </tbody>
   </table>
-<% } %>
