@@ -8,7 +8,7 @@ module.exports = {
       type: Sequelize.INTEGER,
     },
     date: {
-      type: Sequelize.STRING,
+      type: Sequelize.DATEONLY,
     },
     number: {
       type: Sequelize.INTEGER,

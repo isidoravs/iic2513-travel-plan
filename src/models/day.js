@@ -1,11 +1,24 @@
 module.exports = (sequelize, DataTypes) => {
   const day = sequelize.define('day', {
-    date: DataTypes.STRING,
+    date: DataTypes.DATEONLY,
     number: DataTypes.INTEGER,
     dayPicture: DataTypes.STRING,
+    itinerary_id: DataTypes.INTEGER,
   }, {});
-  day.associate = function(models) {
-    // associations can be defined here
+  // eslint-disable-next-line func-names
+  day.associate = function (models) {
+    day.hasMany(models.activity, {
+      foreignKey: 'day_id',
+      as: 'activities',
+    });
+    day.belongsTo(models.itinerary, {
+      foreignKey: 'itinerary_id',
+    });
+    day.belongsToMany(models.destination, {
+      through: 'dayDestination',
+      as: 'destinations',
+      foreignKey: 'day_id',
+    });
   };
   return day;
 };

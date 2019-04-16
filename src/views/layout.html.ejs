@@ -3,20 +3,32 @@
 
   <head>
     <meta charset="utf-8">
-    <title>IIC2513 - CHANGE-ME</title>
+    <link rel="shortcut icon" href="<%= assetPath('logo-plane.png') %>">
+    <title>Travel & Plan</title>
     <% if (env !== 'development') { %>
       <link rel="stylesheet" href="<%= assetPath('app.css') %>">
     <% } %>
   </head>
 
   <body>
-    <header>
-      <div id="logo">
-        <img src="<%= assetPath('logo.png') %>" alt="Logo" />
+    <!-- https://www.w3schools.com/howto/howto_css_searchbar.asp -->
+    <div class="header">
+      <a href="/" class="logo">TIP - travel&plan</a>
+      <div class="header-right">
+        <div class="search-container">
+          <form action="#">
+            <input type="text" placeholder="Search your next destination..." name="search">
+            <button type="submit"><img src="<%= assetPath('logo.png') %>" height="10" width="10" alt="Logo" /></i></button>
+          </form>
+        </div>
+        <a class="active" href="#login">Login</a>
+        <a href="#signup">Sign Up</a>
       </div>
-    </header>
-    <%- body %>
-    <script src="<%= assetPath('app.js') %>"></script>
+    </div>
+    <div class="content">
+        <%- body %>
+        <script src="<%= assetPath('app.js') %>"></script>
+    </div>
   </body>
 
 </html>

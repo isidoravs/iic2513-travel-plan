@@ -1,0 +1,25 @@
+<h2>Reviews</h2>
+  <table id="one-review">
+    <thead>
+        <tr>
+          <th>Comment</th>
+          <th>Score</th>
+          <th>Reviews Date</th>
+          <th colspan="2">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><%- review.comment %></td>
+          <td><%- review.score %></td>
+          <td><%- review.reviewDate %></td>
+          <td><a href="<%- editReviewPath(review) %>">Edit</a></td>
+          <td>
+            <form action="<%- deleteReviewPath(review) %>" method="POST">
+              <input type="hidden" name="_method" value="delete" />
+              <input type="submit" value="Delete" />
+            </form>
+          </td>
+        </tr>
+    </tbody>
+  </table>

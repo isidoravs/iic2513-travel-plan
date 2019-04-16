@@ -10,10 +10,10 @@ module.exports = {
       type: Sequelize.FLOAT,
     },
     startDate: {
-      type: Sequelize.STRING,
+      type: Sequelize.DATEONLY,
     },
     endDate: {
-      type: Sequelize.STRING,
+      type: Sequelize.DATEONLY,
     },
     labels: {
       type: Sequelize.ARRAY(Sequelize.TEXT),

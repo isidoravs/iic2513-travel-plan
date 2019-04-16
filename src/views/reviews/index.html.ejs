@@ -1,0 +1,38 @@
+<h2>Reviews</h2>
+<a href="<%- newReviewPath %>">New review</a>
+<% if (!reviewsList.length) { %>
+  <p>No results</p>
+<% } else { %>
+  <table id="reviews-list">
+    <thead>
+        <tr>
+          <th>Comment</th>
+          <th>Score</th>
+          <th>Reviews Date</th>
+          <th colspan="3">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% reviewsList.forEach((review) => { %>
+        <tr>
+          <td><%- review.comment %></td>
+          <td><%- review.score %></td>
+          <td><%- review.reviewDate %></td>
+          <td><a href="<%- editReviewPath(review) %>">Edit</a></td>
+          <td>
+            <form action="<%- showReviewPath(review) %>" method="GET">
+              <input type="hidden" name="_method" value="show" />
+              <input type="submit" value="Show" />
+            </form>
+          </td>
+          <td>
+            <form action="<%- deleteReviewPath(review) %>" method="POST">
+              <input type="hidden" name="_method" value="delete" />
+              <input type="submit" value="Delete" />
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } %>
