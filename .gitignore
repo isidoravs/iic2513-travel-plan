@@ -65,3 +65,6 @@ typings/
 
 .idea
 .envrc
+
+# Yarn Lock
+yarn.lock
