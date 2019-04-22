@@ -38,10 +38,6 @@ module.exports = (sequelize, DataTypes) => {
   user.beforeCreate(buildPasswordHash);
 
   user.prototype.checkPassword = function checkPassword(password) {
-    // eslint-disable-next-line no-console
-    console.log('lo qeu sigue');
-    // eslint-disable-next-line no-console
-    console.log(bcrypt.compare(password, this.password));
     return bcrypt.compare(password, this.password);
   };
   return user;
