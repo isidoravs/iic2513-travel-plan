@@ -52,3 +52,20 @@ or, if you want automatic restart after any change in your files
 ```
 
 Now go to http://localhost:3000 and start browsing :)
+
+
+
+### Uso de Git
+ 
+ 
+ 
+ * git checkout development
+ * git branch 
+ * git checkout -b nombre_rama
+ * git pull origin nombre_rama
+ * git add --all
+ * git commit -m "nombre_commit"
+ * git push origin nombre_rama
+ 
+ 
+ Orden de trabajo, ir a development, hacer pull, crear rama, trabajar push, merge a development y listo! wuju
