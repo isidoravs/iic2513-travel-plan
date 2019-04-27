@@ -6,7 +6,7 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    activity_id: {
+    activityId: {
       type: Sequelize.INTEGER,
     },
     destination_id: {

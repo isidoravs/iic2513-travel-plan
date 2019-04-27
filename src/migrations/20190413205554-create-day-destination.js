@@ -6,7 +6,7 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    day_id: {
+    dayId: {
       type: Sequelize.INTEGER,
     },
     destination_id: {

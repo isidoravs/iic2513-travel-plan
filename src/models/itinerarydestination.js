@@ -1,9 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
   const itineraryDestination = sequelize.define('itineraryDestination', {
-    itinerary_id: DataTypes.INTEGER,
+    itineraryId: DataTypes.INTEGER,
     destination_id: DataTypes.INTEGER,
   }, {});
-  itineraryDestination.associate = function (models) {
+  itineraryDestination.associate = function () {
     // associations can be defined here
   };
   return itineraryDestination;

@@ -15,6 +15,12 @@ module.exports = {
     reviewDate: {
       type: Sequelize.DATE,
     },
+    userId: {
+      type: Sequelize.INTEGER,
+    },
+    itineraryId: {
+      type: Sequelize.INTEGER,
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,

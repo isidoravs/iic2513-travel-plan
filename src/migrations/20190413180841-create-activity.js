@@ -16,6 +16,9 @@ module.exports = {
     activityPicture: {
       type: Sequelize.STRING,
     },
+    dayId: {
+      type: Sequelize.INTEGER,
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
