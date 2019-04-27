@@ -60,6 +60,9 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
+# Yarn lock for deploy
+yarn.lock
+
 # dotenv environment variables file
 .env
 
