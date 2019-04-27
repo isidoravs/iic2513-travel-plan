@@ -8,25 +8,25 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.TEXT,
     avgScore: DataTypes.FLOAT,
     itineraryName: DataTypes.STRING,
-    user_id: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
   }, {});
   // eslint-disable-next-line func-names
   itinerary.associate = function (models) {
     itinerary.belongsTo(models.user, {
-      foreignKey: 'user_id',
+      foreignKey: 'userId',
     });
     itinerary.hasMany(models.day, {
-      foreignKey: 'itinerary_id',
+      foreignKey: 'itineraryId',
       as: 'days',
     });
     itinerary.hasMany(models.review, {
-      foreignKey: 'itinerary_id',
+      foreignKey: 'itineraryId',
       as: 'reviews',
     });
     itinerary.belongsToMany(models.destination, {
       through: 'itineraryDestination',
       as: 'destinations',
-      foreignKey: 'itinerary_id',
+      foreignKey: 'itineraryId',
     });
   };
   return itinerary;

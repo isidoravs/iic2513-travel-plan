@@ -1,9 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
   const activityDestination = sequelize.define('activityDestination', {
-    activity_id: DataTypes.INTEGER,
+    activityId: DataTypes.INTEGER,
     destination_id: DataTypes.INTEGER,
   }, {});
-  activityDestination.associate = function (models) {
+  activityDestination.associate = function () {
     // associations can be defined here
   };
   return activityDestination;

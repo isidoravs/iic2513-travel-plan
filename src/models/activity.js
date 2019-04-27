@@ -3,17 +3,17 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     description: DataTypes.TEXT,
     activityPicture: DataTypes.STRING,
-    day_id: DataTypes.INTEGER,
+    dayId: DataTypes.INTEGER,
   }, {});
   // eslint-disable-next-line func-names
   activity.associate = function (models) {
     activity.belongsTo(models.day, {
-      foreignKey: 'day_id',
+      foreignKey: 'dayId',
     });
     activity.belongsToMany(models.destination, {
       through: 'activityDestination',
       as: 'destinations',
-      foreignKey: 'activity_id',
+      foreignKey: 'activityId',
     });
   };
   return activity;

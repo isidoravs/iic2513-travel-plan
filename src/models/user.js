@@ -14,11 +14,11 @@ module.exports = (sequelize, DataTypes) => {
   // eslint-disable-next-line func-names
   user.associate = function (models) {
     user.hasMany(models.itinerary, {
-      foreignKey: 'user_id',
+      foreignKey: 'userId',
       as: 'itineraries',
     });
     user.hasMany(models.review, {
-      foreignKey: 'user_id',
+      foreignKey: 'userId',
       as: 'reviews',
     });
   };
