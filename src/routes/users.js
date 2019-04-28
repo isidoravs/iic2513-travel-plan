@@ -12,6 +12,8 @@ router.get('users.list', '/', async (ctx) => {
   await ctx.render('users/index', {
     usersList,
     newUserPath: ctx.router.url('users.new'),
+    itinerariesListPath: ctx.router.url('itineraries.list'),
+    userItinerariesPath: user => ctx.router.url('user.itineraries', { id: user.id }),
     showUserPath: user => ctx.router.url('users.show', { id: user.id }),
     editUserPath: user => ctx.router.url('users.edit', { id: user.id }),
     deleteUserPath: user => ctx.router.url('users.delete', { id: user.id }),
@@ -36,6 +38,14 @@ router.get('users.show', '/:id', loadUser, async (ctx) => {
   await ctx.render('users/show', {
     editUserPath: user => ctx.router.url('users.edit', { id: user.id }),
     deleteUserPath: user => ctx.router.url('users.delete', { id: user.id }),
+  });
+});
+router.get('user.itineraries', '/:id/itineraries', loadUser, async (ctx) => {
+  const { user } = ctx.state;
+  await ctx.render('users/itineraries', {
+    userName: user.username,
+    itinerariesList: await user.getItineraries(),
+    usersListPath: ctx.router.url('users.list'),
   });
 });
 router.post('users.create', '/', async (ctx) => {
