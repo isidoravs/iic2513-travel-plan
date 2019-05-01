@@ -2,15 +2,15 @@
 <table id="generic-list">
     <thead>
         <tr>
-          <th>N</th>
           <th>Name</th>
+          <th>Budget</th>
         </tr>
     </thead>
     <tbody>
-      <% itinerariesList.forEach((itinerary, index) => { %>
+      <% itinerariesList.forEach((itinerary) => { %>
         <tr>
-          <td><%- (index + 1) %></td>
-          <td><%- itinerary.itineraryName %></td>
+          <td><a href="<%- showItineraryPath(itinerary) %>"><%- itinerary.itineraryName %></a></td>
+          <td><%- itinerary.budget %></td>
         </tr>
       <% }) %>
     </tbody>
