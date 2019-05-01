@@ -11,23 +11,41 @@
   </head>
 
   <body>
-    <!-- https://www.w3schools.com/howto/howto_css_searchbar.asp -->
-    <div class="header">
-      <a href="/" class="logo">TIP - travel&plan</a>
-      <div class="header-right">
-        <div class="search-container">
-          <form action="#">
+    <div class="app">
+      <div class="header">
+        <div class="header__container">
+          <div class="header__logo-container">
+            <a href="/" class="header__logo">TIP - travel&plan</a>
+          </div>
+          <div class="header__search-container">
+            <!-- poner input con clases -->
             <input type="text" placeholder="Search your next destination..." name="search">
-            <button type="submit"><img src="<%= assetPath('logo.png') %>" height="10" width="10" alt="Logo" /></i></button>
-          </form>
+            <!-- poner botones con clases -->
+            <button type="submit"><img src="https://www.iconsdb.com/icons/preview/white/search-3-xxl.png"></button>
+          </div>
+          <div class="header__btn-container">
+            <a href="#" class="header__btn">+</a>
+          </div>
         </div>
-        <a class="active" href="#login">Login</a>
-        <a href="#signup">Sign Up</a>
       </div>
-    </div>
-    <div class="content">
+        <!-- https://www.w3schools.com/howto/howto_css_searchbar.asp -->
+        <!-- <div class="header">
+          <a href="/" class="logo">TIP - travel&plan</a>
+          <div class="header-right">
+            <div class="search-container">
+              <form action="#">
+                <input type="text" placeholder="Search your next destination..." name="search">
+                <button type="submit"><img src="<%= assetPath('logo.png') %>" height="10" width="10" alt="Logo" /></i></button>
+              </form>
+            </div>
+            <a class="active" href="#login">Login</a>
+            <a href="#signup">Sign Up</a>
+          </div>
+        </div> -->
+      <div class="app__container">
         <%- body %>
         <script src="<%= assetPath('app.js') %>"></script>
+      </div>
     </div>
   </body>
 
