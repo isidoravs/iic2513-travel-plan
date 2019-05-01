@@ -68,3 +68,4 @@ typings/
 
 # Yarn Lock
 yarn.lock
+sendgrid.env
