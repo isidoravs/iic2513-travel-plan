@@ -21,14 +21,23 @@
             <button type="submit"><img src="<%= assetPath('logo.png') %>" height="10" width="10" alt="Logo" /></i></button>
           </form>
         </div>
-        <a class="active" href="#login">Login</a>
-        <a href="#signup">Sign Up</a>
+        <% if (currentUser) { %>
+          <span class="name">Hi <%= currentUser.username %></span>
+          <form action="<%= destroySessionPath %>" method="post">
+            <input type="hidden" name="_method" value="delete" />
+            <input type="submit" value="Logout" />
+          </form>
+        <% } else { %>
+          <span class="name">Hi!</span>
+          <a class="active" href="<%= newSessionPath %>">Login</a>
+          <a href="/users/new">Sign Up</a>
+        <% } %>        
       </div>
     </div>
     <div class="content">
         <%- body %>
         <script src="<%= assetPath('app.js') %>"></script>
     </div>
-  </body>
+
 
 </html>

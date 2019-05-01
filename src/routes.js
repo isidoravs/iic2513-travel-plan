@@ -8,9 +8,20 @@ const days = require('./routes/days');
 const activities = require('./routes/activities');
 const reviews = require('./routes/reviews');
 const destinations = require('./routes/destinations');
+const sessions = require('./routes/sessions');
 
 
 const router = new KoaRouter();
+
+router.use(async (ctx, next) => {
+  Object.assign(ctx.state, {
+    currentUser: ctx.session.userId && await ctx.orm.user.findById(ctx.session.userId),
+    newSessionPath: ctx.router.url('sessions.new'),
+    destroySessionPath: ctx.router.url('sessions.destroy'),
+    itinerariesPath: ctx.router.url('itineraries.list'),
+  });
+  return next();
+});
 
 router.use('/', index.routes());
 router.use('/hello', hello.routes());
@@ -20,6 +31,7 @@ router.use('/days', days.routes());
 router.use('/activities', activities.routes());
 router.use('/reviews', reviews.routes());
 router.use('/destinations', destinations.routes());
+router.use('/sessions', sessions.routes());
 
 
 module.exports = router;
