@@ -6,6 +6,10 @@ async function loadUser(ctx, next) {
   ctx.state.user = await ctx.orm.user.findById(ctx.params.id);
   return next();
 }
+async function loadItinerary(ctx, next) {
+  ctx.state.itinerary = await ctx.orm.itinerary.findById(ctx.params.iid);
+  return next();
+}
 
 router.get('users.list', '/', async (ctx) => {
   const usersList = await ctx.orm.user.findAll();
@@ -26,6 +30,16 @@ router.get('user.itineraries', '/:id/itineraries', loadUser, async (ctx) => {
     itinerariesList: await user.getItineraries(),
     itinerariesListPath: ctx.router.url('itineraries.list'),
     usersListPath: ctx.router.url('users.list'),
+    newItineraryPath: ctx.router.url('itineraries.new'),
+    showItineraryPath: itinerary => ctx.router.url('user.itineraries.show', { id: user.id, iid: itinerary.id }),
+  });
+});
+router.get('user.itineraries.show', '/:id/itineraries/:iid', loadUser, loadItinerary, async (ctx) => {
+  const { user } = ctx.state;
+  await ctx.render('users/itinerary_show', {
+    userName: user.username,
+    editItineraryPath: itinerary => ctx.router.url('itineraries.edit', { id: itinerary.id }),
+    deleteItineraryPath: itinerary => ctx.router.url('itineraries.delete', { id: itinerary.id }),
     showItineraryPath: itinerary => ctx.router.url('itineraries.show', { id: itinerary.id }),
   });
 });
