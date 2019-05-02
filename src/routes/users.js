@@ -2,6 +2,8 @@ const KoaRouter = require('koa-router');
 
 const router = new KoaRouter();
 
+const sendSignUpAlertEmail = require('../mailers/sign-up-alert');
+
 async function loadUser(ctx, next) {
   ctx.state.user = await ctx.orm.user.findById(ctx.params.id);
   return next();
@@ -45,6 +47,7 @@ router.post('users.create', '/', async (ctx) => {
     ctx.redirect(ctx.router.url('users.list'));
     const score = 0;
     await user.update({ score });
+    await sendSignUpAlertEmail(ctx, { user });
   } catch (validationError) {
     await ctx.render('users/new', {
       user,

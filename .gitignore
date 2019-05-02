@@ -68,3 +68,7 @@ yarn.lock
 
 .idea
 .envrc
+
+# Yarn Lock
+yarn.lock
+sendgrid.env
