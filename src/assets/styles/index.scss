@@ -1,8 +1,38 @@
-@import './layout';
+@import './activities';
+@import './base';
+@import './days';
+@import './destinations';
 @import './hello';
-@import './users.scss';
-@import './days.scss';
-@import './itineraries.scss';
-@import './activities.scss';
-@import './reviews.scss';
-@import './destinations.scss';
+@import './itineraries';
+@import './layout';
+@import './reviews';
+@import './users';
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: $main-font;
+  background-color: $bg-primary-color;
+  // for other browsers
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  background-color: $bg-primary-color;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.app__container {
+  min-height: calc(100vh - 157px);
+}
