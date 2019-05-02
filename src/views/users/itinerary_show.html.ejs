@@ -1,0 +1,29 @@
+<h2>Itineraries</h2>
+  <table id="one-itinerary">
+    <thead>
+        <tr>
+          <th>Name</th>
+          <th>Budget</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Description</th>
+          <th colspan="2">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><%- itinerary.itineraryName %></td>
+          <td><%- itinerary.budget %></td>
+          <td><%- itinerary.startDate %></td>
+          <td><%- itinerary.endDate %></td>
+          <td><%- itinerary.description %></td>
+          <td><a href="<%- editItineraryPath(itinerary) %>">Edit</a></td>
+          <td>
+            <form action="<%- deleteItineraryPath(itinerary) %>" method="POST">
+              <input type="hidden" name="_method" value="delete" />
+              <input type="submit" value="Delete" />
+            </form>
+          </td>
+        </tr>
+    </tbody>
+  </table>

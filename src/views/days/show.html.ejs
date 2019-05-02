@@ -13,13 +13,15 @@
           <td><%- day.number%></td>
           <td><%- day.date %></td>
           <td><%- day.dayPicture%></td>
-          <td><a href="<%- editDayPath(day) %>">Edit</a></td>
+          <td><a href="<%- editItineraryDayPath %>">Edit</a></td>
           <td>
-            <form action="<%- deleteDayPath(day) %>" method="POST">
+            <form action="<%- deleteItineraryDayPath %>" method="POST">
               <input type="hidden" name="_method" value="delete" />
               <input type="submit" value="Delete" />
             </form>
           </td>
         </tr>
     </tbody>
+    <a href="<%- itineraryPath %>">Back to Itinerary</a>
+
   </table>
