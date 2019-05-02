@@ -21,21 +21,33 @@
             <input type="text" placeholder="Search your next destination..." name="search">
             <button type="submit"><img src="https://www.iconsdb.com/icons/preview/white/search-3-xxl.png"></button>
           </div>
-          <div class="header__btn-container">
-            <a href="#" class="header__btn" title="Add itinerary">+</a>
-          </div>
-          <div class="header__menu-container">
-            <div class="header__menu-container user-dropdown">
-              <button class="header__menu-container user-dropbtn"><img src="https://www.iconsdb.com/icons/preview/white/contacts-xxl.png"></button>
-              <div class="header__menu-container user-dropcontent">
-                <img src="https://avatars0.githubusercontent.com/u/17652944?v=4">
-                <p>@username</p>
-                <a href="#">Profile</a>
-                <a href="#">Settings</a>
-                <a href="#">Log out</a>
+          <% if (currentUser) { %>
+            <div class="header__btn-container">
+              <a href="/itineraries/new" class="header__btn" title="Add itinerary">+</a>
+            </div> 
+            <div class="header__menu-container">
+              <div class="header__menu-container user-dropdown">
+                <button class="header__menu-container user-dropbtn"><img src="https://www.iconsdb.com/icons/preview/white/contacts-xxl.png"></button>
+                <div class="header__menu-container user-dropcontent">
+                  <img src="https://avatars0.githubusercontent.com/u/17652944?v=4">
+                  <p>@<%= currentUser.username %></p>
+                  <a href="#">Profile</a>
+                  <a href="#">Settings</a>
+                  <form action="<%= destroySessionPath %>" method="post">
+                    <input type="hidden" name="_method" value="delete" />
+                    <input type="submit" value="Logout" />
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
+          <% } else { %>
+            <div class="header__btn-container">
+                <a class="header__btn" href="<%= newSessionPath %>">Log In</a>
+            </div>
+            <div class="header__btn-container">
+                <a class="header__btn" href="/users/new">Sign Up</a>
+            </div>
+          <% } %>
         </div>
       </div>
       <div class="app__container">
