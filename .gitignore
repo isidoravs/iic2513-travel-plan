@@ -60,8 +60,15 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
+# Yarn lock for deploy
+yarn.lock
+
 # dotenv environment variables file
 .env
 
 .idea
 .envrc
+
+# Yarn Lock
+yarn.lock
+sendgrid.env

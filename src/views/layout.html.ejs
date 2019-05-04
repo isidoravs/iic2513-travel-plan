@@ -11,24 +11,54 @@
   </head>
 
   <body>
-    <!-- https://www.w3schools.com/howto/howto_css_searchbar.asp -->
-    <div class="header">
-      <a href="/" class="logo">TIP - travel&plan</a>
-      <div class="header-right">
-        <div class="search-container">
-          <form action="#">
+    <div class="app">
+      <div class="header">
+        <div class="header__container">
+          <div class="header__logo-container">
+            <a href="/" class="header__logo">TIP - travel&plan</a>
+          </div>
+          <div class="header__search-container">
             <input type="text" placeholder="Search your next destination..." name="search">
-            <button type="submit"><img src="<%= assetPath('logo.png') %>" height="10" width="10" alt="Logo" /></i></button>
-          </form>
+            <button type="submit"><img src="<%= assetPath('search-icon.png') %>"></button>
+          </div>
+          <% if (currentUser) { %>
+            <div class="header__btn-container">
+              <a href="/itineraries/new" class="header__btn" title="Add itinerary">+</a>
+            </div>
+            <div class="header__menu-container">
+              <div class="header__menu-container user-dropdown">
+                <button class="header__menu-container user-dropbtn"><img src="<%= assetPath('user-icon.png') %>"></button>
+                <div class="header__menu-container user-dropcontent">
+                  <img src="<%= assetPath('default-user.png') %>">
+                  <p>@<%= currentUser.username %></p>
+                  <a href="#">Profile</a>
+                  <a href="#">Settings</a>
+                  <form action="<%= destroySessionPath %>" method="post">
+                    <input type="hidden" name="_method" value="delete" />
+                    <input type="submit" value="Logout" />
+                  </form>
+                </div>
+              </div>
+            </div>
+          <% } else { %>
+            <div class="header__btn-container">
+                <a class="header__btn" href="<%= newSessionPath %>">Log In</a>
+            </div>
+            <div class="header__btn-container">
+                <a class="header__btn" href="/users/new">Sign Up</a>
+            </div>
+          <% } %>
         </div>
-        <a class="active" href="#login">Login</a>
-        <a href="#signup">Sign Up</a>
       </div>
-    </div>
-    <div class="content">
+      <div class="app__container">
         <%- body %>
         <script src="<%= assetPath('app.js') %>"></script>
+      </div>
+      <div class="footer">
+        <div class="footer__container">
+            <a href="https://github.com/IIC2513-2019-1/grupo-solcitos" class="footer__solcitos-text">Grupo Solcitos - IIC2513 Tecnologías y Aplicaciones Web 2019-1</a>
+        </div>
+      </div>
     </div>
   </body>
-
 </html>

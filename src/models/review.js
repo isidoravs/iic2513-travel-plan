@@ -3,16 +3,16 @@ module.exports = (sequelize, DataTypes) => {
     comment: DataTypes.TEXT,
     score: DataTypes.FLOAT,
     reviewDate: DataTypes.DATE,
-    user_id: DataTypes.INTEGER,
-    itinerary_id: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
+    itineraryId: DataTypes.INTEGER,
   }, {});
   // eslint-disable-next-line func-names
   review.associate = function (models) {
     review.belongsTo(models.user, {
-      foreignKey: 'user_id',
+      foreignKey: 'userId',
     });
     review.belongsTo(models.itinerary, {
-      foreignKey: 'itinerary_id',
+      foreignKey: 'itineraryId',
     });
   };
   return review;

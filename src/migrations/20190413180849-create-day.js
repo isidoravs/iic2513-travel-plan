@@ -16,6 +16,9 @@ module.exports = {
     dayPicture: {
       type: Sequelize.STRING,
     },
+    itineraryId: {
+      type: Sequelize.INTEGER,
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,

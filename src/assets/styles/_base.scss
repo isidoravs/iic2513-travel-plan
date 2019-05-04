@@ -1,0 +1,39 @@
+// for color and font style
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+$main-font: 'Open Sans', sans-serif;
+$secondary-font: 'Montserrat', sans-serif;
+
+// layout basics
+$primary-color: #73D2DE;
+$primary-shadow-color: #4A868E;
+$secondary-color: #393E41;
+
+$home-title-color: #FDFDFB;  
+$home-footer-color: #FDFDFB;
+
+$bg-primary-color: #FDFDFB;
+$bg-secondary-color: #F7F4EA;
+
+// fonts
+$primary-text: #393E41;
+$secondary-text: #4B4F52;
+
+
+// buttons
+$btn-color: #FDFDFB;
+$btn-bg: #FBB13C;
+$btn-hover-bg: #E5A137;
+
+// $select-color: #586069;
+// $select-icon-color: #b4b9ba;
+
+// borders
+$border: #CBC8C0;
+$light-border: #E1DED5;
+
+// add colors for labels (future)
+
+// width
+$app-content-width: 1024px;
