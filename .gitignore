@@ -61,7 +61,7 @@ typings/
 .yarn-integrity
 
 # Yarn lock for deploy
-yarn.lock
+package.json
 
 # dotenv environment variables file
 .env
