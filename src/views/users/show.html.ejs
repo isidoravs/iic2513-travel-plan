@@ -1,3 +1,23 @@
+<div class="user-header">
+  <div class="user-image">
+      <img src="<%= assetPath('default-user.png') %>">
+  </div>
+  <div class="user-info">
+    <div class="user-info__name"><%- user.publicName %></div>
+    <div class="user-info__username">@<%- user.username %></div>
+    <div class="user-info__location">
+        <img src="<%= assetPath('pin-icon.png') %>">
+        <%- user.country %>
+    </div>
+    <div class="user-info__score">Score: <%- user.score %></div>
+  </div>
+</div>
+
+
+
+
+
+
 <h2>Show User</h2>
   <table id="one-user">
     <thead>
