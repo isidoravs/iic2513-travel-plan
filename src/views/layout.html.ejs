@@ -19,16 +19,16 @@
           </div>
           <div class="header__search-container">
             <input type="text" placeholder="Search your next destination..." name="search">
-            <button type="submit"><img src="https://www.iconsdb.com/icons/preview/white/search-3-xxl.png"></button>
+            <button type="submit"><img src="<%= assetPath('search-icon.png') %>"></button>
           </div>
           <div class="header__btn-container">
             <a href="#" class="header__btn" title="Add itinerary">+</a>
           </div>
           <div class="header__menu-container">
             <div class="header__menu-container user-dropdown">
-              <button class="header__menu-container user-dropbtn"><img src="https://www.iconsdb.com/icons/preview/white/contacts-xxl.png"></button>
+              <button class="header__menu-container user-dropbtn"><img src="<%= assetPath('user-icon.png') %>"></button>
               <div class="header__menu-container user-dropcontent">
-                <img src="https://avatars0.githubusercontent.com/u/17652944?v=4">
+                <img src="<%= assetPath('default-user.png') %>">
                 <p>@username</p>
                 <a href="#">Profile</a>
                 <a href="#">Settings</a>
