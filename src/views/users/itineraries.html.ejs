@@ -1,0 +1,23 @@
+<h2><%= userName %>'s itineraries</h2>
+<table id="generic-list">
+    <thead>
+        <tr>
+          <th>Name</th>
+          <th>Budget</th>
+        </tr>
+    </thead>
+    <tbody>
+      <% itinerariesList.forEach((itinerary) => { %>
+        <tr>
+          <td><a href="<%- showItineraryPath(itinerary) %>"><%- itinerary.itineraryName %></a></td>
+          <td><%- itinerary.budget %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  
+  <ul>
+    <li></li><a href="<%- newItineraryPath %>">New itinerary</a></li>
+    <li><a href="<%= usersListPath %>">Back to Users List</a></li>
+  </ul>
+  

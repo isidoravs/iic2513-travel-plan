@@ -151,6 +151,17 @@
     }
   }
 
+  input {
+    background-color: $btn-bg;
+    padding: 8px 12px 8px 12px;
+    border: none;
+    font-weight: bolder;
+    color: $btn-color;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+  }
+
   p {
     color: $primary-text;
     padding: 5px 16px;
