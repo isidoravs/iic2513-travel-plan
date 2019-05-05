@@ -9,7 +9,7 @@
             </ul>
           </div>
         <% } %>
-        <form action="<%= submitActivityPath %>" method="post">
+        <form action="<%= submitDayActivityPath %>" method="post">
           <% if (!activity.isNewRecord) { %>
             <input type="hidden" name="_method" value="patch" />
           <% } %>

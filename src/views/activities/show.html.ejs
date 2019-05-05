@@ -13,9 +13,9 @@
           <td><%- activity.title%></td>
           <td><%- activity.activityPicture %></td>
           <td><%- activity.description%></td>
-          <td><a href="<%- editActivityPath(activity) %>">Edit</a></td>
+          <td><a href="<%- editDayActivityPath %>">Edit</a></td>
           <td>
-            <form action="<%- deleteActivityPath(activity) %>" method="POST">
+            <form action="<%- deleteDayActivityPath %>" method="POST">
               <input type="hidden" name="_method" value="delete" />
               <input type="submit" value="Delete" />
             </form>
@@ -23,3 +23,8 @@
         </tr>
     </tbody>
   </table>
+
+  <a href="<%- dayPath %>">Back to Day</a>
+  <a href="<%- itineraryPath %>">Back to Itinerary</a>
+
+
