@@ -1,4 +1,4 @@
-<div>
+<div class="form-container">
         <% if (locals.errors) { %>
           <div class="errors">
             You need to fix the following errors:
@@ -20,7 +20,7 @@
           <div class="field">
             <label for="destinationPicture">Picture</label>
             <input type="text" name="destinationPicture" value="<%= destination.destinationPicture %>" />
-          </div>   
+          </div>
           <div class="field">
             <% if (destination.isNewRecord) { %>
               <input type="submit" name="create" value="Create" />
@@ -30,4 +30,3 @@
           </div>
         </form>
       </div>
-      

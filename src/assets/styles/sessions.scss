@@ -1,0 +1,32 @@
+.home-login-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px;
+}
+
+.login-description {
+    padding: 30px;
+    max-width: 40vw;
+
+    &__title {
+        font-size: 40px;
+        font-weight: bolder;
+    }
+
+    &__content {
+        color: $secondary-text;
+        text-align: justify;
+    }
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    background: $bg-secondary-color;
+    border-radius: 20px;
+    padding: 40px;
+}
