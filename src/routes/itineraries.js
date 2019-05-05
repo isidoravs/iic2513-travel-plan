@@ -80,7 +80,7 @@ router.patch('itineraries.update', '/:id', loadItinerary, async (ctx) => {
     await itinerary.update({
       itineraryName, budget, startDate, endDate, description,
     });
-    ctx.redirect(ctx.router.url('itineraries.list'));
+    ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
   } catch (validationError) {
     await ctx.render('itineraries/edit', {
       itinerary,
