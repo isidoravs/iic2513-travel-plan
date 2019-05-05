@@ -52,10 +52,12 @@ router.get('itineraries.edit', '/:id/edit', loadItinerary, async (ctx) => {
 router.post('itineraries.create', '/', async (ctx) => {
   const itinerary = ctx.orm.itinerary.build(ctx.request.body);
   try {
-    await itinerary.save({ fields: ['itineraryName', 'budget', 'startDate', 'endDate', 'userId'] });
+    await itinerary.save({ fields: ['itineraryName', 'budget', 'startDate', 'endDate'] });
+    const { userId } = ctx.session;
     const avgScore = 0;
     await itinerary.update({ avgScore });
-    ctx.redirect(ctx.router.url('itineraries.list'));
+    await itinerary.update({ userId });
+    ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
   } catch (validationError) {
     await ctx.render('itineraries/new', {
       itinerary,

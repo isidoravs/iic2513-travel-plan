@@ -24,6 +24,7 @@
     flex: 1;
     flex-direction: column;
     justify-content: left;
+    padding: 2% 0;
 
     &__name {
       font-size: 40px;
@@ -41,7 +42,7 @@
     }
 
     &__score {
-      color: $secondary-text;
+      font-weight: bold;
     }
 
     img {
@@ -50,11 +51,86 @@
       margin-right: 5px;
     }
   }
+
+  .user-edit {
+    display: flex;
+    flex-direction: column;
+
+    img {
+      max-width: 20px;
+      max-height: 20px;
+    }
+
+    input {
+      background-color: $btn-bg;
+      padding: 5px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      border: none;
+      font-weight: bolder;
+      color: $btn-color;
+      border-radius: 5px;
+      height: 35px;
+      width: 35px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    &__btn {
+      padding: 5px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      background: $btn-bg;
+      border: none;
+      text-decoration: none;
+      font-weight: bolder;
+      color: $home-title-color;
+      border-radius: 5px;
+      height: 35px;
+      width: 35px;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        background: $btn-hover-bg;
+      }
+    }
+  }
 }
 
+.user-content {
+  text-align: center;
+  margin: 20px;
+  border-top: 1px solid $light-border;
 
+  &__header {
+    font-weight: bold;
+    font-size: 40px;
+    padding: 20px;
+  }
 
+  &__itineraries {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 
+    .itinerary-container {
+      flex: 1 1 auto;
+      width: 300px;
+      padding: 50px;
+      margin: 10px;
+      border-radius: 5px;
+      border: 1px solid $border;
+
+      a {
+        text-decoration: none;
+        font-size: 20px;
+        color: $primary-text;
+        padding: 50px;
+      }
+    }
+  }
+}
 
 #users-list {
     th {

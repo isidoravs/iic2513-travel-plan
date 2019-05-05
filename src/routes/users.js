@@ -60,9 +60,12 @@ router.get('users.edit', '/:id/edit', loadUser, async (ctx) => {
   });
 });
 router.get('users.show', '/:id', loadUser, async (ctx) => {
+  const { user } = ctx.state;
   await ctx.render('users/show', {
-    editUserPath: user => ctx.router.url('users.edit', { id: user.id }),
-    deleteUserPath: user => ctx.router.url('users.delete', { id: user.id }),
+    itinerariesList: await user.getItineraries(),
+    editUserPath: ctx.router.url('users.edit', { id: user.id }),
+    deleteUserPath: ctx.router.url('users.delete', { id: user.id }),
+    showItineraryPath: itinerary => ctx.router.url('itineraries.show', { id: itinerary.id }),
   });
 });
 router.post('users.create', '/', async (ctx) => {
