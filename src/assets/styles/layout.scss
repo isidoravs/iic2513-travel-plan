@@ -90,6 +90,7 @@
   }
 
   input[type=text] {
+    font-family: $main-font;
     padding: 6px;
     margin-top: 8px;
     margin-bottom: 8px;
@@ -199,25 +200,86 @@
   }
 }
 
-// revisar donde se usan
 table {
   margin-left:auto;
   margin-right:auto;
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20vw;
+  margin-right: 20vw;
+  background: $bg-secondary-color;
+  border-radius: 20px;
+  padding: 40px;
 }
 
 form {
   .field {
     margin-top: 10px;
     margin-bottom: 10px;
+    text-align: right;
+
     label {
       display: inline-block;
       text-align: right;
-      vertical-align: top;
-      width: 100px;
+      width: 150px;
+      padding: 6px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      color: $secondary-text;
     }
+
     textarea {
       width: 400px;
       height: 150px;
+    }
+
+    input[type=email], input[type=password], input[type=date], input[type=number], input[type=text] {
+      font-family: $main-font;
+      padding: 6px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      color: $secondary-text;
+      border: 1px solid $light-border;
+      border-radius: 5px;
+      border-radius: 5px;
+      background: $bg-primary-color;
+      width: 50vh;
+    }
+
+    textarea {
+      font-family: $main-font;
+      padding: 6px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      color: $secondary-text;
+      border: 1px solid $light-border;
+      border-radius: 5px;
+      border-radius: 5px;
+      background: $bg-primary-color;
+      width: 50vh;
+      vertical-align: top;
+    }
+
+    input[type=submit] {
+      padding: 10px 15px 10px 15px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      background: $btn-bg;
+      border: none;
+      text-decoration: none;
+      font-weight: bolder;
+      color: $home-title-color;
+      border-radius: 5px;
+      width: 100px;
+      cursor: pointer;
+
+      &:hover {
+        background: $btn-hover-bg;
+      }
     }
   }
 }
