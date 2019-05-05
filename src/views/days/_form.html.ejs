@@ -15,16 +15,16 @@
       <% } %>
       <div class="field">
         <label for="number">Number</label>
-        <input type="text" name="number" value="<%= day.number %>" />
+        <input type="number" name="number" value="<%= day.number %>" />
       </div>
       <div class="field">
         <label for="date">Date</label>
-        <input type="text" name="date" value="<%= day.date %>" />
+        <input type="date" name="date" value="<%= day.date %>" />
       </div>
       <div class="field">
         <label for="dayPicture">dayPicture</label>
         <input type="text" name="dayPicture" value="<%= day.dayPicture %>" />
-      </div>       
+      </div>
       <div class="field">
         <% if (day.isNewRecord) { %>
           <input type="submit" name="create" value="Create" />
@@ -34,4 +34,3 @@
       </div>
     </form>
   </div>
-  

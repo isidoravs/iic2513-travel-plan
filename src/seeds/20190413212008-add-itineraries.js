@@ -24,6 +24,7 @@ module.exports = {
         description: faker.lorem.paragraph(),
         avgScore: faker.random.number(),
         itineraryName: faker.random.locale(),
+        userId: i,
         createdAt: new Date(),
         updatedAt: new Date(),
       };

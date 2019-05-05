@@ -1,67 +1,77 @@
-<h2>Itineraries</h2>
-  <table id="one-itinerary">
-    <thead>
-        <tr>
-          <th>Name</th>
-          <th>Budget</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Description</th>
-          <th colspan="3">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td><%- itinerary.itineraryName %></td>
-          <td><%- itinerary.budget %></td>
-          <td><%- itinerary.startDate %></td>
-          <td><%- itinerary.endDate %></td>
-          <td><%- itinerary.description %></td>
-          <td><a href="<%- editItineraryPath(itinerary) %>">Edit</a></td>
-          <td><a href="<%- newItineraryDayPath(itinerary) %>">+Day</a></td>
-          <td>
-            <form action="<%- deleteItineraryPath(itinerary) %>" method="POST">
-              <input type="hidden" name="_method" value="delete" />
-              <input type="submit" value="Delete" />
-            </form>
-          </td>
-        </tr>
-    </tbody>
-    <h1>Days in this itinerary</h1>
-    <a href="<%- newItineraryDayPath(itinerary) %>">New day</a>
-      <% if (!daysList.length) { %>
-        <p>No results</p>
-      <% } else { %>
-        <table id="days-list">
-          <thead>
-              <tr>
-                <th>Number</th>
-                <th>Date</th>
-                <th colspan="3">Actions</th>
-              </tr>
-          </thead>
-          <tbody>
-            <% daysList.forEach((day) => { %>
-              <tr>
-                <td><%- day.number%></td>
-                <td><%- day.date %></td>
-                <td><a href="<%- editItineraryDayPath(day) %>">Edit</a></td>
-                <td>
-                  <form action="<%- showItineraryDayPath(day) %>" method="GET">
-                    <input type="hidden" name="_method" value="show" />
-                    <input type="submit" value="Show" />
-                  </form>
-                </td>
-                <td>
-                  <form action="<%- deleteItineraryDayPath(day) %>" method="POST">
-                    <input type="hidden" name="_method" value="delete" />
-                    <input type="submit" value="Delete" />
-                  </form>
-                </td>
-              </tr>
-            <% }) %>
-          </tbody>
-        </table>
+<div class="itinerary-header">
+  <div class="itinerary-info">
+    <div class="itinerary-info__title"><%- itinerary.itineraryName %></div>
+    <div class="itinerary-info__author">
+      By @<%- itinerary.userId %> | <%- itinerary.startDate %> to <%- itinerary.endDate %>
+    </div>
+  </div>
+  <div class="itinerary-edit">
+    <a href="<%- editItineraryPath(itinerary) %>" class="itinerary-edit__btn" title="Edit itinerary">
+      <img src="<%= assetPath('edit-icon.png') %>">
+    </a>
+    <form action="<%- deleteItineraryPath(itinerary) %>" method="POST">
+      <input type="hidden" name="_method" value="delete" />
+      <input type="submit" value="x" />
+    </form>
+  </div>
+</div>
+<div class="itinerary-container">
+  <div class="side-info">
+    <div class="side-info__image">
+      Picture
+    </div>
+    <div class="side-info__budget">
+      $ <%- itinerary.budget %> USD
+    </div>
+    <div class="side-info__labels">
+      <% if (itinerary.labels) { %>
+        <% itinerary.labels.forEach((label) => { %>
+          <div class="side-info__labels one-label"><%- label %></div>
+        <% }) %>
       <% } %>
-
-  </table>
+    </div>
+    <div class="side-info__score">
+        Score: <%- itinerary.avgScore %>
+    </div>
+  </div>
+  <div class="main-info">
+    <div class="main-info__description">
+        <%- itinerary.description %>
+    </div>
+    <div class="itinerary-edit">
+      <a href="<%- newItineraryDayPath(itinerary) %>" class="itinerary-edit__btn" title="Add day">
+        +
+      </a>
+    </div>
+    <div class="main-info__content">
+      <% if (!daysList.length) { %>
+        <p>Ups, there are no days in this itinerary</p>
+      <% } else { %>
+        <% daysList.forEach((day) => { %>
+          <div class="day-container">
+            <div class="day-container__edit">
+              <a href="<%- editItineraryDayPath(day) %>">edit</a>
+              <form action="<%- deleteItineraryDayPath(day) %>" method="POST">
+                <input type="hidden" name="_method" value="delete" />
+                <input type="submit" value="delete" title="Delete day" />
+              </form>
+            </div>
+            <div class="day-container__header">
+              Day <%- day.number%>: <%- day.date%>
+            </div>
+            <div class="day-container__image">
+              Picture
+            </div>
+            <form action="<%- showItineraryDayPath(day) %>" method="GET">
+              <input type="hidden" name="_method" value="show" />
+              <input type="submit" value="Show" />
+            </form>
+            <div class="day-container__activities">
+              Lo ideal sería aquí poner las actividades
+            </div>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+  </div>
+</div>

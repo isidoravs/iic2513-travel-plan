@@ -12,7 +12,8 @@
     img {
       border-radius: 50%;
       flex: 1;
-      max-width: 25%;
+      max-width: 200px;
+      max-height: 200px;
       object-fit: fill;
       overflow: hidden;
     }
@@ -121,6 +122,7 @@
       margin: 10px;
       border-radius: 5px;
       border: 1px solid $border;
+      justify-content: center;
 
       a {
         text-decoration: none;
