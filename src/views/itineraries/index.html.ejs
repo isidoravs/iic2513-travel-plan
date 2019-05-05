@@ -1,5 +1,8 @@
 <h2>Itineraries</h2>
+<% if (currentUser) { %>
 <a href="<%- newItineraryPath %>">New itinerary</a>
+<% } %>
+
 <% if (!itinerariesList.length) { %>
   <p>No results</p>
 <% } else { %>

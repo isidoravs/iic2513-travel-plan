@@ -29,15 +29,11 @@
         <label for="endDate">End Date</label>
         <input type="text" name="endDate" value="<%= itinerary.endDate %>" />
       </div>
-      <div class="field">
-        <label for="userId">User ID</label>
-        <input type="number" name="userId" value="<%= itinerary.userId %>" />
-      </div>
       <% if (!(itinerary.isNewRecord)) { %>
         <div class="field">
           <label for="description">Description</label>
           <textarea type="text" name="description"><%= itinerary.description %></textarea>
-        </div>       
+        </div>
       <% } %>
       <div class="field">
         <% if (itinerary.isNewRecord) { %>
@@ -48,4 +44,3 @@
       </div>
     </form>
   </div>
-  
