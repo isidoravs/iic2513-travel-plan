@@ -19,11 +19,11 @@
       </div>
       <div class="field">
         <label for="score">Score</label>
-        <input type="text" name="score" value="<%= review.score %>" />
+        <input type="number" name="score" value="<%= review.score %>" />
       </div>
       <div class="field">
         <label for="reviewDate">Review Date</label>
-        <input type="text" name="reviewDate" value="<%= review.reviewDate %>" />
+        <input type="date" name="reviewDate" value="<%= review.reviewDate %>" />
       </div>
       <div class="field">
         <% if (review.isNewRecord) { %>
@@ -34,4 +34,3 @@
       </div>
     </form>
   </div>
-  

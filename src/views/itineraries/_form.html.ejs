@@ -19,15 +19,15 @@
       </div>
       <div class="field">
         <label for="budget">Budget</label>
-        <input type="text" name="budget" value="<%= itinerary.budget %>" />
+        <input type="number" name="budget" value="<%= itinerary.budget %>" />
       </div>
       <div class="field">
         <label for="startDate">Start Date</label>
-        <input type="text" name="startDate" value="<%= itinerary.startDate %>" />
+        <input type="date" name="startDate" value="<%= itinerary.startDate %>" />
       </div>
       <div class="field">
         <label for="endDate">End Date</label>
-        <input type="text" name="endDate" value="<%= itinerary.endDate %>" />
+        <input type="date" name="endDate" value="<%= itinerary.endDate %>" />
       </div>
       <% if (!(itinerary.isNewRecord)) { %>
         <div class="field">
