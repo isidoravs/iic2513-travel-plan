@@ -14,6 +14,11 @@
         <input type="hidden" name="_method" value="delete" />
         <input type="submit" value="x" />
       </form>
+      <a href="<%- newDestinationPath %>">Add new destination</a>
+      <!--<a href="<%- addDestinationPath %>">Add existing destination</a>-->
+
+
+
     </div>
   <% } %>
 </div>
@@ -26,9 +31,14 @@
       $ <%- itinerary.budget %> USD
     </div>
     <div class="side-info__labels">
-      <% if (itinerary.labels) { %>
-        <% itinerary.labels.forEach((label) => { %>
-          <div class="side-info__labels one-label"><%- label %></div>
+      <% if (destinationsList) { %>
+        <% destinationsList.forEach((label) => { %>
+          <div class="side-info__labels one-label"><%- label.destinationName %></div>
+          <!--
+          <form action="<%- deleteDestinationPath(label) %>" method="POST">
+              <input type="hidden" name="_method" value="delete" />
+              <input type="submit" value="x" />
+          -->
         <% }) %>
       <% } %>
     </div>
