@@ -38,6 +38,8 @@ router.get('itineraries.show', '/:id', loadItinerary, async (ctx) => {
   const { itinerary } = ctx.state;
   await ctx.render('itineraries/show', {
     itinerary,
+    destinationsList: await itinerary.getDestinations(),
+    deleteDestinationPath: destination => ctx.router.url('destinations.itineraries.delete', { id: itinerary.id, dest_id: destination.id }),
     daysList: await itinerary.getDays({ order: [['number', 'ASC']] }),
     newItineraryDayPath: itinerar => ctx.router.url('itineraries.days.new', { id: itinerar.id }),
     editItineraryPath: itinerar => ctx.router.url('itineraries.edit', { id: itinerar.id }),
@@ -45,6 +47,8 @@ router.get('itineraries.show', '/:id', loadItinerary, async (ctx) => {
     showItineraryDayPath: day => ctx.router.url('itineraries.days.show', { did: day.id, id: itinerary.id }),
     editItineraryDayPath: day => ctx.router.url('itineraries.days.edit', { did: day.id, id: itinerary.id }),
     deleteItineraryDayPath: day => ctx.router.url('itineraries.days.delete', { did: day.id, id: itinerary.id }),
+    newDestinationPath: ctx.router.url('destinations.itinerary.new', { id: itinerary.id }),
+    addDestinationPath: ctx.router.url('destinations.assign', { id: itinerary.id }),
   });
 });
 router.get('itineraries.edit', '/:id/edit', loadItinerary, async (ctx) => {

@@ -1,3 +1,7 @@
+const env = require('dotenv');
+
+env.config();
+
 module.exports = {
   provider: {
     // your provider name directly or from ENV var
