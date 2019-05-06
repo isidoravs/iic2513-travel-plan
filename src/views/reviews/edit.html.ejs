@@ -1,2 +1,6 @@
-<h2>Edit Review</h2>
-<%- include('_form') %>
+<% if (currentUser && currentUser.id == review.userId) { %>
+    <h2>Edit Review</h2>
+    <%- include('_form') %>
+<% } else { %>
+    <p>Oops... you don't have access to this page</p>
+<% } %>

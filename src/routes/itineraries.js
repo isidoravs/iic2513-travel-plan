@@ -36,11 +36,13 @@ router.get('itineraries.new', '/new', async (ctx) => {
 });
 router.get('itineraries.show', '/:id', loadItinerary, async (ctx) => {
   const { itinerary } = ctx.state;
+  const daysList = await itinerary.getDays({ order: [['number', 'ASC']] });
   await ctx.render('itineraries/show', {
     itinerary,
+    daysList,
+    activitiesList: await Promise.all(daysList.map(d => d.getActivities())),
     destinationsList: await itinerary.getDestinations(),
     deleteDestinationPath: destination => ctx.router.url('destinations.itineraries.delete', { id: itinerary.id, dest_id: destination.id }),
-    daysList: await itinerary.getDays({ order: [['number', 'ASC']] }),
     newItineraryDayPath: itinerar => ctx.router.url('itineraries.days.new', { id: itinerar.id }),
     editItineraryPath: itinerar => ctx.router.url('itineraries.edit', { id: itinerar.id }),
     deleteItineraryPath: itinerar => ctx.router.url('itineraries.delete', { id: itinerar.id }),
