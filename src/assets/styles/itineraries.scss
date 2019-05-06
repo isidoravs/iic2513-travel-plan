@@ -70,7 +70,7 @@
   display: flex;
   flex-direction: row;
   max-height: 65vh;
-  background-color: $bg-secondary-color;
+  background-color: $bg-primary-color;
 }
 
 .side-info {
@@ -141,6 +141,7 @@
   margin-bottom: 10px;
   border-radius: 20px;
   border: 1px solid $light-border;
+  background-color: $bg-third-color;
 
   &__activities {
     display: flex;
@@ -263,6 +264,7 @@
   border-radius: 10px;
   border: 1px solid $border;
   height: 200px;
+  background: $bg-primary-color;
 
   &__picture {
     img {
