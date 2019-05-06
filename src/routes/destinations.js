@@ -2,6 +2,10 @@ const KoaRouter = require('koa-router');
 
 const router = new KoaRouter();
 
+const Sequelize = require('sequelize');
+
+const op = Sequelize.Op;
+
 async function loadDestination(ctx, next) {
   ctx.state.destination = await ctx.orm.destination.findById(ctx.params.id);
   return next();
@@ -45,6 +49,20 @@ router.get('destinations.assign', '/itineraries/:id/add_destination', async (ctx
     deleteDestinationPath: destination => ctx.router.url('destinations.delete', { id: destination.id }),
   });
 });
+
+router.get('destinations.find','/search',async (ctx) => {
+  const name = ctx.request.query.search;
+  const destinationSearch = await ctx.orm.destination.findAll({
+     where:{
+       destinationName:{
+         [op.like]: '%'+name+'%'} //Consulta tira error "Id no definido"
+   }
+ });
+ await ctx.render('/search',{destinationSearch,
+   showDestinationPath: destination => ctx.router.url('destinations.show', { id: destination.id })
+ });
+}
+);
 
 router.get('destinations.new', '/new', async (ctx) => {
   const destination = ctx.orm.destination.build();

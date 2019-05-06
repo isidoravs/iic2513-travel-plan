@@ -1,0 +1,28 @@
+<h2>Resultado de Busqueda</h2>
+<% if (!destinationSearch.length) { %>
+  <p>No existe destino con ese nombre.</p>
+<% } else { %>
+  <table id="destinations-list">
+    <thead>
+        <tr>
+          <th>Name</th>
+          <th>Picture</th>
+          <th colspan="1">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <% destinationSearch.forEach((destination) => { %>
+          <td><%- destination.destinationName %></td>
+          <td><%- destination.destinationPicture %></td>
+          <td>
+          <form action="<%showDestinationPath(destination) %>" method="GET">
+              <input type="hidden" name="_method" value="show" />
+              <input type="submit" value="Show" />
+            </form>
+          </td>
+        </tr>
+        <% }) %>
+    </tbody>
+  </table>
+<% } %>
