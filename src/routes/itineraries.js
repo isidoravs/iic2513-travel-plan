@@ -49,6 +49,9 @@ router.get('itineraries.show', '/:id', loadItinerary, async (ctx) => {
     showItineraryDayPath: day => ctx.router.url('itineraries.days.show', { did: day.id, id: itinerary.id }),
     editItineraryDayPath: day => ctx.router.url('itineraries.days.edit', { did: day.id, id: itinerary.id }),
     deleteItineraryDayPath: day => ctx.router.url('itineraries.days.delete', { did: day.id, id: itinerary.id }),
+    newDayActivityPath: day => ctx.router.url('itineraries.days.activities.new', { did: day.id, id: itinerary.id }),
+    editDayActivityPath: (d, a) => ctx.router.url('itineraries.days.activities.edit', { id: itinerary.id, did: d.id, aid: a.id }),
+    deleteDayActivityPath: (d, a) => ctx.router.url('itineraries.days.activities.delete', { id: itinerary.id, did: d.id, aid: a.id }),
     newDestinationPath: ctx.router.url('destinations.itinerary.new', { id: itinerary.id }),
     addDestinationPath: ctx.router.url('destinations.assign', { id: itinerary.id }),
   });
@@ -222,7 +225,7 @@ router.post('itineraries.days.activities.create', '/:id/days/:did/activities', l
     await activity.save({ fields: ['title', 'activityPictue', 'description'] });
     const dayId = day.id;
     await activity.update({ dayId });
-    ctx.redirect(ctx.router.url('itineraries.days.show', { id: itinerary.id, did: day.id }));
+    ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
   } catch (validationError) {
     await ctx.render('activities/new', {
       itinerary,
@@ -244,7 +247,7 @@ router.patch('itineraries.days.activities.update', '/:id/days/:did/activities/:a
     await activity.update({
       title, activityPicture, description,
     });
-    ctx.redirect(ctx.router.url('itineraries.days.show', { id: itinerary.id, did: day.id }));
+    ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
   } catch (validationError) {
     await ctx.render('activities/edit', {
       day,
@@ -256,9 +259,8 @@ router.patch('itineraries.days.activities.update', '/:id/days/:did/activities/:a
 });
 router.del('itineraries.days.activities.delete', '/:id/days/:did/activities/:aid/', loadItinerary, loadDay, async (ctx) => {
   const { itinerary } = ctx.state;
-  const day = await ctx.orm.day.findById(ctx.params.did);
   const activity = await ctx.orm.activity.findById(ctx.params.aid);
   await activity.destroy();
-  ctx.redirect(ctx.router.url('itineraries.days.show', { id: itinerary.id, did: day.id }));
+  ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
 });
 module.exports = router;
