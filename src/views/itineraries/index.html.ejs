@@ -6,23 +6,23 @@
       <div class="itinerary-list-container">
         <div class="itinerary-list-container__picture">
           <% if ((index % 2) == 0) { %>
-            <img src="<%= assetPath('itinerary-pic1.jpg') %>">
+            <a href="/itineraries/<%= itinerary.id %>"><img src="<%= assetPath('itinerary-pic1.jpg') %>"></a>
           <% } else { %>
-            <img src="<%= assetPath('itinerary-pic2.jpg') %>">
+            <a href="/itineraries/<%= itinerary.id %>"><img src="<%= assetPath('itinerary-pic2.jpg') %>"></a>
           <% } %>
         </div>
         <div class="itinerary-list-container__info">
           <div class="itinerary-list-container__info__title">
             <div><%- itinerary.itineraryName %></div>
-            <a href="<%- editItineraryPath(itinerary) %>">Edit</a>
-            <form action="<%- showItineraryPath(itinerary) %>" method="GET">
-              <input type="hidden" name="_method" value="show" />
-              <input type="submit" value="Show" />
-            </form>
-            <form action="<%- deleteItineraryPath(itinerary) %>" method="POST">
-              <input type="hidden" name="_method" value="delete" />
-              <input type="submit" value="Delete" />
-            </form>
+            <% if (currentUser && currentUser.id == itinerary.userId) { %>
+              <div class="day-container__info__edit">
+                <a href="<%- editItineraryPath(itinerary) %>">edit</a>
+                <form action="<%- deleteItineraryPath(itinerary) %>" method="POST">
+                  <input type="hidden" name="_method" value="delete" />
+                  <input type="submit" value="delete" />
+                </form>
+              </div>
+            <% } %>
           </div>
           <div class="itinerary-list-container__info__summary">
             <div id="dates"><%- itinerary.startDate %> - <%- itinerary.endDate %></div>
@@ -48,7 +48,7 @@
             <img src="<%= assetPath('default-user.png') %>">
           </div>
           <div class="itinerary-list-container__author__name">
-            <a href="users/<%= itinerary.userId %>">@username</a>
+            <a href="/users/<%= itinerary.userId %>">@username</a>
           </div>
         </div>
       </div>

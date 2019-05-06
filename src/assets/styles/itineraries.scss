@@ -21,8 +21,8 @@
 
 .itinerary-edit {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row;
+  justify-content: flex-end;
 
   img {
     max-width: 20px;
@@ -46,8 +46,7 @@
 
   &__btn {
     padding: 5px;
-    margin-top: 8px;
-    margin-bottom: 8px;
+    margin: 8px;
     background: $btn-bg;
     border: none;
     text-decoration: none;
@@ -136,76 +135,107 @@
 }
 
 .day-container {
-  padding: 30px;
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 20px;
   border: 1px solid $light-border;
   background-color: $bg-third-color;
 
-  &__activities {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 300px;
+
+  &__info {
+    flex: 1 1 auto;
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
 
-    p {
-      font-weight: bolder;
-      font-size: 20px;
-    }
-  }
+    &__activities {
+      flex-direction: column;
+      display: flex;
+      overflow: auto;
+      margin: 10px;
 
-  &__edit {
-    display: flex;
-    justify-content: flex-end;
-
-    form {
-      margin-top: 3px;
-    }
-
-    input {
-      text-decoration: none;
-      border: none;
-      background: none;
-      color: $secondary-text;
-      font-size: 12px;
-      padding: 5px;
-      margin: 2px;
-      cursor: pointer;
+      p {
+        font-weight: bolder;
+        font-size: 15px;
+        margin-bottom: 5px;
+        margin-top: 0;
+      }
     }
 
-    a {
-      text-decoration: none;
-      font-size: 12px;
-      padding: 5px;
-      margin: 2px;
-      color: $secondary-text;
-    }
-  }
+    &__edit {
+      display: flex;
+      justify-content: flex-end;
 
-  &__header {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background: $primary-color;
-    color: $home-title-color;
-    font-weight: bold;
-    padding: 15px;
-    border-radius: 5px;
+      form {
+        margin-top: 3px;
+      }
+
+      input {
+        text-decoration: none;
+        border: none;
+        background: none;
+        color: $secondary-text;
+        font-size: 12px;
+        padding: 5px;
+        margin: 2px;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      a {
+        text-decoration: none;
+        font-size: 12px;
+        padding: 5px;
+        margin: 2px;
+        color: $secondary-text;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    &__header {
+      background: $primary-color;
+      color: $home-title-color;
+      font-weight: bold;
+      padding: 20px;
+      font-size: 15px;
+      border-top-left-radius: 20px;
+    }
   }
 
   &__image {
-    max-height: 300px;
-    padding: 50px;
-    background: $secondary-color;
-    color: $home-title-color;
-    border-radius: 5px;
+    img {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      border-bottom-right-radius: 20px;
+      border-top-right-radius: 20px;
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+    }
   }
 }
 
 .activity-container {
-  padding: 20px;
+  padding: 10px;
 
   &__title {
+    display: flex;
     font-weight: bold;
+
+    .day-container__info__edit {
+      margin-left: auto;
+      font-weight: 100;
+    }
   }
 
   &__description {
@@ -287,12 +317,29 @@
 
     &__title {
       font-weight: bold;
-      font-size: 30px;
+      font-size: 20px;
       display: flex;
 
-      a {
-        font-size: 10px;
+      .day-container__info__edit {
         margin-left: auto;
+        font-weight: 100;
+        flex-direction: column;
+        text-align: right;
+
+        a {
+          padding-bottom: 0;
+          margin-bottom: 0;
+        }
+
+        input {
+          padding-top: 0;
+          margin-top: 0;
+        }
+
+        form {
+          padding-top: 0;
+          margin-top: 0;
+        }
       }
     }
 
@@ -356,9 +403,16 @@
   }
 }
 
-#add-day {
-  width: 60px;
-  font-size: 15px;
+.back {
+  text-decoration: none;
+}
+
+#add-day, #add-destination, #add-activity {
+  width: auto;
+  font-size: 13px;
+  padding-right: 20px;
+  padding-left: 20px;
+  height: 30px;
 }
 
 #itineraries-list {
