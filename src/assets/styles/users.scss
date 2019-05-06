@@ -1,5 +1,8 @@
 .user-header {
   display: flex;
+  background: $bg-primary-color;
+  border-radius: 10px;
+  border: 1px solid $light-border;
 
   .user-image {
     align-items: center;
@@ -56,6 +59,7 @@
   .user-edit {
     display: flex;
     flex-direction: column;
+    margin: 10px;
 
     img {
       max-width: 20px;
@@ -101,8 +105,11 @@
 
 .user-content {
   text-align: center;
-  margin: 20px;
+  margin-top: 20px;
   border-top: 1px solid $light-border;
+  background: $bg-primary-color;
+  border-radius: 10px;
+  border: 1px solid $light-border;
 
   &__header {
     font-weight: bold;
@@ -123,6 +130,7 @@
       border-radius: 5px;
       border: 1px solid $border;
       justify-content: center;
+      background: $bg-third-color;
 
       a {
         text-decoration: none;
