@@ -42,8 +42,8 @@
     </div>
     <% if (currentUser && currentUser.id == itinerary.userId) { %>
       <div class="itinerary-edit">
-        <a href="<%- newItineraryDayPath(itinerary) %>" class="itinerary-edit__btn" title="Add day">
-          +
+        <a href="<%- newItineraryDayPath(itinerary) %>" class="itinerary-edit__btn" id="add-day" title="Add day">
+          + Day
         </a>
       </div>
     <% } %>
@@ -51,7 +51,7 @@
       <% if (!daysList.length) { %>
         <p>Ups, there are no days in this itinerary</p>
       <% } else { %>
-        <% daysList.forEach((day) => { %>
+        <% daysList.forEach((day, index) => { %>
           <div class="day-container">
             <% if (currentUser && currentUser.id == itinerary.userId) { %>
               <div class="day-container__edit">
@@ -63,17 +63,31 @@
               </div>
             <% } %>
             <div class="day-container__header">
-              Day <%- day.number%>: <%- day.date%>
+              Day <%- day.number%>: <%- day.date %>
             </div>
             <div class="day-container__image">
               Picture
             </div>
-            <form action="<%- showItineraryDayPath(day) %>" method="GET">
+            <!-- <form action="<%- showItineraryDayPath(day) %>" method="GET">
               <input type="hidden" name="_method" value="show" />
               <input type="submit" value="Show" />
-            </form>
+            </form> -->
             <div class="day-container__activities">
-              Lo ideal sería aquí poner las actividades
+              <p>Activities for this day:</p>
+              <% if (!activitiesList[index].length) { %>
+                No activities
+              <% } else { %>
+                <% activitiesList[index].forEach((activity) => { %>
+                  <div class="activity-container">
+                    <div class="activity-container__title">
+                      <%- activity.title %>
+                    </div>
+                    <div class="activity-container__description">
+                      <%- activity.description %>
+                    </div>
+                  </div>
+                <% }) %>
+              <% } %>
             </div>
           </div>
         <% }) %>

@@ -1,45 +1,57 @@
-<h2>Itineraries</h2>
-<% if (currentUser) { %>
-<a href="<%- newItineraryPath %>">New itinerary</a>
-<% } %>
-
-<% if (!itinerariesList.length) { %>
-  <p>No results</p>
-<% } else { %>
-  <table id="itineraries-list">
-    <thead>
-        <tr>
-          <th>Name</th>
-          <th>Budget</th>
-          <th>Start Date</th>
-          <th>End Date</th>
-          <th>Description</th>
-          <th colspan="3">Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-      <% itinerariesList.forEach((itinerary) => { %>
-        <tr>
-          <td><%- itinerary.itineraryName %></td>
-          <td><%- itinerary.budget %></td>
-          <td><%- itinerary.startDate %></td>
-          <td><%- itinerary.endDate %></td>
-          <td><%- itinerary.description %></td>
-          <td><a href="<%- editItineraryPath(itinerary) %>">Edit</a></td>
-          <td>
+<div class="itinerary-list">
+  <% if (!itinerariesList.length) { %>
+    <p>No results</p>
+  <% } else { %>
+    <% itinerariesList.forEach((itinerary, index) => { %>
+      <div class="itinerary-list-container">
+        <div class="itinerary-list-container__picture">
+          <% if ((index % 2) == 0) { %>
+            <img src="<%= assetPath('itinerary-pic1.jpg') %>">
+          <% } else { %>
+            <img src="<%= assetPath('itinerary-pic2.jpg') %>">
+          <% } %>
+        </div>
+        <div class="itinerary-list-container__info">
+          <div class="itinerary-list-container__info__title">
+            <div><%- itinerary.itineraryName %></div>
+            <a href="<%- editItineraryPath(itinerary) %>">Edit</a>
             <form action="<%- showItineraryPath(itinerary) %>" method="GET">
               <input type="hidden" name="_method" value="show" />
               <input type="submit" value="Show" />
             </form>
-          </td>
-          <td>
             <form action="<%- deleteItineraryPath(itinerary) %>" method="POST">
               <input type="hidden" name="_method" value="delete" />
               <input type="submit" value="Delete" />
             </form>
-          </td>
-        </tr>
-      <% }) %>
-    </tbody>
-  </table>
-<% } %>
+          </div>
+          <div class="itinerary-list-container__info__summary">
+            <div id="dates"><%- itinerary.startDate %> - <%- itinerary.endDate %></div>
+            <div id="budget">$ <%- itinerary.budget %> USD</div>
+            <div id="score">Score: <%- itinerary.avgScore %></div>
+            <div class="rate">
+              <input type="radio" id="star5" name="rate" value="5" />
+              <label for="star5" title="5 stars">5 stars</label>
+              <input type="radio" id="star4" name="rate" value="4" />
+              <label for="star4" title="4 stars">4 stars</label>
+              <input type="radio" id="star3" name="rate" value="3" />
+              <label for="star3" title="3 stars">3 stars</label>
+              <input type="radio" id="star2" name="rate" value="2" />
+              <label for="star2" title="2 stars">2 stars</label>
+              <input type="radio" id="star1" name="rate" value="1" />
+              <label for="star1" title="1 star">1 star</label>
+            </div>
+          </div>
+          <div class="itinerary-list-container__info__description"><%- itinerary.description %></div>
+        </div>
+        <div class="itinerary-list-container__author">
+          <div class="itinerary-list-container__author__picture">
+            <img src="<%= assetPath('default-user.png') %>">
+          </div>
+          <div class="itinerary-list-container__author__name">
+            <a href="users/<%= itinerary.userId %>">@username</a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  <% } %>
+</div>
