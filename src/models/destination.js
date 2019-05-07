@@ -1,7 +1,12 @@
 module.exports = (sequelize, DataTypes) => {
   const destination = sequelize.define('destination', {
     destinationPicture: DataTypes.STRING,
-    destinationName: DataTypes.STRING,
+    destinationName: {
+      type: DataTypes.STRING,
+      unique: {
+        msg: 'Destination already exists.'
+      }
+    },
   }, {});
   // eslint-disable-next-line func-names
   destination.associate = function (models) {

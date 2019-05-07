@@ -55,10 +55,14 @@ router.get('destinations.find','/search',async (ctx) => {
   const destinationSearch = await ctx.orm.destination.findAll({
      where:{
        destinationName:{
-         [op.like]: '%'+name+'%'} //Consulta tira error "Id no definido"
+         [op.like]: '%'+name+'%'}
    }
  });
+
+ let itineraries = await Promise.all(destinationSearch.map(destination => destination.getItineraries()));
  await ctx.render('/search',{destinationSearch,
+   itineraries,
+   showItineraryPath: itinerary => ctx.router.url('itineraries.show', { id: itinerary.id }),
    showDestinationPath: destination => ctx.router.url('destinations.show', { id: destination.id })
  });
 }
@@ -105,7 +109,7 @@ router.post('destinations.create', '/', async (ctx) => {
     await ctx.render('destinations/new', {
       destination,
       errors: validationError.errors,
-      submitDestinationPath: ctx.router.url('destinations.itinerary.create'),
+      submitDestinationPath: ctx.router.url('destinations.create'),
     });
   }
 });
