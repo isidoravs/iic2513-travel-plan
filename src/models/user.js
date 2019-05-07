@@ -11,10 +11,44 @@ async function buildPasswordHash(instance) {
 
 module.exports = (sequelize, DataTypes) => {
   const user = sequelize.define('user', {
-    username: DataTypes.STRING,
-    email: DataTypes.STRING,
+    username: {
+      type: DataTypes.STRING,
+      unique: {
+        msg: 'Ese nombre de usuario ya está en uso.',
+      },
+      validate: {
+        notEmpty: {
+          msg: 'Username required.'
+        }
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      unique: {
+        msg: 'Email already exists.',
+      },
+      validate: {
+        notEmpty: {
+          msg: 'Email required.'
+        },
+        isEmail: {
+          msg: 'Email wrong format'
+        }
+      }
+    },
     birthDate: DataTypes.DATEONLY,
-    password: DataTypes.STRING,
+    password: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: 'Password required.'
+        },
+        len:{
+          args: [6],
+          msg: 'Password of at least 6 characters'
+        },
+      }
+    },
     country: DataTypes.STRING,
     gender: DataTypes.STRING,
     publicName: DataTypes.STRING,

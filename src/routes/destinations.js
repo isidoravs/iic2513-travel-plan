@@ -2,6 +2,10 @@ const KoaRouter = require('koa-router');
 
 const router = new KoaRouter();
 
+const Sequelize = require('sequelize');
+
+const op = Sequelize.Op;
+
 async function loadDestination(ctx, next) {
   ctx.state.destination = await ctx.orm.destination.findById(ctx.params.id);
   return next();
@@ -46,6 +50,24 @@ router.get('destinations.assign', '/itineraries/:id/add_destination', async (ctx
   });
 });
 
+router.get('destinations.find','/search',async (ctx) => {
+  const name = ctx.request.query.search;
+  const destinationSearch = await ctx.orm.destination.findAll({
+     where:{
+       destinationName:{
+         [op.like]: '%'+name+'%'}
+   }
+ });
+
+ let itineraries = await Promise.all(destinationSearch.map(destination => destination.getItineraries()));
+ await ctx.render('/search',{destinationSearch,
+   itineraries,
+   showItineraryPath: itinerary => ctx.router.url('itineraries.show', { id: itinerary.id }),
+   showDestinationPath: destination => ctx.router.url('destinations.show', { id: destination.id })
+ });
+}
+);
+
 router.get('destinations.new', '/new', async (ctx) => {
   const destination = ctx.orm.destination.build();
   await ctx.render('destinations/new', {
@@ -87,7 +109,7 @@ router.post('destinations.create', '/', async (ctx) => {
     await ctx.render('destinations/new', {
       destination,
       errors: validationError.errors,
-      submitDestinationPath: ctx.router.url('destinations.itinerary.create'),
+      submitDestinationPath: ctx.router.url('destinations.create'),
     });
   }
 });

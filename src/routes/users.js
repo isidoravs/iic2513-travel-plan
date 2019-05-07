@@ -93,12 +93,12 @@ router.patch('users.update', '/:id', loadUser, async (ctx) => {
     await user.update({
       username, email, password, birthDate, gender, country, publicName, photo,
     });
-    ctx.redirect(ctx.router.url('users.list'));
+    ctx.redirect(ctx.router.url('users.show', { id: user.id }));
   } catch (validationError) {
     await ctx.render('users/edit', {
       user,
       errors: validationError.errors,
-      submitUserPath: ctx.router.url('users.update'),
+      submitUserPath: ctx.router.url('users.update', { id: user.id }),
     });
   }
 });
