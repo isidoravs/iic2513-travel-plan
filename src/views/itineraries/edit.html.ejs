@@ -1,2 +1,6 @@
-<h2>Edit Itinerary</h2>
-<%- include('_form') %>
+<% if (currentUser && currentUser.id == itinerary.userId) { %>
+    <h2>Edit itinerary</h2>
+    <%- include('_form') %>
+<% } else { %>
+    <p>Oops... you don't have access to this page</p>
+<% } %>

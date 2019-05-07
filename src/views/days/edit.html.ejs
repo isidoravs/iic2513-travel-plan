@@ -1,2 +1,7 @@
-<h2>Edit Day</h2>
-<%- include('_form') %>
+<!-- A futuro restringir a sólo dueños -->
+<% if (currentUser) { %>
+    <h2>Edit Day</h2>
+    <%- include('_form') %>
+<% } else { %>
+    <p>Oops... you don't have access to this page</p>
+<% } %>

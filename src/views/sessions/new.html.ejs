@@ -1,9 +1,17 @@
-
-<div>
+<div class="home-login-container">
+  <div class="login-description">
+    <div class="login-description__title">
+      Tip - Travel & Plan
+    </div>
+    <div class="login-description__content">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac diam lacus. Nulla nisl erat, aliquet non dolor sit amet, bibendum auctor ipsum. Proin varius feugiat nibh, quis gravida mauris hendrerit a. Suspendisse efficitur, lorem vel pellentesque varius, dolor sapien placerat ex, nec tincidunt leo velit sit amet libero. Vivamus non consequat arcu, id venenatis ex. Ut sit amet dolor orci. Phasellus et tincidunt eros. Aliquam semper purus lectus, pellentesque cursus enim maximus non. Donec consectetur id elit in sodales. Suspendisse potenti.
+    </div>
+  </div>
+  <div class="login-container">
     <% if (locals.notice) { %>
       <div className="notice"><%= notice %></div>
     <% } %>
-    <h1>Login</h1>
+    <h2>Log In</h2>
     <% if (locals.error) { %>
       <div class="error">
         <%= error %>
@@ -24,3 +32,6 @@
       </div>
     </form>
   </div>
+</div>
+
+

@@ -31,8 +31,8 @@
                 <div class="header__menu-container user-dropcontent">
                   <img src="<%= assetPath('default-user.png') %>">
                   <p>@<%= currentUser.username %></p>
-                  <a href="#">Profile</a>
-                  <a href="#">Settings</a>
+                  <a href="/users/<%= currentUser.id %>">Profile</a>
+                  <a href="/users/<%= currentUser.id %>/edit">Settings</a>
                   <form action="<%= destroySessionPath %>" method="post">
                     <input type="hidden" name="_method" value="delete" />
                     <input type="submit" value="Logout" />

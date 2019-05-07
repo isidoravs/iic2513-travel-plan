@@ -16,7 +16,12 @@
         <tr>
           <td><%- destination.destinationName %></td>
           <td><%- destination.destinationPicture %></td>
-          <td><a href="<%- editDestinationPath(destination) %>">Edit</a></td>
+          <% if (itinerary) { %>
+            <td><a href="<%- editDestinationPath(destination) %>">Edit</a></td>
+          <% } else { %>
+            <td><a href="<%- addDestinationToItinerary(destination) %>">Add</a></td>
+          <% } %>
+
           <td>
             <form action="<%- showDestinationPath(destination) %>" method="GET">
               <input type="hidden" name="_method" value="show" />

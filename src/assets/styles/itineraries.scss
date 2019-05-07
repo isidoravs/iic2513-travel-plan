@@ -1,9 +1,426 @@
+.itinerary-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.itinerary-info {
+  padding: 20px;
+
+  &__title {
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+  }
+
+  &__author {
+    color: $secondary-text;
+    margin-left: 10px;
+  }
+}
+
+.itinerary-edit {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  img {
+    max-width: 20px;
+    max-height: 20px;
+  }
+
+  input {
+    background-color: $btn-bg;
+    padding: 5px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    border: none;
+    font-weight: bolder;
+    color: $btn-color;
+    border-radius: 5px;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+
+  &__btn {
+    padding: 5px;
+    margin: 8px;
+    background: $btn-bg;
+    border: none;
+    text-decoration: none;
+    font-weight: bolder;
+    font-size: 20px;
+    color: $home-title-color;
+    border-radius: 5px;
+    height: 35px;
+    width: 35px;
+    text-align: center;
+    cursor: pointer;
+
+    &:hover {
+      background: $btn-hover-bg;
+    }
+  }
+}
+
+.itinerary-container {
+  display: flex;
+  flex-direction: row;
+  max-height: 65vh;
+  background-color: $bg-primary-color;
+}
+
+.side-info {
+  max-width: 400px;
+  padding: 20px;
+
+  &__image {
+    max-width: 300px;
+    max-height: 300px;
+    padding: 50px;
+    background: $secondary-color;
+    color: $home-title-color;
+    border-radius: 5px;
+    margin: 10px;
+  }
+
+  &__budget {
+    color: $primary-shadow-color;
+    font-weight: bold;
+    margin: 20px;
+    text-align: center;
+  }
+
+  &__labels {
+    margin: 10px;
+
+    .one-label {
+      padding: 5px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      background: $btn-bg;
+      border: none;
+      font-weight: bold;
+      color: $home-title-color;
+      border-radius: 5px;
+      height: 30px;
+      text-align: center;
+    }
+  }
+
+  &__score {
+    color: $secondary-text;
+    margin-top: 30px;
+    text-align: center;
+  }
+}
+
+.main-info {
+  overflow: auto;
+  padding: 30px;
+  flex: 1;
+
+  &__description {
+    color: $secondary-text;
+    padding-bottom: 20px;
+    text-align: justify;
+    font-style: italic;
+  }
+
+  &__content {
+    color: $secondary-text;
+  }
+}
+
+.day-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  border: 1px solid $light-border;
+  background-color: $bg-third-color;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 300px;
+
+  &__info {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+
+    &__activities {
+      flex-direction: column;
+      display: flex;
+      overflow: auto;
+      margin: 10px;
+
+      p {
+        font-weight: bolder;
+        font-size: 15px;
+        margin-bottom: 5px;
+        margin-top: 0;
+      }
+    }
+
+    &__edit {
+      display: flex;
+      justify-content: flex-end;
+
+      form {
+        margin-top: 3px;
+      }
+
+      input {
+        text-decoration: none;
+        border: none;
+        background: none;
+        color: $secondary-text;
+        font-size: 12px;
+        padding: 5px;
+        margin: 2px;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      a {
+        text-decoration: none;
+        font-size: 12px;
+        padding: 5px;
+        margin: 2px;
+        color: $secondary-text;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    &__header {
+      background: $primary-color;
+      color: $home-title-color;
+      font-weight: bold;
+      padding: 20px;
+      font-size: 15px;
+      border-top-left-radius: 20px;
+    }
+  }
+
+  &__image {
+    img {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      border-bottom-right-radius: 20px;
+      border-top-right-radius: 20px;
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+    }
+  }
+}
+
+.activity-container {
+  padding: 10px;
+
+  &__title {
+    display: flex;
+    font-weight: bold;
+
+    .day-container__info__edit {
+      margin-left: auto;
+      font-weight: 100;
+    }
+  }
+
+  &__description {
+    color: $secondary-text;
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $light-border;
+  }
+}
+
+.rate {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+}
+.rate:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.rate:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#ccc;
+}
+.rate:not(:checked) > label:before {
+  content: '★ ';
+}
+.rate > input:checked ~ label {
+  color: #ffc700;
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  color: #deb217;
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+.itineraty-list {
+  display: flex;
+}
+
+.itinerary-list-container {
+  display: flex;
+  flex-direction: row;
+  margin: 20px;
+  border-radius: 10px;
+  border: 1px solid $border;
+  height: 200px;
+  background: $bg-primary-color;
+
+  &__picture {
+    img {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      border-bottom-left-radius: 10px;
+      border-top-left-radius: 10px;
+      width: 400px;
+      height: 200px;
+      object-fit: cover;
+    }
+  }
+
+  &__info {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+
+    &__title {
+      font-weight: bold;
+      font-size: 20px;
+      display: flex;
+
+      .day-container__info__edit {
+        margin-left: auto;
+        font-weight: 100;
+        flex-direction: column;
+        text-align: right;
+
+        a {
+          padding-bottom: 0;
+          margin-bottom: 0;
+        }
+
+        input {
+          padding-top: 0;
+          margin-top: 0;
+        }
+
+        form {
+          padding-top: 0;
+          margin-top: 0;
+        }
+      }
+    }
+
+    &__summary {
+      display: flex;
+      color: $secondary-text;
+
+      #dates {
+        padding: 10px;
+      }
+
+      #budget {
+        padding: 10px;
+        color: $primary-shadow-color;
+      }
+
+      #score {
+        padding: 10px;
+      }
+    }
+
+    &__description {
+      font-style: italic;
+      padding: 10px;
+      color: $secondary-text;
+      border-top: 1px solid $light-border;
+      text-align: justify;
+      flex: 1;
+      display: flex;
+      overflow: auto;
+    }
+  }
+
+  &__author {
+    padding: 20px;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &__picture {
+      display: flex;
+      justify-content: center;
+
+      img {
+        width: 60px;
+        height: 60px;
+        margin: 10px;
+        border-radius: 100%;
+      }
+    }
+
+    &__name {
+      padding: 10px;
+
+      a {
+        text-decoration: none;
+        color: $primary-text;
+      }
+    }
+  }
+}
+
+.back {
+  text-decoration: none;
+}
+
+#add-day, #add-destination, #add-activity {
+  width: auto;
+  font-size: 13px;
+  padding-right: 20px;
+  padding-left: 20px;
+  height: 30px;
+}
+
 #itineraries-list {
     th {
       background-color: #CCD1E5;
       text-align: center;
     }
-  
+
     td {
       background-color: #EEE;
       border: 1px solid rgb(194, 194, 194);
@@ -16,7 +433,7 @@
       background-color: #CCD1E5;
       text-align: center;
     }
-  
+
     td {
       background-color: #EEE;
       border: 1px solid rgb(194, 194, 194);
