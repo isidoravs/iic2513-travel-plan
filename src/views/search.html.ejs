@@ -1,0 +1,31 @@
+<h2>Resultado de Busqueda</h2>
+<% if (!destinationSearch.length) { %>
+  <p>No existe destino con ese nombre.</p>
+<% } else { %>
+  <div>
+    <% let itin_index = 0 %>
+    <% destinationSearch.forEach((destination) => { %>
+    <a>Nombre destino: <%- destination.destinationName %></a>
+    <a>Foto:<%- destination.destinationPicture %></a>
+    <table id="itineraries-list">
+      <thead>
+          <tr>
+            <th>Itinerary name</th>
+            <th>Itinerary Id</th>
+            <th colspan="1">Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+        <% itineraries[itin_index].forEach((itinerary) => { %>
+          <tr>
+            <td><%- itinerary.itineraryName %></td>
+            <td><%- itinerary.id %></td>
+            <td><a href="<%- showItineraryPath(itinerary) %>">Show</a></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% itin_index += 1;%>
+    <% }) %>
+  </div>
+<% } %>

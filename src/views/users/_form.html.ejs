@@ -19,7 +19,7 @@
       </div>
       <div class="field">
         <label for="email">Email</label>
-        <input type="text" name="email" value="<%= user.email %>" />
+        <input type="email" name="email" value="<%= user.email %>" />
       </div>
       <div class="field">
         <label for="password">Password</label>
@@ -28,7 +28,7 @@
       <% if (!(user.isNewRecord)) { %>
         <div class="field">
           <label for="birthDate">Birth Date</label>
-          <input type="text" name="birthDate" value="<%= user.birthDate %>" />
+          <input type="date" name="birthDate" value="<%= user.birthDate %>" />
         </div>
         <div class="field">
           <label for="gender">Gender</label>

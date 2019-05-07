@@ -1,13 +1,27 @@
 module.exports = (sequelize, DataTypes) => {
   const itinerary = sequelize.define('itinerary', {
-    budget: DataTypes.FLOAT,
+    budget: {
+      type: DataTypes.FLOAT,
+      validate: {
+        notEmpty: {
+          msg: 'Budget required'
+        },
+      }
+    },
     startDate: DataTypes.DATEONLY,
     endDate: DataTypes.DATEONLY,
     labels: DataTypes.ARRAY(DataTypes.TEXT),
     itineraryPicture: DataTypes.STRING,
     description: DataTypes.TEXT,
     avgScore: DataTypes.FLOAT,
-    itineraryName: DataTypes.STRING,
+    itineraryName: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: 'Name required'
+        }
+      }
+    },
     userId: DataTypes.INTEGER,
   }, {});
   // eslint-disable-next-line func-names
