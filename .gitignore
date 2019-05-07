@@ -60,9 +60,6 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# Yarn lock for deploy
-yarn.lock
-
 # dotenv environment variables file
 .env
 
@@ -71,4 +68,5 @@ yarn.lock
 
 # Yarn Lock
 yarn.lock
+package-lock.json
 sendgrid.env
