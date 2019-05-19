@@ -22,7 +22,7 @@ module.exports = {
         labels: faker.lorem.words().split(' '),
         itineraryPicture: faker.system.filePath(),
         description: faker.lorem.paragraph(),
-        avgScore: faker.random.number(),
+        avgScore: faker.finance.amount(0, 5, 2),
         itineraryName: faker.random.locale(),
         userId: i,
         createdAt: new Date(),

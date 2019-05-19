@@ -45,7 +45,7 @@
 
     button {
       float: right;
-      padding: 6px 10px;
+      padding: 4px 10px;
       margin-top: 8px;
       margin-bottom: 8px;
       background: $btn-bg;
@@ -108,6 +108,7 @@
   margin-bottom: 8px;
   position: relative;
   display: inline-block;
+  z-index: 1;
 
   &:hover .user-dropcontent {
     display: block;
@@ -183,6 +184,7 @@
   bottom: 0;
   width: 100%;
   background-color: $primary-shadow-color;
+  z-index: 2;
 
   &__container {
     height: 40px;
