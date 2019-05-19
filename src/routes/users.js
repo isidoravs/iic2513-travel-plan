@@ -72,10 +72,11 @@ router.post('users.create', '/', async (ctx) => {
   const user = ctx.orm.user.build(ctx.request.body);
   try {
     await user.save({ fields: ['username', 'email', 'password'] });
-    ctx.redirect(ctx.router.url('sessions.new'));
+    ctx.session.userId = user.id;
     const score = 0;
     await user.update({ score });
     await sendSignUpAlertEmail(ctx, { user });
+    ctx.redirect(ctx.router.url('itineraries.list'));
   } catch (validationError) {
     await ctx.render('users/new', {
       user,
