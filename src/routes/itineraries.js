@@ -2,6 +2,11 @@ const KoaRouter = require('koa-router');
 
 const router = new KoaRouter();
 
+
+function getSum(total, rev) {
+  return total + rev.score;
+}
+
 async function loadItinerary(ctx, next) {
   ctx.state.itinerary = await ctx.orm.itinerary.findById(ctx.params.id);
   return next();
@@ -14,6 +19,23 @@ async function loadDay(ctx, next) {
 
 async function loadActivity(ctx, next) {
   ctx.state.activity = await ctx.orm.activity.findById(ctx.params.aid);
+  return next();
+}
+
+async function loadReview(ctx, next) {
+  ctx.state.review = await ctx.orm.review.findById(ctx.params.rid);
+  return next();
+}
+
+async function ItineraryScoreUpdate(ctx, next) {
+  const reviews = await ctx.orm.review.findAll({
+    where: {
+      itineraryId: ctx.params.id,
+    },
+  });
+  const avgScore = (reviews.reduce(getSum, 0) / reviews.length);
+  const itinerary = await ctx.orm.itinerary.findById(ctx.params.id);
+  await itinerary.update({ avgScore });
   return next();
 }
 
@@ -34,14 +56,16 @@ router.get('itineraries.new', '/new', async (ctx) => {
     submitItineraryPath: ctx.router.url('itineraries.create'),
   });
 });
-router.get('itineraries.show', '/:id', loadItinerary, async (ctx) => {
+router.get('itineraries.show', '/:id', ItineraryScoreUpdate, loadItinerary, async (ctx) => {
   const { itinerary } = ctx.state;
   const daysList = await itinerary.getDays({ order: [['number', 'ASC']] });
   await ctx.render('itineraries/show', {
     itinerary,
     daysList,
+    reviewsList: await itinerary.getReviews({ order: [['reviewDate', 'DESC']] }),
     activitiesList: await Promise.all(daysList.map(d => d.getActivities())),
     destinationsList: await itinerary.getDestinations(),
+    newReviewPath: ctx.router.url('itineraries.reviews.new', { id: itinerary.id }),
     deleteDestinationPath: destination => ctx.router.url('destinations.itineraries.delete', { id: itinerary.id, dest_id: destination.id }),
     newItineraryDayPath: itinerar => ctx.router.url('itineraries.days.new', { id: itinerar.id }),
     editItineraryPath: itinerar => ctx.router.url('itineraries.edit', { id: itinerar.id }),
@@ -52,6 +76,9 @@ router.get('itineraries.show', '/:id', loadItinerary, async (ctx) => {
     newDayActivityPath: day => ctx.router.url('itineraries.days.activities.new', { did: day.id, id: itinerary.id }),
     editDayActivityPath: (d, a) => ctx.router.url('itineraries.days.activities.edit', { id: itinerary.id, did: d.id, aid: a.id }),
     deleteDayActivityPath: (d, a) => ctx.router.url('itineraries.days.activities.delete', { id: itinerary.id, did: d.id, aid: a.id }),
+    showReviewPath: review => ctx.router.url('itineraries.reviews.show', { id: itinerary.id, rid: review.id }),
+    editReviewPath: review => ctx.router.url('itineraries.reviews.edit', { id: itinerary.id, rid: review.id }),
+    deleteReviewPath: review => ctx.router.url('itineraries.reviews.delete', { id: itinerary.id, rid: review.id }),
     newDestinationPath: ctx.router.url('destinations.itinerary.new', { id: itinerary.id }),
     addDestinationPath: ctx.router.url('destinations.assign', { id: itinerary.id }),
   });
@@ -103,6 +130,103 @@ router.del('itineraries.delete', '/:id', loadItinerary, async (ctx) => {
   await itinerary.destroy();
   ctx.redirect(ctx.router.url('itineraries.list'));
 });
+
+router.get('itineraries.reviews.list', '/:id/reviews/', ItineraryScoreUpdate, loadItinerary, async (ctx) => {
+  const { itinerary } = ctx.state;
+  const reviewsList = await itinerary.getReviews({ order: [['reviewDate', 'DESC']] });
+  await ctx.render('reviews/index', {
+    itinerary,
+    reviewsList,
+    newReviewPath: ctx.router.url('itineraries.reviews.new', { id: itinerary.id }),
+    showReviewPath: review => ctx.router.url('itineraries.reviews.show', { id: itinerary.id, rid: review.id }),
+    editReviewPath: review => ctx.router.url('itineraries.reviews.edit', { id: itinerary.id, rid: review.id }),
+    deleteReviewPath: review => ctx.router.url('itineraries.reviews.delete', { id: itinerary.id, rid: review.id }),
+  });
+});
+router.get('itineraries.reviews.new', '/:id/reviews/new', loadItinerary, async (ctx) => {
+  const { itinerary } = ctx.state;
+  const review = ctx.orm.review.build();
+  const { currentUser } = ctx.state;
+  const existent = await ctx.orm.review.findAll({
+    where: {
+      userId: currentUser.id,
+      itineraryId: itinerary.id,
+    },
+  });
+  if (existent.length > 0) {
+    await review.destroy();
+    const rev = existent[0];
+    ctx.redirect(ctx.router.url('itineraries.reviews.edit', { id: itinerary.id, rid: rev.id }));
+  }
+  await ctx.render('reviews/new', {
+    itinerary,
+    review,
+    submitReviewPath: ctx.router.url('itineraries.reviews.create', { id: itinerary.id }),
+  });
+});
+router.get('itineraries.reviews.edit', '/:id/reviews/:rid/edit', loadItinerary, loadReview, async (ctx) => {
+  const { review } = ctx.state;
+  const { itinerary } = ctx.state;
+  await ctx.render('reviews/edit', {
+    itinerary,
+    review,
+    submitReviewPath: ctx.router.url('itineraries.reviews.update', { id: itinerary.id, rid: review.id }),
+  });
+});
+router.get('itineraries.reviews.show', '/:id/reviews/:rid/', loadItinerary, loadReview, async (ctx) => {
+  const { itinerary } = ctx.state;
+  await ctx.render('reviews/show', {
+    itinerary,
+    editReviewPath: review => ctx.router.url('itineraries.reviews.edit', { id: itinerary.id, rid: review.id }),
+    deleteReviewPath: review => ctx.router.url('itineraries.reviews.delete', { id: itinerary.id, rid: review.id }),
+  });
+});
+
+router.post('itineraries.reviews.create', '/:id/reviews/', loadItinerary, async (ctx) => {
+  const review = ctx.orm.review.build(ctx.request.body);
+  const { itinerary } = ctx.state;
+  const { currentUser } = ctx.state;
+  try {
+    await review.save({ fields: ['comment', 'score'] });
+    const reviewDate = new Date();
+    const itineraryId = itinerary.id;
+    const userId = currentUser.id;
+    await review.update({ reviewDate, itineraryId, userId });
+    ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
+  } catch (validationError) {
+    await ctx.render('reviews/new', {
+      review,
+      errors: validationError.errors,
+      submitReviewPath: ctx.router.url('itineraries.reviews.create', { id: itinerary.id }),
+    });
+  }
+});
+router.patch('itineraries.reviews.update', '/:id/reviews/:rid/', loadItinerary, loadReview, async (ctx) => {
+  const { review } = ctx.state;
+  const { itinerary } = ctx.state;
+  try {
+    const {
+      comment, score,
+    } = ctx.request.body;
+    await review.update({
+      comment, score,
+    });
+    ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
+  } catch (validationError) {
+    await ctx.render('reviews/edit', {
+      review,
+      errors: validationError.errors,
+      submitReviewPath: ctx.router.url('itineraries.reviews.update', { id: itinerary.id }),
+    });
+  }
+});
+router.del('itineraries.reviews.delete', '/:id/reviews/:rid', loadItinerary, loadReview, async (ctx) => {
+  const { review } = ctx.state;
+  const { itinerary } = ctx.state;
+  await review.destroy();
+  ctx.redirect(ctx.router.url('itineraries.reviews.list', { id: itinerary.id }));
+});
+
 
 router.get('itineraries.days.new', '/:id/days/new', loadItinerary, async (ctx) => {
   const { itinerary } = ctx.state;
