@@ -14,16 +14,12 @@
         <input type="hidden" name="_method" value="patch" />
       <% } %>
       <div class="field">
-        <label for="comment">Review Name</label>
+        <label for="comment">Comment</label>
         <input type="text" name="comment" value="<%= review.comment %>" />
       </div>
       <div class="field">
         <label for="score">Score</label>
         <input type="number" name="score" value="<%= review.score %>" />
-      </div>
-      <div class="field">
-        <label for="reviewDate">Review Date</label>
-        <input type="date" name="reviewDate" value="<%= review.reviewDate %>" />
       </div>
       <div class="field">
         <% if (review.isNewRecord) { %>
