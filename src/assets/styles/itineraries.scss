@@ -247,44 +247,78 @@
   }
 }
 
-.rate {
+// https://codepen.io/Bluetidepro/pen/GkpEa
+.star-ratings-css {
+  unicode-bidi: bidi-override;
+  color: $border;
+  font-size: 25px;
+  height: 30px;
+  width: 130px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0;
   float: left;
-  height: 46px;
-  padding: 0 10px;
-}
-.rate:not(:checked) > input {
-  position:absolute;
-  top:-9999px;
-}
-.rate:not(:checked) > label {
-  float:right;
-  width:1em;
-  overflow:hidden;
-  white-space:nowrap;
-  cursor:pointer;
-  font-size:30px;
-  color:#ccc;
-}
-.rate:not(:checked) > label:before {
-  content: '★ ';
-}
-.rate > input:checked ~ label {
-  color: #ffc700;
-}
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-  color: #deb217;
-}
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-  color: #c59b08;
+  margin-right: 0;
+  overflow: hidden;
+
+  &-top {
+    color: $btn-bg;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+  }
+  &-bottom {
+    padding: 0;
+    display: block;
+    z-index: 0;
+  }
 }
 
-.itineraty-list {
+// .rate {
+//   float: left;
+//   height: 46px;
+//   padding: 0 10px;
+//   flex: 1;
+//   overflow: hidden;
+// }
+// .rate:not(:checked) > input {
+//   position:absolute;
+//   top:-9999px;
+// }
+// .rate:not(:checked) > label {
+//   float:right;
+//   width:1em;
+//   overflow:hidden;
+//   white-space:nowrap;
+//   cursor:pointer;
+//   font-size:30px;
+//   color:#ccc;
+// }
+// .rate:not(:checked) > label:before {
+//   content: '★ ';
+// }
+// .rate > input:checked ~ label {
+//   color: #ffc700;
+// }
+// .rate:not(:checked) > label:hover,
+// .rate:not(:checked) > label:hover ~ label {
+//   color: #deb217;
+// }
+// .rate > input:checked + label:hover,
+// .rate > input:checked + label:hover ~ label,
+// .rate > input:checked ~ label:hover,
+// .rate > input:checked ~ label:hover ~ label,
+// .rate > label:hover ~ input:checked ~ label {
+//   color: #c59b08;
+// }
+
+.itinerary-list {
   display: flex;
+  flex-direction: column;
 }
 
 .itinerary-list-container {
@@ -295,6 +329,7 @@
   border: 1px solid $border;
   height: 200px;
   background: $bg-primary-color;
+  min-width: 600px;
 
   &__picture {
     img {
@@ -314,11 +349,19 @@
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
+    min-width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     &__title {
       font-weight: bold;
       font-size: 20px;
       display: flex;
+
+      a {
+        text-decoration: none;
+        color: $primary-text;
+      }
 
       .day-container__info__edit {
         margin-left: auto;
@@ -346,6 +389,8 @@
     &__summary {
       display: flex;
       color: $secondary-text;
+      flex: 1;
+      overflow: auto;
 
       #dates {
         padding: 10px;

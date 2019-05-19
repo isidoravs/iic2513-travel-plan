@@ -11,25 +11,32 @@
     </div>
     <div class="user-info__score">Score: <%- user.score %></div>
   </div>
-  <div class="user-edit">
-      <a href="<%- editUserPath %>" class="user-edit__btn" title="Edit user">
-        <img src="<%= assetPath('edit-icon.png') %>">
-      </a>
-      <form action="<%- deleteUserPath %>" method="POST">
-        <input type="hidden" name="_method" value="delete" />
-        <input type="submit" value="x" />
-      </form>
-  </div>
+  <% if (currentUser && currentUser.id == user.id) { %>
+    <div class="user-edit">
+        <a href="<%- editUserPath %>" class="user-edit__btn" title="Edit user">
+          <img src="<%= assetPath('edit-icon.png') %>">
+        </a>
+        <form action="<%- deleteUserPath %>" method="POST">
+          <input type="hidden" name="_method" value="delete" />
+          <input type="submit" value="x" />
+        </form>
+    </div>
+  <% } %>
 </div>
 <div class="user-content">
   <div class="user-content__header">
-      <%- user.publicName %>'s Trips
+      @<%- user.username %>'s trips
   </div>
+  <% if(itinerariesList.length == 0) { %>
+    <div class="no-itineraries">
+      No tienes ningún itinerario, agrega el primero <a href="/itineraries/new">AQUÍ</a>!
+    </div>
+  <% } %>
   <div class="user-content__itineraries">
-      <% itinerariesList.forEach((itinerary) => { %>
-        <div class="itinerary-container">
-          <a href="<%- showItineraryPath(itinerary) %>"><%- itinerary.itineraryName %></a>
-        </div>
-      <% }) %>
+    <% itinerariesList.forEach((itinerary) => { %>
+      <div class="itinerary-container">
+        <a href="<%- showItineraryPath(itinerary) %>"><%- itinerary.itineraryName %></a>
+      </div>
+    <% }) %>
   </div>
 </div>
