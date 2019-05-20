@@ -52,20 +52,50 @@ router.get('destinations.assign', '/itineraries/:id/add_destination', async (ctx
 
 router.get('destinations.find', '/search', async (ctx) => {
   const name = ctx.request.query.search;
+  const simple = true;
   const destinationSearch = await ctx.orm.destination.findAll({
     where: {
-      destinationName: { [op.like]: `%${name}%` },
+      destinationName: {
+        [op.like]: `%${name}%`
+      },
     },
   });
 
   // eslint-disable-next-line max-len
   const itineraries = await Promise.all(destinationSearch.map(destination => destination.getItineraries()));
   await ctx.render('/search', {
+    simple,
     destinationSearch,
     itineraries,
     showItineraryPath: itinerary => ctx.router.url('itineraries.show', { id: itinerary.id }),
     showDestinationPath: destination => ctx.router.url('destinations.show', { id: destination.id }),
+    superSearchPath: ctx.router.url('destinations.supersearch'),
   });
+});
+
+router.get('destinations.supersearch', '/ssearch', async (ctx) => {
+  const simple = false;
+  await ctx.render('/search', {
+    simple,
+    superSearchPath: ctx.router.url('destinations.supersearch'),
+  })
+  // const rating = ctx.request.query.value;
+  // const destinationSearch = await ctx.orm.destination.findAll({
+  //   where: {
+  //     destinationName: {
+  //       [op.like]: `%${name}%`
+  //     },
+  //   },
+  // });
+  //
+  // // eslint-disable-next-line max-len
+  // const itineraries = await Promise.all(destinationSearch.map(destination => destination.getItineraries()));
+  // await ctx.render('/search', {
+  //   destinationSearch,
+  //   itineraries,
+  //   showItineraryPath: itinerary => ctx.router.url('itineraries.show', { id: itinerary.id }),
+  //   showDestinationPath: destination => ctx.router.url('destinations.show', { id: destination.id }),
+  // });
 });
 
 router.get('destinations.new', '/new', async (ctx) => {

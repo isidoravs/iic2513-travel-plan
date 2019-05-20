@@ -1,31 +1,84 @@
 <h2>Resultado de Busqueda</h2>
-<% if (!destinationSearch.length) { %>
-  <p>No existe destino con ese nombre.</p>
-<% } else { %>
-  <div>
-    <% let itin_index = 0 %>
-    <% destinationSearch.forEach((destination) => { %>
-    <a>Nombre destino: <%- destination.destinationName %></a>
-    <a>Foto:<%- destination.destinationPicture %></a>
-    <table id="itineraries-list">
-      <thead>
-          <tr>
-            <th>Itinerary name</th>
-            <th>Itinerary Id</th>
-            <th colspan="1">Actions</th>
-          </tr>
-      </thead>
-      <tbody>
-        <% itineraries[itin_index].forEach((itinerary) => { %>
-          <tr>
-            <td><%- itinerary.itineraryName %></td>
-            <td><%- itinerary.id %></td>
-            <td><a href="<%- showItineraryPath(itinerary) %>">Show</a></td>
-          </tr>
-        <% }) %>
-      </tbody>
-    </table>
-    <% itin_index += 1;%>
-    <% }) %>
-  </div>
-<% } %>
+<div>
+  <form method="get" action="<%= superSearchPath %>">
+    <p> Rating </p>
+    <input type="radio" name="rating" value="5" checked> 5 stars<br>
+    <input type="radio" name="rating" value="4"> 4 stars or more<br>
+    <input type="radio" name="rating" value="3"> 3 stars or more<br>
+    <input type="radio" name="rating" value="2"> 2 stars or more<br>
+    <input type="radio" name="rating" value="1"> 1 star or more<br>
+    <!-- Cambiar donde dice "n stars" por fotos de estrellas de ratings -->
+  <!-- <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+      $( function() {
+        $( "#slider-range" ).slider({
+          range: true,
+          min: 0,
+          max: 2000000,
+          values: [ 0, 300000 ],
+          slide: function( event, ui ) {
+            $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+          }
+        });
+        $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+          " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+      } );
+      </script>
+      <p>
+        <label for="amount">Price range:</label>
+        <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+      </p>
+      <div id="slider-range"></div> -->
+  <br>
+  <p> Include at least one of these destinations </p>
+  <input type="text" placeholder="Desination 1..." name="destination1"><br>
+  <input type="text" placeholder="Desination 2..." name="destination2"><br>
+  <input type="text" placeholder="Desination 3..." name="destination3"><br>
+  <br>
+  <p> Months </p>
+  <input type="checkbox" name="verano" value="4"> December - March<br>
+  <input type="checkbox" name="otono" value="3"> March - June<br>
+  <input type="checkbox" name="invierno" value="2"> June - September<br>
+  <input type="checkbox" name="primavera" value="1"> September - December<br>
+
+  <br>
+  <input type="submit" value="Search">
+  </form>
+</div>
+<% if (simple) { %>
+  <% if (!destinationSearch.length) { %>
+    <p>No existe destino con ese nombre.</p>
+  <% } else { %>
+    <div>
+      <% let itin_index = 0 %>
+      <% destinationSearch.forEach((destination) => { %>
+      <a>Nombre destino: <%- destination.destinationName %></a>
+      <a>Foto:<%- destination.destinationPicture %></a>
+      <table id="itineraries-list">
+        <thead>
+            <tr>
+              <th>Itinerary name</th>
+              <th>Itinerary Id</th>
+              <th colspan="1">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+          <% itineraries[itin_index].forEach((itinerary) => { %>
+            <tr>
+              <td><%- itinerary.itineraryName %></td>
+              <td><%- itinerary.id %></td>
+              <td><a href="<%- showItineraryPath(itinerary) %>">Show</a></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% itin_index += 1;%>
+      <% }) %>
+    </div>
+  <% } %>
+ <% } else { }%>
