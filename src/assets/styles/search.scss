@@ -113,8 +113,56 @@ input[type=range]:focus::-ms-fill-upper {
   margin: 20px;
   border-radius: 10px;
   border: 1px solid $border;
+  button {
+    float: left;
+    padding: 4px 10px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    margin-left: 105px;
+    background: $btn-bg;
+    border: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background: $btn-hover-bg;
+    }
+  }
+  img {
+    max-width: 30px;
+  }
 }
 
 .col-2 {
   background-color: $bg-primary-color;
+  font-weight: bold;
+  font-size: 40px;
+}
+.star-ratings-css2 {
+  unicode-bidi: bidi-override;
+  color: #c5c5c5;
+  font-size: 25px;
+  height: 30px;
+  width: 100px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0;
+  text-shadow: 0px 1px 0 #a2a2a2;
+
+  &-top2 {
+    color: #e7711b;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+  }
+  &-bottom2 {
+    padding: 0;
+    display: block;
+    z-index: 0;
+  }
 }
