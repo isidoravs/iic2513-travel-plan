@@ -102,3 +102,19 @@ input[type=range]:focus::-ms-fill-upper {
 //.multi-range > input[type=range]::-moz-range-track { -webkit-appearance: none; height: 0px; }
 //.multi-range > input[type=range]::-ms-thumb { transform: translateY(-18px); }
 // .multi-range > input[type=range]::-ms-track { -webkit-appearance: none; height: 0px; }
+.container-grid {
+  display: grid;
+  grid-template-columns: 300px 1500px; /*columns widths*/
+  height: 40vh;
+}
+
+.col-1 {
+  background-color: $bg-primary-color;
+  margin: 20px;
+  border-radius: 10px;
+  border: 1px solid $border;
+}
+
+.col-2 {
+  background-color: $bg-primary-color;
+}

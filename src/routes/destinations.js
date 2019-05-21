@@ -68,6 +68,8 @@ router.get('destinations.find', '/search', async (ctx) => {
     destinationSearch,
     itineraries,
     showItineraryPath: itinerary => ctx.router.url('itineraries.show', { id: itinerary.id }),
+    editItineraryPath: itinerary => ctx.router.url('itineraries.edit', { id: itinerary.id }),
+    deleteItineraryPath: itinerary => ctx.router.url('itineraries.delete', { id: itinerary.id }),
     showDestinationPath: destination => ctx.router.url('destinations.show', { id: destination.id }),
     superSearchPath: ctx.router.url('destinations.supersearch'),
   });
@@ -115,8 +117,11 @@ router.get('destinations.supersearch', '/ssearch', async (ctx) => {
     destinationSearch,
     itinerary_fin,
     showItineraryPath: itinerary => ctx.router.url('itineraries.show', { id: itinerary.id }),
+    editItineraryPath: itinerary => ctx.router.url('itineraries.edit', { id: itinerary.id }),
+    deleteItineraryPath: itinerary => ctx.router.url('itineraries.delete', { id: itinerary.id }),
     showDestinationPath: destination => ctx.router.url('destinations.show', { id: destination.id }),
     superSearchPath: ctx.router.url('destinations.supersearch'),
+
   })
   // const rating = ctx.request.query.value;
   // const destinationSearch = await ctx.orm.destination.findAll({
