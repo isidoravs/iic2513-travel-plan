@@ -9,14 +9,10 @@
         </ul>
       </div>
     <% } %>
-    <form action="<%= submitUserPath %>" method="post">
+    <form action="<%= submitUserPath %>" enctype="multipart/form-data" method="post">
       <% if (!user.isNewRecord) { %>
         <input type="hidden" name="_method" value="patch" />
       <% } %>
-      <div class="field">
-        <label for="username">Username</label>
-        <input type="text" name="username" value="<%= user.username %>" />
-      </div>
       <div class="field">
         <label for="email">Email</label>
         <input type="email" name="email" value="<%= user.email %>" />
@@ -25,7 +21,15 @@
         <label for="password">Password</label>
         <input type="password" name="password" value="<%= user.password %>" />
       </div>
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" name="username" value="<%= user.username %>" />
+      </div>
       <% if (!(user.isNewRecord)) { %>
+        <div class="field">
+          <label for="publicName">Name</label>
+          <input type="text" name="publicName" value="<%= user.publicName %>" />
+        </div>
         <div class="field">
           <label for="birthDate">Birth Date</label>
           <input type="date" name="birthDate" value="<%= user.birthDate %>" />
@@ -39,12 +43,8 @@
           <input type="text" name="country" value="<%= user.country%>" />
         </div>
         <div class="field">
-          <label for="publicName">Public Name</label>
-          <input type="text" name="publicName" value="<%= user.publicName %>" />
-        </div>
-        <div class="field">
-          <label for="photo">Photo</label>
-          <input type="text" name="photo" value="<%= user.photo %>" />
+          <label for="userPicture">Profile Picture</label>
+          <input type="file" name="file" value="<%= user.photo %>" />
         </div>
       <% } %>
       <div class="field">
