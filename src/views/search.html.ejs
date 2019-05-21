@@ -2,11 +2,11 @@
 <div>
   <form method="get" action="<%= superSearchPath %>">
     <p> Rating </p>
-    <input type="radio" name="rating" value="5" checked> 5 stars<br>
-    <input type="radio" name="rating" value="4"> 4 stars or more<br>
-    <input type="radio" name="rating" value="3"> 3 stars or more<br>
-    <input type="radio" name="rating" value="2"> 2 stars or more<br>
-    <input type="radio" name="rating" value="1"> 1 star or more<br>
+    <input type="radio" name="rating" value=5 checked> 5 stars<br>
+    <input type="radio" name="rating" value=4> 4 stars or more<br>
+    <input type="radio" name="rating" value=3> 3 stars or more<br>
+    <input type="radio" name="rating" value=2> 2 stars or more<br>
+    <input type="radio" name="rating" value=1> 1 star or more<br>
     <!-- Cambiar donde dice "n stars" por fotos de estrellas de ratings -->
   <!-- <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,11 +41,29 @@
   <input type="text" placeholder="Desination 3..." name="destination3"><br>
   <br>
   <p> Months </p>
-  <input type="checkbox" name="verano" value="4"> December - March<br>
-  <input type="checkbox" name="otono" value="3"> March - June<br>
-  <input type="checkbox" name="invierno" value="2"> June - September<br>
-  <input type="checkbox" name="primavera" value="1"> September - December<br>
+  <input type="checkbox" name="verano" value="verano"> December - March<br>
+  <input type="checkbox" name="otono" value="otono"> March - June<br>
+  <input type="checkbox" name="invierno" value="invierno"> June - September<br>
+  <input type="checkbox" name="primavera" value="primavera"> September - December<br>
 
+  <br>
+  <p> Range of days </p>
+  <div class='multi-range' data-lbound='1' data-ubound='30'>
+    <hr />
+    <input type='range' name='minranged' min='1' max='29' step='1' value='1' oninput='this.form.mindays.value=this.value;'/>
+    <input type='range' name='maxranged' min='2' max='30' step='1' value='30'oninput='this.form.maxdays.value=this.value;'/>
+  </div>
+  <input type="number" name="mindays" min="1" max="29" value="1" oninput="this.form.minranged.value=this.value" />
+  <input type="number" name="maxdays" min="2" max="30" value="30" oninput="this.form.maxranged.value=this.value" />
+  <br>
+  <p> Budget </p>
+  <div class='multi-range' data-lbound='1' data-ubound='30'>
+    <hr />
+    <input type='range' name='minrangeb' min='50000' max='950000' step='50000' value='50000' oninput='this.form.minbud.value=this.value;'/>
+    <input type='range' name='maxrangeb' min='100000' max='1000000' step='50000' value='1000000'oninput='this.form.maxbud.value=this.value;'/>
+  </div>
+  <input type="number" name="minbud" min="50000" max="950000" value="50000" step='50000' oninput="this.form.minrangeb.value=this.value" />
+  <input type="number" name="maxbud" min="100000" max="1000000" value="1000000" step='50000' oninput="this.form.maxrangeb.value=this.value" />
   <br>
   <input type="submit" value="Search">
   </form>
@@ -81,4 +99,34 @@
       <% }) %>
     </div>
   <% } %>
- <% } else { }%>
+<%# --------------Busqueda avanzada con varios filtros----------------- %>
+ <% } else {%>
+   <div>
+     <% let itin_index = 0 %>
+     <% destinationSearch.forEach((destination) => { %>
+     <% if (itinerary_fin[itin_index].length){%>
+     <a>Nombre destino: <%- destination.destinationName %></a>
+     <a>Foto:<%- destination.destinationPicture %></a>
+     <table id="itineraries-list">
+       <thead>
+           <tr>
+             <th>Itinerary name</th>
+             <th>Itinerary Id</th>
+             <th colspan="1">Actions</th>
+           </tr>
+       </thead>
+       <tbody>
+         <% itinerary_fin[itin_index].forEach((itinerary) => { %>
+           <tr>
+             <td><%- itinerary.itineraryName %></td>
+             <td><%- itinerary.id %></td>
+             <td><a href="<%- showItineraryPath(itinerary) %>">Show</a></td>
+           </tr>
+         <% }) %>
+       </tbody>
+     </table>
+     <%}%>
+     <% itin_index += 1;%>
+     <% }) %>
+   </div>
+ <%}%>
