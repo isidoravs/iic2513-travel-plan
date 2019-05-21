@@ -43,6 +43,7 @@ router.get('itineraries.list', '/', async (ctx) => {
   const itinerariesList = await ctx.orm.itinerary.findAll();
   await ctx.render('itineraries/index', {
     itinerariesList,
+    usersList: await Promise.all(itinerariesList.map(i => ctx.orm.user.findById(i.userId))),
     newItineraryPath: ctx.router.url('itineraries.new'),
     showItineraryPath: itinerary => ctx.router.url('itineraries.show', { id: itinerary.id }),
     editItineraryPath: itinerary => ctx.router.url('itineraries.edit', { id: itinerary.id }),
@@ -58,8 +59,11 @@ router.get('itineraries.new', '/new', async (ctx) => {
 });
 router.get('itineraries.show', '/:id', ItineraryScoreUpdate, loadItinerary, async (ctx) => {
   const { itinerary } = ctx.state;
+  const user = await ctx.orm.user.findById(itinerary.userId);
   const daysList = await itinerary.getDays({ order: [['number', 'ASC']] });
   await ctx.render('itineraries/show', {
+    user,
+    showUserPath: ctx.router.url('users.show', { id: user.id }),
     itinerary,
     daysList,
     reviewsList: await itinerary.getReviews({ order: [['reviewDate', 'DESC']] }),
