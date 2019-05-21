@@ -2,7 +2,7 @@
   <div class="itinerary-info">
     <div class="itinerary-info__title"><%- itinerary.itineraryName %></div>
     <div class="itinerary-info__author">
-      By @<%- itinerary.userId %> | <%- itinerary.startDate %> to <%- itinerary.endDate %>
+      By @<a href="<%- showUserPath %>"><%- user.username %></a> | <%- itinerary.startDate %> to <%- itinerary.endDate %>
     </div>
   </div>
   <% if (currentUser && currentUser.id == itinerary.userId) { %>

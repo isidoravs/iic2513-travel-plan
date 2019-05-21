@@ -3,6 +3,7 @@
     <p>No results</p>
   <% } else { %>
     <% itinerariesList.forEach((itinerary, index) => { %>
+      <% user = usersList[index]%>
       <div class="itinerary-list-container">
         <div class="itinerary-list-container__picture">
           <% if ((index % 2) == 0) { %>
@@ -48,7 +49,7 @@
             <img src="<%= assetPath('default-user.png') %>">
           </div>
           <div class="itinerary-list-container__author__name">
-            <a href="/users/<%= itinerary.userId %>">@username</a>
+            <a href="/users/<%= itinerary.userId %>">@<%=user.username%></a>
           </div>
         </div>
       </div>

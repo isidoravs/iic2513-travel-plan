@@ -18,9 +18,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       validate: {
         notEmpty: {
-          msg: 'Username required.'
-        }
-      }
+          msg: 'Username required.',
+        },
+      },
     },
     email: {
       type: DataTypes.STRING,
@@ -29,25 +29,25 @@ module.exports = (sequelize, DataTypes) => {
       },
       validate: {
         notEmpty: {
-          msg: 'Email required.'
+          msg: 'Email required.',
         },
         isEmail: {
-          msg: 'Email wrong format'
-        }
-      }
+          msg: 'Email wrong format',
+        },
+      },
     },
     birthDate: DataTypes.DATEONLY,
     password: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: {
-          msg: 'Password required.'
+          msg: 'Password required.',
         },
-        len:{
+        len: {
           args: [6],
-          msg: 'Password of at least 6 characters'
+          msg: 'Password of at least 6 characters',
         },
-      }
+      },
     },
     country: DataTypes.STRING,
     gender: DataTypes.STRING,
