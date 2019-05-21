@@ -51,7 +51,7 @@ router.get('destinations.assign', '/itineraries/:id/add_destination', async (ctx
 });
 
 router.get('destinations.find', '/search', async (ctx) => {
-  const name = ctx.request.query.search;
+  const name = ctx.request.query.search.toLowerCase();
   const simple = true;
   const destinationSearch = await ctx.orm.destination.findAll({
     where: {
@@ -77,9 +77,9 @@ router.get('destinations.find', '/search', async (ctx) => {
 
 router.get('destinations.supersearch', '/ssearch', async (ctx) => {
   const simple = false;
-  let destination1 = ctx.request.query.destination1;
-  let destination2 = ctx.request.query.destination2;
-  let destination3 = ctx.request.query.destination3;
+  let destination1 = ctx.request.query.destination1.toLowerCase();
+  let destination2 = ctx.request.query.destination2.toLowerCase();
+  let destination3 = ctx.request.query.destination3.toLowerCase();
   if (destination1 != "" || destination2 != "" || destination3 != ""){
     if (destination1 == ""){
       destination1 = "aabbccdddeeffghhiijjka"
