@@ -1,4 +1,5 @@
 const KoaRouter = require('koa-router');
+const cloudinary = require('cloudinary').v2;
 
 const router = new KoaRouter();
 
@@ -88,11 +89,19 @@ router.post('users.create', '/', async (ctx) => {
 router.patch('users.update', '/:id', loadUser, async (ctx) => {
   const { user } = ctx.state;
   try {
+    const image = ctx.request.files.file;
     const {
-      username, email, password, birthDate, gender, country, publicName, photo,
+      username, email, password, birthDate, gender, country, publicName,
     } = ctx.request.body;
+
+    cloudinary.uploader.upload(image.path, async (error, result) => {
+      const photo = result.secure_url;
+      await user.update({ photo });
+      user.save();
+    });
+
     await user.update({
-      username, email, password, birthDate, gender, country, publicName, photo,
+      username, email, password, birthDate, gender, country, publicName,
     });
     ctx.redirect(ctx.router.url('users.show', { id: user.id }));
   } catch (validationError) {

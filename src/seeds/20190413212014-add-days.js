@@ -18,7 +18,6 @@ module.exports = {
       const record = {
         date: faker.date.past(),
         number: faker.random.number(),
-        dayPicture: faker.system.filePath(),
         createdAt: new Date(),
         updatedAt: new Date(),
       };

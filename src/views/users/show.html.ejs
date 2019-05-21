@@ -1,6 +1,10 @@
 <div class="user-header">
   <div class="user-image">
+    <% if(user.photo) { %>
+      <img src="<%= user.photo %>">
+    <% } else { %>
       <img src="<%= assetPath('default-user.png') %>">
+    <% } %>
   </div>
   <div class="user-info">
     <div class="user-info__name"><%- user.publicName %></div>
