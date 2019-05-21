@@ -77,9 +77,20 @@ router.get('destinations.find', '/search', async (ctx) => {
 
 router.get('destinations.supersearch', '/ssearch', async (ctx) => {
   const simple = false;
-  const destination1 = ctx.request.query.destination1;
-  const destination2 = ctx.request.query.destination2;
-  const destination3 = ctx.request.query.destination3;
+  let destination1 = ctx.request.query.destination1;
+  let destination2 = ctx.request.query.destination2;
+  let destination3 = ctx.request.query.destination3;
+  if (destination1 != "" || destination2 != "" || destination3 != ""){
+    if (destination1 == ""){
+      destination1 = "aabbccdddeeffghhiijjka"
+    }
+    if (destination2 == ""){
+      destination2 = "aabbccdddeeffghhiijjka"
+    }
+    if (destination3 == ""){
+      destination3 = "aabbccdddeeffghhiijjka"
+    }
+  }
   const rating = ctx.query.rating;
   const min_b = ctx.query.minrangeb;
   const max_b = ctx.query.maxrangeb;

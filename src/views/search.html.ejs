@@ -1,4 +1,4 @@
-<h2>Resultado de Busqueda</h2>
+<h2>Search results</h2>
 <div class="container-grid">
   <div class="col-1">
     <form method="get" action="<%= superSearchPath %>">
@@ -70,11 +70,11 @@
 
     <% if (simple) { %>
       <% if (!destinationSearch.length) { %>
-        <p>No existe destino con ese nombre.</p>
+        <p>No destination with that name.</p>
       <% } else { %>
           <% let itin_index = 0 %>
           <% destinationSearch.forEach((destination) => { %>
-          <h3>Nombre destino: <%- destination.destinationName %><h3>
+          <h3>Destination name: <%- destination.destinationName %><h3>
           <% itineraries[itin_index].forEach((itinerary) => { %>
             <div class="itinerary-list-container">
               <div class="itinerary-list-container__picture">
@@ -139,7 +139,7 @@
          <% let itin_index = 0 %>
          <% destinationSearch.forEach((destination) => { %>
          <% if (itinerary_fin[itin_index].length){%>
-           <h3>Nombre destino: <%- destination.destinationName %><h3>
+           <h3>Destination name: <%- destination.destinationName %><h3>
            <% itinerary_fin[itin_index].forEach((itinerary) => { %>
              <div class="itinerary-list-container">
                <div class="itinerary-list-container__picture">
