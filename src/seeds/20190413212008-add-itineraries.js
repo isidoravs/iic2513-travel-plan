@@ -20,7 +20,6 @@ module.exports = {
         startDate: faker.date.past(),
         endDate: faker.date.past(),
         labels: faker.lorem.words().split(' '),
-        itineraryPicture: faker.system.filePath(),
         description: faker.lorem.paragraph(),
         avgScore: faker.finance.amount(0, 5, 2),
         itineraryName: faker.random.locale(),
