@@ -224,7 +224,7 @@ router.post('destinations.itinerary.create', '/:id', async (ctx) => {
         destination_id: destination_id,
       }
     })
-    if (!exist){
+    if (!exist.length){
       await itineraryDestination.update({ itineraryId, destination_id });
     }
     ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
