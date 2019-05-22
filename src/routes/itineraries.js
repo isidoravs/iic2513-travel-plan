@@ -1,4 +1,5 @@
 const KoaRouter = require('koa-router');
+const cloudinary = require('cloudinary').v2;
 
 const router = new KoaRouter();
 
@@ -114,9 +115,15 @@ router.post('itineraries.create', '/', async (ctx) => {
 router.patch('itineraries.update', '/:id', loadItinerary, async (ctx) => {
   const { itinerary } = ctx.state;
   try {
+    const image = ctx.request.files.file;
     const {
       itineraryName, budget, startDate, endDate, description,
     } = ctx.request.body;
+    cloudinary.uploader.upload(image.path, async (error, result) => {
+      const itineraryPicture = result.secure_url;
+      await itinerary.update({ itineraryPicture });
+      itinerary.save();
+    });
     await itinerary.update({
       itineraryName, budget, startDate, endDate, description,
     });

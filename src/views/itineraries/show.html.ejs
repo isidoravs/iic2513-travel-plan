@@ -20,7 +20,11 @@
 <div class="itinerary-container">
   <div class="side-info">
     <div class="side-info__image">
-      Picture
+      <% if(itinerary.itineraryPicture) { %>
+        <img src="<%= itinerary.itineraryPicture %>">
+      <% } else { %>
+        <img src="<%= assetPath('default-itinerary.png') %>">
+      <% } %>
     </div>
     <div class="side-info__budget">
       $ <%- itinerary.budget %> USD
