@@ -14,6 +14,6 @@ module.exports = {
   },
   // defaults to be passed to nodemailer's emails
   defaults: {
-    from: 'template <travelnplan@example.org>',
+    from: 'Travel&Plan team <travelnplan@example.org>',
   },
 };
