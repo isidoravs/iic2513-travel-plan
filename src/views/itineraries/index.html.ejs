@@ -2,14 +2,13 @@
   <% if (!itinerariesList.length) { %>
     <p>No results</p>
   <% } else { %>
-    <% itinerariesList.forEach((itinerary, index) => { %>
-      <% user = usersList[index]%>
+    <% itinerariesList.forEach((itinerary) => { %>
       <div class="itinerary-list-container">
         <div class="itinerary-list-container__picture">
-          <% if ((index % 2) == 0) { %>
-            <a href="/itineraries/<%= itinerary.id %>"><img src="<%= assetPath('itinerary-pic1.jpg') %>"></a>
+          <% if(itinerary.itineraryPicture) { %>
+            <a href="/itineraries/<%= itinerary.id %>"><img src="<%= itinerary.itineraryPicture %>"></a>
           <% } else { %>
-            <a href="/itineraries/<%= itinerary.id %>"><img src="<%= assetPath('itinerary-pic2.jpg') %>"></a>
+            <a href="/itineraries/<%= itinerary.id %>"><img src="<%= assetPath('default-itinerary.png') %>"></a>
           <% } %>
         </div>
         <div class="itinerary-list-container__info">
