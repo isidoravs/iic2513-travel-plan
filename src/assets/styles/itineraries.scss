@@ -272,6 +272,7 @@
   display: flex;
   flex-direction: column;
   background-color: $bg-primary-color;
+  max-height: 400px;
 
   &__title {
     padding: 20px;
@@ -280,15 +281,15 @@
   }
 
   &__info {
-    display: flex;
     margin: 20px;
+    overflow: auto;
+    flex: 1;
   }
 }
 
 .review {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 
   &__author {
     display: flex;
@@ -310,6 +311,11 @@
         font-size: 15px;
         color: $primary-text;
         padding-bottom: 5px;
+
+        a {
+          text-decoration: none;
+          color: $primary-text;
+        }
       }
 
       #review-date {
@@ -323,10 +329,33 @@
   }
 
   &__comment {
+    flex: 1;
     margin: 10px;
     color: $secondary-text;
     padding-left: 10px;
     border-left: 1px solid $light-border;
+  }
+}
+
+.rate-itineray {
+  margin-top: 10px;
+  align-items: right;
+  font-size: 13px;
+
+  a {
+    color: $btn-bg;
+    font-weight: bold;
+  }
+}
+
+.back-to-itineraries {
+  margin: 10px;
+  align-items: right;
+  font-size: 13px;
+
+  a {
+    color: $btn-bg;
+    font-weight: bold;
   }
 }
 
