@@ -2,7 +2,8 @@
   <% if (!itinerariesList.length) { %>
     <p>No results</p>
   <% } else { %>
-    <% itinerariesList.forEach((itinerary) => { %>
+    <% itinerariesList.forEach((itinerary, index) => { %>
+      <% user = usersList[index] %>
       <div class="itinerary-list-container">
         <div class="itinerary-list-container__picture">
           <% if(itinerary.itineraryPicture) { %>

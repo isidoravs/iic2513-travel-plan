@@ -16,6 +16,11 @@
   &__author {
     color: $secondary-text;
     margin-left: 10px;
+    a {
+      text-decoration: none;
+      font-weight: bold;
+      color: $primary-text;
+    }
   }
 }
 
@@ -427,6 +432,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    font-weight: bold;
 
     &__picture {
       display: flex;
