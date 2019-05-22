@@ -2,7 +2,7 @@
   <div class="itinerary-info">
     <div class="itinerary-info__title"><%- itinerary.itineraryName %></div>
     <div class="itinerary-info__author">
-      By @<a href="<%- showUserPath %>"><%- user.username %></a> | <%- itinerary.startDate %> to <%- itinerary.endDate %>
+      By <a href="<%- showUserPath %>">@<%- user.username %></a> | <%- itinerary.startDate %> to <%- itinerary.endDate %>
     </div>
   </div>
   <% if (currentUser && currentUser.id == itinerary.userId) { %>
@@ -67,7 +67,11 @@
         <% daysList.forEach((day, index) => { %>
           <div class="day-container">
             <div class="day-container__info">
-              <div class="day-container__info__header">
+              <% if(day.dayPicture) { %>
+                <div class="day-container__info__header">
+              <% } else { %>
+                <div class="day-container__info__header-no-pic">
+              <% } %>
                 Day <%- day.number%>: <%- day.date %>
               </div>
               <% if (currentUser && currentUser.id == itinerary.userId) { %>
@@ -118,7 +122,9 @@
               </div>
             </div>
             <div class="day-container__image">
-              <img src="<%= assetPath('itinerary-pic1.jpg') %>">
+              <% if(day.dayPicture) { %>
+                <img src="<%= day.dayPicture %>">
+              <% } %>
             </div>
           </div>
         <% }) %>

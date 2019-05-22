@@ -293,12 +293,14 @@ router.patch('itineraries.days.update', '/:id/days/:did/update', loadItinerary, 
   const { itinerary } = ctx.state;
   const day = await ctx.orm.day.findById(ctx.params.did);
   try {
-    const {
-      number, date, dayPicture,
-    } = ctx.request.body;
-    await day.update({
-      number, date, dayPicture,
+    const image = ctx.request.files.file;
+    const { number, date } = ctx.request.body;
+    cloudinary.uploader.upload(image.path, async (error, result) => {
+      const dayPicture = result.secure_url;
+      await day.update({ dayPicture });
+      day.save();
     });
+    await day.update({ number, date });
     ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
   } catch (validationError) {
     await ctx.render('days/edit', {
