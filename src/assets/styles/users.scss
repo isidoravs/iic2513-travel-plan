@@ -137,11 +137,12 @@
     .itinerary-container {
       flex: 1 1 auto;
       width: 100px;
-      padding: 15px;
+      padding: 5px;
       margin: 15px;
       border-radius: 5px;
       border: 1px solid $border;
-      justify-content: center;
+      justify-content: space-around;
+      align-items: center;
       background: $bg-third-color;
 
       a {
@@ -149,6 +150,14 @@
         font-size: 20px;
         color: $primary-text;
         padding: 50px;
+      }
+
+      img {
+        width:100%;
+        max-height: 150px;
+        object-fit: cover;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
       }
     }
   }

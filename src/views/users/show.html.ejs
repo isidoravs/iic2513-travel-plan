@@ -40,6 +40,9 @@
     <% itinerariesList.forEach((itinerary) => { %>
       <div class="itinerary-container">
         <a href="<%- showItineraryPath(itinerary) %>"><%- itinerary.itineraryName %></a>
+        <% if(itinerary.itineraryPicture) { %>
+          <img src="<%= itinerary.itineraryPicture %>">
+        <% } %>
       </div>
     <% }) %>
   </div>
