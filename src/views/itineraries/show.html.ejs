@@ -161,7 +161,15 @@
             <div class="review__author__info">
               <div id="review-username">By <a href="/users/<%= review.userId %>">@<%=user.username%></a></div>
               <div id="review-score">Score: <%- review.score %></div>
-              <div id="review-date"><%- review.reviewDate %></div>
+              <%
+              var date = review.reviewDate;
+              var dd = String(date.getDate()).padStart(2, '0');
+              var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+              var yyyy = date.getFullYear();
+
+              date = mm + '/' + dd + '/' + yyyy;
+              %>
+              <div id="review-date"><%= date %></div>
             </div>
           </div>
           <div class="review__comment">

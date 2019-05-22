@@ -32,7 +32,7 @@
       <% if (!(itinerary.isNewRecord)) { %>
         <div class="field">
           <label for="description">Description</label>
-          <textarea type="text" name="description"><%= itinerary.description %></textarea>
+          <textarea type="text" name="description" value="<%= itinerary.description %>"><%= itinerary.description %></textarea>
         </div>
         <div class="field">
           <label for="itineraryPicture">Itinerary Cover Picture</label>
