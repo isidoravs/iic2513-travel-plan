@@ -294,7 +294,10 @@
   padding-bottom: 10px;
   padding-top: 10px;
   height: 150px;
-  border-bottom: 1px solid $light-border;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $light-border;
+  }
 
   &__author {
     display: flex;
