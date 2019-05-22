@@ -51,7 +51,11 @@
         </div>
         <div class="itinerary-list-container__author">
           <div class="itinerary-list-container__author__picture">
-            <img src="<%= assetPath('default-user.png') %>">
+            <% if(user.photo) { %>
+              <img src="<%= user.photo %>">
+            <% } else { %>
+              <img src="<%= assetPath('default-user.png') %>">
+            <% } %>
           </div>
           <div class="itinerary-list-container__author__name">
             <a href="/users/<%= itinerary.userId %>">@<%=user.username%></a>
