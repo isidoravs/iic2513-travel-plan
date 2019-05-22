@@ -1,7 +1,21 @@
 module.exports = (sequelize, DataTypes) => {
   const day = sequelize.define('day', {
-    date: DataTypes.DATEONLY,
-    number: DataTypes.INTEGER,
+    date: {
+      type: DataTypes.DATEONLY,
+      validate: {
+        notEmpty:{
+        msg: 'Date required.'
+        }
+      }
+    },
+    number: {
+      type: DataTypes.INTEGER,
+      validate: {
+          notEmpty: {
+            msg: 'Day number required.',
+          },
+      }
+    },
     dayPicture: DataTypes.STRING,
     itineraryId: DataTypes.INTEGER,
   }, {});

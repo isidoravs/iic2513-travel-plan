@@ -286,7 +286,7 @@ router.post('itineraries.days.create', '/:id/days/create', loadItinerary, async 
     await ctx.render('days/new', {
       day,
       errors: validationError.errors,
-      submitDayPath: ctx.router.url('days.create'),
+      submitItineraryDayPath: ctx.router.url('itineraries.days.create', { id: itinerary.id }),
     });
   }
 });

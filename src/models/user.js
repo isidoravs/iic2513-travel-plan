@@ -36,7 +36,10 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
-    birthDate: DataTypes.DATEONLY,
+    birthDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: true,
+    },
     password: {
       type: DataTypes.STRING,
       validate: {
@@ -49,12 +52,24 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
     },
-    country: DataTypes.STRING,
-    gender: DataTypes.STRING,
-    publicName: DataTypes.STRING,
+    country: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    gender: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    publicName: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     privateAccount: DataTypes.BOOLEAN,
     score: DataTypes.FLOAT,
-    photo: DataTypes.STRING,
+    photo: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   }, {});
   // eslint-disable-next-line func-names
   user.associate = function (models) {
