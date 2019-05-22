@@ -1,7 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
   const review = sequelize.define('review', {
     comment: DataTypes.TEXT,
-    score: DataTypes.FLOAT,
+    score: {
+      type: DataTypes.FLOAT,
+      validate:{
+        notEmpty: {
+          msg: 'Score required.'
+        }
+      }
+    },
     reviewDate: DataTypes.DATE,
     userId: DataTypes.INTEGER,
     itineraryId: DataTypes.INTEGER,

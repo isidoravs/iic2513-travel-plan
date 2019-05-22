@@ -46,7 +46,7 @@ router.post('days.create', '/', async (ctx) => {
     await ctx.render('days/new', {
       day,
       errors: validationError.errors,
-      submitDayPath: ctx.router.url('days.create'),
+      submitIteneraryDayPath: ctx.router.url('days.create'),
     });
   }
 });

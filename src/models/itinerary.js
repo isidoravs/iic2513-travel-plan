@@ -8,8 +8,27 @@ module.exports = (sequelize, DataTypes) => {
         },
       }
     },
-    startDate: DataTypes.DATEONLY,
-    endDate: DataTypes.DATEONLY,
+    startDate: {
+      type: DataTypes.DATEONLY,
+      validate: {
+        notEmpty:{
+        msg: 'Start date required.'
+        }
+      }
+    },
+    endDate: {
+      type: DataTypes.DATEONLY,
+      validate: {
+        notEmpty:{
+          msg: 'End date required.'
+        },
+        greater(value){
+          if( value <= this.startDate){
+            throw new Error('End date must be after the start date');
+          }
+        }
+      }
+    },
     labels: DataTypes.ARRAY(DataTypes.TEXT),
     itineraryPicture: DataTypes.STRING,
     description: DataTypes.TEXT,
@@ -32,10 +51,14 @@ module.exports = (sequelize, DataTypes) => {
     itinerary.hasMany(models.day, {
       foreignKey: 'itineraryId',
       as: 'days',
+      onDelete: 'cascade',
+      hooks: true
     });
     itinerary.hasMany(models.review, {
       foreignKey: 'itineraryId',
       as: 'reviews',
+      onDelete: 'cascade',
+      hooks: true
     });
     itinerary.belongsToMany(models.destination, {
       through: 'itineraryDestination',
