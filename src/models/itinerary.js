@@ -32,10 +32,14 @@ module.exports = (sequelize, DataTypes) => {
     itinerary.hasMany(models.day, {
       foreignKey: 'itineraryId',
       as: 'days',
+      onDelete: 'cascade',
+      hooks: true
     });
     itinerary.hasMany(models.review, {
       foreignKey: 'itineraryId',
       as: 'reviews',
+      onDelete: 'cascade',
+      hooks: true
     });
     itinerary.belongsToMany(models.destination, {
       through: 'itineraryDestination',

@@ -61,10 +61,14 @@ module.exports = (sequelize, DataTypes) => {
     user.hasMany(models.itinerary, {
       foreignKey: 'userId',
       as: 'itineraries',
+      onDelete: 'cascade',
+      hooks: true
     });
     user.hasMany(models.review, {
       foreignKey: 'userId',
       as: 'reviews',
+      onDelete: 'cascade',
+      hooks: true
     });
   };
 

@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     day.hasMany(models.activity, {
       foreignKey: 'dayId',
       as: 'activities',
+      onDelete: 'cascade',
+      hooks: true
     });
     day.belongsTo(models.itinerary, {
       foreignKey: 'itineraryId',
