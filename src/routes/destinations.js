@@ -203,6 +203,7 @@ router.post('destinations.itinerary.create', '/:id', async (ctx) => {
   const itinerary = await ctx.orm.itinerary.findById(ctx.params.id);
   const itineraryDestination = ctx.orm.itineraryDestination.build();
   try {
+    destination.destinationName = destination.destinationName.toLowerCase();
     await destination.save({ fields: ['destinationName', 'destinationPicture'] });
     const itineraryId = itinerary.id;
     // eslint-disable-next-line camelcase
@@ -210,11 +211,21 @@ router.post('destinations.itinerary.create', '/:id', async (ctx) => {
     await itineraryDestination.update({ itineraryId, destination_id });
     ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
   } catch (validationError) {
-    await ctx.render('destinations/new', {
-      destination,
-      errors: validationError.errors,
-      submitDestinationPath: ctx.router.url('destinations.create'),
+    const d_name = ctx.request.body.destinationName.toLowerCase()
+    const destination_e = await ctx.orm.destination.findAll({
+      where: {
+        destinationName: d_name
+      },
     });
+    const itineraryId = itinerary.id;
+    const destination_id = destination_e[0].id;
+    await itineraryDestination.update({ itineraryId, destination_id });
+    ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
+    // await ctx.render('destinations/new', {
+    //   destination,
+    //   errors: validationError.errors,
+    //   submitDestinationPath: ctx.router.url('destinations.create'),
+    // });
   }
 });
 
