@@ -428,8 +428,16 @@ router.post('itineraries.days.destinations.create', '/:id/days/:did/destinations
     const dayId = day.id;
     const itineraryId = itinerary.id;
     const destination_id = destination_e[0].id;
+    const exist = await ctx.orm.itineraryDestination.findAll({
+      where: {
+        itineraryId: itineraryId,
+        destination_id: destination_id,
+      }
+    })
     await dayDestination.update({ dayId, destination_id });
-    await itineraryDestination.update({ itineraryId, destination_id });
+    if (!exist){
+      await itineraryDestination.update({ itineraryId, destination_id });
+    }
     ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
     // await ctx.render('destinations/new', {
     //   destination,
