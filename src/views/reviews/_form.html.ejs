@@ -19,7 +19,7 @@
       </div>
       <div class="field">
         <label for="score">Score</label>
-        <input type="number" name="score" value="<%= review.score %>" />
+        <input type="number" name="score" value="<%= review.score %>" min="0" max="5" />
       </div>
       <div class="field">
         <% if (review.isNewRecord) { %>

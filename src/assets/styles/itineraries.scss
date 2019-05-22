@@ -370,6 +370,7 @@
     min-width: 200px;
     text-overflow: ellipsis;
     overflow: hidden;
+    max-width: 750px;
 
     &__title {
       font-weight: bold;
