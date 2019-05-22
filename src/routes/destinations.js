@@ -96,27 +96,26 @@ router.get('destinations.supersearch', '/ssearch', async (ctx) => {
   const max_b = ctx.query.maxrangeb;
   const min_d = ctx.query.minranged;
   const max_d = ctx.query.maxranged;
-  console.log(min_b, max_b)
   const destinationSearch = await ctx.orm.destination.findAll({
-    where: {
-      destinationName: {
-        [op.like]: {
-          [op.any]: [`%${destination1}%`, `%${destination2}%`, `%${destination3}%`]
-        }
+      where: {
+        destinationName: {
+          [op.like]: {
+            [op.any]: [`%${destination1}%`, `%${destination2}%`, `%${destination3}%`]
+          }
+        },
       },
-    },
-  });
+    });
   let itinerary_fin = [];
   let itinerary_dest;
   const itineraries = await Promise.all(destinationSearch.map(destination => destination.getItineraries()));
   itineraries.forEach((destination) => {
     itinerary_dest = [];
     destination.forEach((itinerary) => {
-      if (itinerary.avgScore >= rating){
+      if (itinerary.avgScore >= rating || !itinerary.avgScore){
         if (itinerary.budget <= max_b && itinerary.budget >= min_b){
           let days = (Date.parse(itinerary.endDate) - Date.parse(itinerary.startDate))/86400000;
           if (days <= max_d && days >= min_d){
-            itinerary_dest.push(itinerary);
+              itinerary_dest.push(itinerary);
           }
         }
       }
