@@ -217,6 +217,16 @@
       font-size: 15px;
       border-top-left-radius: 20px;
     }
+
+    &__header-no-pic {
+      background: $primary-color;
+      color: $home-title-color;
+      font-weight: bold;
+      padding: 20px;
+      font-size: 15px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
   }
 
   &__image {
