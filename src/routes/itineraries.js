@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const KoaRouter = require('koa-router');
 const cloudinary = require('cloudinary').v2;
 
@@ -62,12 +63,14 @@ router.get('itineraries.show', '/:id', ItineraryScoreUpdate, loadItinerary, asyn
   const { itinerary } = ctx.state;
   const user = await ctx.orm.user.findById(itinerary.userId);
   const daysList = await itinerary.getDays({ order: [['number', 'ASC']] });
+  const reviewsList = await itinerary.getReviews({ order: [['reviewDate', 'DESC']] });
   await ctx.render('itineraries/show', {
     user,
     showUserPath: ctx.router.url('users.show', { id: user.id }),
     itinerary,
     daysList,
-    reviewsList: await itinerary.getReviews({ order: [['reviewDate', 'DESC']] }),
+    reviewsList,
+    reviewsUsersList: await Promise.all(reviewsList.map(r => ctx.orm.user.findById(r.userId))),
     activitiesList: await Promise.all(daysList.map(d => d.getActivities())),
     destinationsList: await itinerary.getDestinations(),
     newReviewPath: ctx.router.url('itineraries.reviews.new', { id: itinerary.id }),
@@ -130,10 +133,11 @@ router.patch('itineraries.update', '/:id', loadItinerary, async (ctx) => {
     });
     ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
   } catch (validationError) {
+    console.log(validationError);
     await ctx.render('itineraries/edit', {
       itinerary,
       errors: validationError.errors,
-      submitItineraryPath: ctx.router.url('itineraries.update'),
+      submitItineraryPath: ctx.router.url('itineraries.update', { id: itinerary.id }),
     });
   }
 });
@@ -432,10 +436,10 @@ router.post('itineraries.days.destinations.create', '/:id/days/:did/destinations
     await itineraryDestination.update({ itineraryId, destination_id });
     ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
   } catch (validationError) {
-    const d_name = ctx.request.body.destinationName.toLowerCase()
+    const d_name = ctx.request.body.destinationName.toLowerCase();
     const destination_e = await ctx.orm.destination.findAll({
       where: {
-        destinationName: d_name
+        destinationName: d_name,
       },
     });
     const dayId = day.id;
@@ -443,12 +447,12 @@ router.post('itineraries.days.destinations.create', '/:id/days/:did/destinations
     const destination_id = destination_e[0].id;
     const exist = await ctx.orm.itineraryDestination.findAll({
       where: {
-        itineraryId: itineraryId,
-        destination_id: destination_id,
-      }
-    })
+        itineraryId,
+        destination_id,
+      },
+    });
     await dayDestination.update({ dayId, destination_id });
-    if (!exist.length){
+    if (!exist.length) {
       await itineraryDestination.update({ itineraryId, destination_id });
     }
     ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));

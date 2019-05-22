@@ -115,6 +115,6 @@ router.patch('users.update', '/:id', loadUser, async (ctx) => {
 router.del('users.delete', '/:id', loadUser, async (ctx) => {
   const { user } = ctx.state;
   await user.destroy();
-  ctx.redirect(ctx.router.url('users.list'));
+  ctx.redirect(ctx.router.url('sessions.new'));
 });
 module.exports = router;
