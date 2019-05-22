@@ -94,6 +94,9 @@
                     <a href="<%- newDayActivityPath(day) %>" class="itinerary-edit__btn" id="add-activity" title="Add activity">
                       + Activity
                     </a>
+                    <a href="<%- newDestinationDayPath(day) %>" class="itinerary-edit__btn" id="add-destination" title="Add destination">
+                      + Destination
+                    </a>
                   </div>
                 <% } %>
                 <% if (!activitiesList[index].length) { %>
@@ -169,5 +172,3 @@
     <% }) %>
   </tbody>
 </table>
-
-
