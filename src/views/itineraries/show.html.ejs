@@ -135,10 +135,32 @@
     </div>
   </div>
 </div>
-<a href="/itineraries" class="back">Back to all itineraries</a>
 <% if (currentUser) { %>
   <a href="<%- newReviewPath %>" class="back">New Comment</a>
 <% } %>
+<div class="review-container">
+  <div class="review-container__title">Reviews</div>
+  <div class="review-container__info">
+      <% reviewsList.forEach((review, index) => { %>
+        <div class="review">
+          <div class="review__author">
+            <div class="review__author__image">
+              <img src="<%= assetPath('default-user.png') %>">
+            </div>
+            <div class="review__author__info">
+              <div id="review-username">By @juanita</div>
+              <div id="review-score">Score: <%- review.score %></div>
+              <div id="review-date"><%- review.reviewDate %></div>
+            </div>
+          </div>
+          <div class="review__comment">
+            <%- review.comment %>
+          </div>
+        </div>
+      <% }) %>
+  </div>
+</div>
+<a href="/itineraries" class="back">Back to all itineraries</a>
 <h2>Reviews:</h2>
 <table id="reviews-list">
   <thead>
