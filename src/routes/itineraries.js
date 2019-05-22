@@ -81,6 +81,7 @@ router.get('itineraries.show', '/:id', ItineraryScoreUpdate, loadItinerary, asyn
     deleteReviewPath: review => ctx.router.url('itineraries.reviews.delete', { id: itinerary.id, rid: review.id }),
     newDestinationPath: ctx.router.url('destinations.itinerary.new', { id: itinerary.id }),
     addDestinationPath: ctx.router.url('destinations.assign', { id: itinerary.id }),
+    newDestinationDayPath: day => ctx.router.url('itineraries.days.destinations.new', { did: day.id, id: itinerary.id }),
   });
 });
 router.get('itineraries.edit', '/:id/edit', loadItinerary, async (ctx) => {
@@ -316,6 +317,7 @@ router.get('itineraries.days.activities.new', '/:id/days/:did/activities/new', l
     submitDayActivityPath: ctx.router.url('itineraries.days.activities.create', { id: itinerary.id, did: day.id }),
   });
 });
+
 router.get('itineraries.days.activities.edit', '/:id/days/:did/activities/:aid/edit', loadItinerary, loadDay, loadActivity, async (ctx) => {
   const { itinerary } = ctx.state;
   const day = await ctx.orm.day.findById(ctx.params.did);
@@ -386,5 +388,54 @@ router.del('itineraries.days.activities.delete', '/:id/days/:did/activities/:aid
   const activity = await ctx.orm.activity.findById(ctx.params.aid);
   await activity.destroy();
   ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
+});
+
+router.get('itineraries.days.destinations.new', '/:id/days/:did/destinations/new', loadItinerary, loadDay, async (ctx) => {
+  const destination = ctx.orm.destination.build();
+  const { itinerary } = ctx.state;
+  const { day } = ctx.state;
+  await ctx.render('destinations/new', {
+    itinerary,
+    day,
+    destination,
+    submitDestinationPath: ctx.router.url('itineraries.days.destinations.create', { id: itinerary.id, did: day.id }),
+  });
+});
+
+router.post('itineraries.days.destinations.create', '/:id/days/:did/destinations', loadItinerary, async (ctx) => {
+  const { itinerary } = ctx.state;
+  const destination = ctx.orm.destination.build(ctx.request.body);
+  const day = await ctx.orm.day.findById(ctx.params.did);
+  const dayDestination = ctx.orm.dayDestination.build();
+  const itineraryDestination = ctx.orm.itineraryDestination.build();
+  try {
+    destination.destinationName = destination.destinationName.toLowerCase();
+    await destination.save({ fields: ['destinationName', 'destinationPicture'] });
+    const dayId = day.id;
+    const itineraryId = itinerary.id;
+    // eslint-disable-next-line camelcase
+    const destination_id = destination.id;
+    await dayDestination.update({ dayId, destination_id });
+    await itineraryDestination.update({ itineraryId, destination_id });
+    ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
+  } catch (validationError) {
+    const d_name = ctx.request.body.destinationName.toLowerCase()
+    const destination_e = await ctx.orm.destination.findAll({
+      where: {
+        destinationName: d_name
+      },
+    });
+    const dayId = day.id;
+    const itineraryId = itinerary.id;
+    const destination_id = destination_e[0].id;
+    await dayDestination.update({ dayId, destination_id });
+    await itineraryDestination.update({ itineraryId, destination_id });
+    ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
+    // await ctx.render('destinations/new', {
+    //   destination,
+    //   errors: validationError.errors,
+    //   submitDestinationPath: ctx.router.url('destinations.create'),
+    // });
+  }
 });
 module.exports = router;
