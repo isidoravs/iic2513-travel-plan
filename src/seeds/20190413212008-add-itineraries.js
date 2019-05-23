@@ -2,7 +2,7 @@
 var faker = require('faker');
 
 module.exports = {
-  up: (queryInterface) => {
+  up: async (queryInterface) => {
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
@@ -14,17 +14,21 @@ module.exports = {
       }], {});
     */
     const itinerariesData = [];
+    const allUsers = await queryInterface.sequelize.query(
+      'SELECT id from USERS;',
+    );
+    const allUserIds = allUsers[0];
+
     for (let i = 0; i < 50; i += 1) {
       const record = {
         budget: faker.commerce.price(),
         startDate: faker.date.past(),
         endDate: faker.date.past(),
         labels: faker.lorem.words().split(' '),
-        itineraryPicture: faker.system.filePath(),
         description: faker.lorem.paragraph(),
-        avgScore: faker.random.number(),
+        avgScore: faker.finance.amount(0, 5, 2),
         itineraryName: faker.random.locale(),
-        userId: i,
+        userId: allUserIds[i].id,
         createdAt: new Date(),
         updatedAt: new Date(),
       };

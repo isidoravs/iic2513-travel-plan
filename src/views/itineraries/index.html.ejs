@@ -3,17 +3,18 @@
     <p>No results</p>
   <% } else { %>
     <% itinerariesList.forEach((itinerary, index) => { %>
+      <% user = usersList[index] %>
       <div class="itinerary-list-container">
         <div class="itinerary-list-container__picture">
-          <% if ((index % 2) == 0) { %>
-            <a href="/itineraries/<%= itinerary.id %>"><img src="<%= assetPath('itinerary-pic1.jpg') %>"></a>
+          <% if(itinerary.itineraryPicture) { %>
+            <a href="/itineraries/<%= itinerary.id %>"><img src="<%= itinerary.itineraryPicture %>"></a>
           <% } else { %>
-            <a href="/itineraries/<%= itinerary.id %>"><img src="<%= assetPath('itinerary-pic2.jpg') %>"></a>
+            <a href="/itineraries/<%= itinerary.id %>"><img src="<%= assetPath('default-itinerary.png') %>"></a>
           <% } %>
         </div>
         <div class="itinerary-list-container__info">
           <div class="itinerary-list-container__info__title">
-            <div><%- itinerary.itineraryName %></div>
+            <div><a href="/itineraries/<%= itinerary.id %>"><%- itinerary.itineraryName %></a></div>
             <% if (currentUser && currentUser.id == itinerary.userId) { %>
               <div class="day-container__info__edit">
                 <a href="<%- editItineraryPath(itinerary) %>">edit</a>
@@ -28,7 +29,12 @@
             <div id="dates"><%- itinerary.startDate %> - <%- itinerary.endDate %></div>
             <div id="budget">$ <%- itinerary.budget %> USD</div>
             <div id="score">Score: <%- itinerary.avgScore %></div>
-            <div class="rate">
+            <!-- https://codepen.io/Bluetidepro/pen/GkpEa -->
+            <div class="star-ratings-css">
+              <div class="star-ratings-css-top" style="width: <%= (itinerary.avgScore/5)*100 %>%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            </div>
+            <!-- <div class="rate">
               <input type="radio" id="star5" name="rate" value="5" />
               <label for="star5" title="5 stars">5 stars</label>
               <input type="radio" id="star4" name="rate" value="4" />
@@ -39,16 +45,20 @@
               <label for="star2" title="2 stars">2 stars</label>
               <input type="radio" id="star1" name="rate" value="1" />
               <label for="star1" title="1 star">1 star</label>
-            </div>
+            </div> -->
           </div>
           <div class="itinerary-list-container__info__description"><%- itinerary.description %></div>
         </div>
         <div class="itinerary-list-container__author">
           <div class="itinerary-list-container__author__picture">
-            <img src="<%= assetPath('default-user.png') %>">
+            <% if(user.photo) { %>
+              <img src="<%= user.photo %>">
+            <% } else { %>
+              <img src="<%= assetPath('default-user.png') %>">
+            <% } %>
           </div>
           <div class="itinerary-list-container__author__name">
-            <a href="/users/<%= itinerary.userId %>">@username</a>
+            <a href="/users/<%= itinerary.userId %>">@<%=user.username%></a>
           </div>
         </div>
       </div>

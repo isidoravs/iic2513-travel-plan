@@ -14,13 +14,13 @@
             <input type="hidden" name="_method" value="patch" />
           <% } %>
           <div class="field">
-            <label for="destinationName">Name</label>
+            <label for="destinationName">Destination Name</label>
             <input type="text" name="destinationName" value="<%= destination.destinationName %>" />
           </div>
-          <div class="field">
+          <!-- <div class="field">
             <label for="destinationPicture">Picture</label>
             <input type="text" name="destinationPicture" value="<%= destination.destinationPicture %>" />
-          </div>
+          </div> -->
           <div class="field">
             <% if (destination.isNewRecord) { %>
               <input type="submit" name="create" value="Create" />

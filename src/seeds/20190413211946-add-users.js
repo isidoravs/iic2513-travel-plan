@@ -25,7 +25,6 @@ module.exports = {
         publicName: faker.name.firstName(),
         privateAccount: faker.random.boolean(),
         score: faker.random.number(),
-        photo: faker.system.filePath(),
         createdAt: new Date(),
         updatedAt: new Date(),
       };

@@ -41,7 +41,10 @@ router.get('reviews.show', '/:id', loadReview, async (ctx) => {
 router.post('reviews.create', '/', async (ctx) => {
   const review = ctx.orm.review.build(ctx.request.body);
   try {
-    await review.save({ fields: ['comment', 'score', 'reviewDate'] });
+    await review.save({ fields: ['comment', 'score'] });
+    const reviewDate = new Date();
+    await review.update({ reviewDate });
+
     ctx.redirect(ctx.router.url('reviews.list'));
   } catch (validationError) {
     await ctx.render('reviews/new', {

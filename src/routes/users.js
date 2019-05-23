@@ -1,4 +1,5 @@
 const KoaRouter = require('koa-router');
+const cloudinary = require('cloudinary').v2;
 
 const router = new KoaRouter();
 
@@ -72,10 +73,11 @@ router.post('users.create', '/', async (ctx) => {
   const user = ctx.orm.user.build(ctx.request.body);
   try {
     await user.save({ fields: ['username', 'email', 'password'] });
-    ctx.redirect(ctx.router.url('sessions.new'));
+    ctx.session.userId = user.id;
     const score = 0;
     await user.update({ score });
     await sendSignUpAlertEmail(ctx, { user });
+    ctx.redirect(ctx.router.url('itineraries.list'));
   } catch (validationError) {
     await ctx.render('users/new', {
       user,
@@ -87,11 +89,19 @@ router.post('users.create', '/', async (ctx) => {
 router.patch('users.update', '/:id', loadUser, async (ctx) => {
   const { user } = ctx.state;
   try {
+    const image = ctx.request.files.file;
     const {
-      username, email, password, birthDate, gender, country, publicName, photo,
+      username, email, password, birthDate, gender, country, publicName,
     } = ctx.request.body;
+
+    cloudinary.uploader.upload(image.path, async (error, result) => {
+      const photo = result.secure_url;
+      await user.update({ photo });
+      user.save();
+    });
+
     await user.update({
-      username, email, password, birthDate, gender, country, publicName, photo,
+      username, email, password, birthDate, gender, country, publicName,
     });
     ctx.redirect(ctx.router.url('users.show', { id: user.id }));
   } catch (validationError) {
@@ -105,6 +115,6 @@ router.patch('users.update', '/:id', loadUser, async (ctx) => {
 router.del('users.delete', '/:id', loadUser, async (ctx) => {
   const { user } = ctx.state;
   await user.destroy();
-  ctx.redirect(ctx.router.url('users.list'));
+  ctx.redirect(ctx.router.url('sessions.new'));
 });
 module.exports = router;

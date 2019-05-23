@@ -2,7 +2,7 @@
   <div class="itinerary-info">
     <div class="itinerary-info__title"><%- itinerary.itineraryName %></div>
     <div class="itinerary-info__author">
-      By @<%- itinerary.userId %> | <%- itinerary.startDate %> to <%- itinerary.endDate %>
+      By <a href="<%- showUserPath %>">@<%- user.username %></a> | <%- itinerary.startDate %> to <%- itinerary.endDate %>
     </div>
   </div>
   <% if (currentUser && currentUser.id == itinerary.userId) { %>
@@ -20,7 +20,11 @@
 <div class="itinerary-container">
   <div class="side-info">
     <div class="side-info__image">
-      Picture
+      <% if(itinerary.itineraryPicture) { %>
+        <img src="<%= itinerary.itineraryPicture %>">
+      <% } else { %>
+        <img src="<%= assetPath('default-itinerary.png') %>">
+      <% } %>
     </div>
     <div class="side-info__budget">
       $ <%- itinerary.budget %> USD
@@ -63,7 +67,11 @@
         <% daysList.forEach((day, index) => { %>
           <div class="day-container">
             <div class="day-container__info">
-              <div class="day-container__info__header">
+              <% if(day.dayPicture) { %>
+                <div class="day-container__info__header">
+              <% } else { %>
+                <div class="day-container__info__header-no-pic">
+              <% } %>
                 Day <%- day.number%>: <%- day.date %>
               </div>
               <% if (currentUser && currentUser.id == itinerary.userId) { %>
@@ -85,6 +93,9 @@
                   <div class="itinerary-edit">
                     <a href="<%- newDayActivityPath(day) %>" class="itinerary-edit__btn" id="add-activity" title="Add activity">
                       + Activity
+                    </a>
+                    <a href="<%- newDestinationDayPath(day) %>" class="itinerary-edit__btn" id="add-destination" title="Add destination">
+                      + Destination
                     </a>
                   </div>
                 <% } %>
@@ -114,7 +125,9 @@
               </div>
             </div>
             <div class="day-container__image">
-              <img src="<%= assetPath('itinerary-pic1.jpg') %>">
+              <% if(day.dayPicture) { %>
+                <img src="<%= day.dayPicture %>">
+              <% } %>
             </div>
           </div>
         <% }) %>
@@ -122,4 +135,60 @@
     </div>
   </div>
 </div>
-<a href="/itineraries" class="back">Back to all itineraries</a>
+<div class="review-container">
+  <div class="review-container__title">
+    Reviews
+    <% if (currentUser) { %>
+      <div class="rate-itineray">
+        <a href="<%- newReviewPath %>" class="back">¡Rate this itinerary!</a>
+      </div>
+    <% } %>
+  </div>
+  <div class="review-container__info">
+      <% reviewsList.forEach((review, index) => { %>
+        <% user = reviewsUsersList[index] %>
+        <div class="review">
+          <div class="review__author">
+            <div class="review__author__image">
+              <a href="/users/<%= review.userId %>">
+                <% if(user.photo) { %>
+                  <img src="<%= user.photo %>">
+                <% } else { %>
+                  <img src="<%= assetPath('default-user.png') %>">
+                <% } %>
+              </a>
+            </div>
+            <div class="review__author__info">
+              <div id="review-username">By <a href="/users/<%= review.userId %>">@<%=user.username%></a></div>
+              <div id="review-score">Score: <%- review.score %></div>
+              <%
+              var date = review.reviewDate;
+              var dd = String(date.getDate()).padStart(2, '0');
+              var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+              var yyyy = date.getFullYear();
+
+              date = mm + '/' + dd + '/' + yyyy;
+              %>
+              <div id="review-date"><%= date %></div>
+            </div>
+          </div>
+          <div class="review__comment">
+            <% if (currentUser && currentUser.id == user.id) { %>
+              <div class="day-container__info__edit">
+                <a href="<%- editReviewPath(review) %>">edit</a>
+                <form action="<%- deleteReviewPath(review) %>" method="POST">
+                  <input type="hidden" name="_method" value="delete" />
+                  <input type="submit" value="delete" />
+                </form>
+              </div>
+            <% } %>
+            <%- review.comment %>
+          </div>
+        </div>
+      <% }) %>
+  </div>
+</div>
+<div class="back-to-itineraries">
+  <a href="/itineraries" class="back">Back to all itineraries</a>
+</div>
+

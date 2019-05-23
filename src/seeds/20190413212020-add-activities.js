@@ -18,7 +18,6 @@ module.exports = {
       const record = {
         title: faker.lorem.sentence(),
         description: faker.lorem.paragraph(),
-        activityPicture: faker.system.filePath(),
         createdAt: new Date(),
         updatedAt: new Date(),
       };

@@ -9,7 +9,7 @@
         </ul>
       </div>
     <% } %>
-    <form action="<%= submitItineraryDayPath %>" method="post">
+    <form action="<%= submitItineraryDayPath %>" enctype="multipart/form-data" method="post">
       <% if (!day.isNewRecord) { %>
         <input type="hidden" name="_method" value="patch" />
       <% } %>
@@ -22,8 +22,8 @@
         <input type="date" name="date" value="<%= day.date %>" />
       </div>
       <div class="field">
-        <label for="dayPicture">dayPicture</label>
-        <input type="text" name="dayPicture" value="<%= day.dayPicture %>" />
+        <label for="dayPicture">Day Picture</label>
+        <input type="file" name="file" value="<%= day.dayPicture %>" />
       </div>
       <div class="field">
         <% if (day.isNewRecord) { %>

@@ -113,8 +113,20 @@
 
   &__header {
     font-weight: bold;
-    font-size: 40px;
+    font-size: 20px;
     padding: 20px;
+  }
+
+  .no-itineraries {
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+
+    a {
+      text-decoration: none;
+      color: $btn-bg;
+      padding-left: 5px;
+    }
   }
 
   &__itineraries {
@@ -124,12 +136,13 @@
 
     .itinerary-container {
       flex: 1 1 auto;
-      width: 300px;
-      padding: 50px;
-      margin: 10px;
+      width: 100px;
+      padding: 5px;
+      margin: 15px;
       border-radius: 5px;
       border: 1px solid $border;
-      justify-content: center;
+      justify-content: space-around;
+      align-items: center;
       background: $bg-third-color;
 
       a {
@@ -137,6 +150,14 @@
         font-size: 20px;
         color: $primary-text;
         padding: 50px;
+      }
+
+      img {
+        width:100%;
+        max-height: 150px;
+        object-fit: cover;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
       }
     }
   }

@@ -31,7 +31,11 @@
               <div class="header__menu-container user-dropdown">
                 <button class="header__menu-container user-dropbtn"><img src="<%= assetPath('user-icon.png') %>"></button>
                 <div class="header__menu-container user-dropcontent">
-                  <img src="<%= assetPath('default-user.png') %>">
+                  <% if(currentUser.photo) { %>
+                    <img src="<%= currentUser.photo %>">
+                  <% } else { %>
+                    <img src="<%= assetPath('default-user.png') %>">
+                  <% } %>
                   <p>@<%= currentUser.username %></p>
                   <a href="/users/<%= currentUser.id %>">Profile</a>
                   <a href="/users/<%= currentUser.id %>/edit">Settings</a>

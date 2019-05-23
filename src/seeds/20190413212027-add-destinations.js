@@ -16,7 +16,6 @@ module.exports = {
     const destinationsData = [];
     for (let i = 0; i < 50; i += 1) {
       const record = {
-        destinationPicture: faker.system.filePath(),
         destinationName: faker.address.city(),
         createdAt: new Date(),
         updatedAt: new Date(),

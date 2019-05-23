@@ -18,9 +18,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       validate: {
         notEmpty: {
-          msg: 'Username required.'
-        }
-      }
+          msg: 'Username required.',
+        },
+      },
     },
     email: {
       type: DataTypes.STRING,
@@ -29,42 +29,61 @@ module.exports = (sequelize, DataTypes) => {
       },
       validate: {
         notEmpty: {
-          msg: 'Email required.'
+          msg: 'Email required.',
         },
         isEmail: {
-          msg: 'Email wrong format'
-        }
-      }
+          msg: 'Email wrong format',
+        },
+      },
     },
-    birthDate: DataTypes.DATEONLY,
+    birthDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: true,
+    },
     password: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: {
-          msg: 'Password required.'
+          msg: 'Password required.',
         },
-        len:{
+        len: {
           args: [6],
-          msg: 'Password of at least 6 characters'
+          msg: 'Password of at least 6 characters',
         },
-      }
+      },
     },
-    country: DataTypes.STRING,
-    gender: DataTypes.STRING,
-    publicName: DataTypes.STRING,
+    country: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    gender: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    publicName: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     privateAccount: DataTypes.BOOLEAN,
     score: DataTypes.FLOAT,
-    photo: DataTypes.STRING,
+    photo: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   }, {});
   // eslint-disable-next-line func-names
   user.associate = function (models) {
     user.hasMany(models.itinerary, {
       foreignKey: 'userId',
       as: 'itineraries',
+      onDelete: 'cascade',
+      hooks: true
     });
     user.hasMany(models.review, {
       foreignKey: 'userId',
       as: 'reviews',
+      onDelete: 'cascade',
+      hooks: true
     });
   };
 
