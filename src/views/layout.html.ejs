@@ -46,13 +46,87 @@
                 </div>
               </div>
             </div>
-          <% } else { %>
+            <!-- Trigger/Open The Modal -->
             <div class="header__btn-container">
-                <a class="header__btn" href="<%= newSessionPath %>">Log In</a>
+                <a id="myBtn" class="hidden">Log IIn</a>
+            </div>
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <div class="login-container">
+                      <% if (locals.notice) { %>
+                        <div className="notice"><%= notice %></div>
+                      <% } %>
+                      <h2>Log In</h2>
+                      <% if (locals.error) { %>
+                        <div class="error">
+                          <%= error %>
+                        </div>
+                      <% } %>
+                      <form action="<%= createSessionPath %>" method="post">
+                        <input type="hidden" name="_method" value="put" />
+                        <div class="field">
+                          <label for="email">Email</label>
+                          <input type="email" name="email" value="<%= locals.email %>" />
+                        </div>
+                        <div class="field">
+                          <label for="password">Password</label>
+                          <input type="password" name="password" value="<%= locals.password %>" />
+                        </div>
+                        <div class="field">
+                          <input type="submit" name="sign-in" value="Sign In" />
+                        </div>
+                      </form>
+                    </div>
+                </div>
+  
+              </div>
+          <% } else { %>
+            <!-- Trigger/Open The Modal -->
+            <div class="header__btn-container">
+                <a id="myBtn" class="header__btn">Log In</a>
             </div>
             <div class="header__btn-container">
                 <a class="header__btn" href="/users/new">Sign Up</a>
             </div>
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+
+              <!-- Modal content -->
+              <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="login-container">
+                    <% if (locals.notice) { %>
+                      <div className="notice"><%= notice %></div>
+                    <% } %>
+                    <h2>Log In</h2>
+                    <% if (locals.error) { %>
+                      <div class="error">
+                        <%= error %>
+                      </div>
+                    <% } %>
+                    <form action="<%= createSessionPath %>" method="post">
+                      <input type="hidden" name="_method" value="put" />
+                      <div class="field">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" value="<%= locals.email %>" />
+                      </div>
+                      <div class="field">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" value="<%= locals.password %>" />
+                      </div>
+                      <div class="field">
+                        <input type="submit" name="sign-in" value="Sign In" />
+                      </div>
+                    </form>
+                  </div>
+              </div>
+
+            </div>
+
           <% } %>
         </div>
       </div>
