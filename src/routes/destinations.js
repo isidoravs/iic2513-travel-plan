@@ -73,6 +73,7 @@ router.get('destinations.find', '/search', async (ctx) => {
     max_b: 4050,
     min_d: 0,
     max_d: 30,
+    rating: 0,
     simple,
     destinationSearch,
     itineraries,

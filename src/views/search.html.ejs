@@ -3,12 +3,14 @@
   <div class="col-1">
     <form method="get" action="<%= superSearchPath %>">
       <p> Rating </p>
-      <input type="radio" name="rating" value=5 > 5 stars<br>
-      <input type="radio" name="rating" value=4> 4 stars or more<br>
-      <input type="radio" name="rating" value=3> 3 stars or more<br>
-      <input type="radio" name="rating" value=2> 2 stars or more<br>
-      <input type="radio" name="rating" value=1 > 1 star or more<br>
-      <input type="radio" name="rating" value=0 checked> Any rating<br>
+      <div id='rating-<%= rating %>'>
+      <input type="radio" name="rating" value=5 id="5"> 5 stars<br>
+      <input type="radio" name="rating" value=4 id="4"> 4 stars or more<br>
+      <input type="radio" name="rating" value=3 id="3"> 3 stars or more<br>
+      <input type="radio" name="rating" value=2 id="2"> 2 stars or more<br>
+      <input type="radio" name="rating" value=1 id="1"> 1 star or more<br>
+      <input type="radio" name="rating" value=0 id="0"> Any rating<br>
+      </div>
       <!-- Cambiar donde dice "n stars" por fotos de estrellas de ratings -->
     <!-- <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,21 +48,21 @@
     <p> Range of days </p>
     <div class='multi-range' data-lbound='1' data-ubound='30'>
       <hr />
-      <input type='range' name='minranged' min='1' max='29' step='1' value=<%=min_d%> oninput='this.form.mindays.value=this.value;'/>
-      <input type='range' name='maxranged' min='2' max='30' step='1' value=<%=max_d%> oninput='this.form.maxdays.value=this.value;'/>
+      <input class='minrange1' type='range' name='minranged' min='1' max='29' step='1' value=<%=min_d%> oninput='this.form.mindays.value=this.value;'/>
+      <input class='maxrange1' type='range' name='maxranged' min='2' max='30' step='1' value=<%=max_d%> oninput='this.form.maxdays.value=this.value;'/>
     </div>
-    Min: <input type="number" name="mindays" min="1" max="29" value=<%=min_d%> oninput="this.form.minranged.value=this.value" />
-    Max: <input type="number" name="maxdays" min="2" max="30" value=<%=max_d%> oninput="this.form.maxranged.value=this.value" />
+    Min: <input class='minrange2' type="number" name="mindays" min="1" max="29" value=<%=min_d%> oninput="this.form.minranged.value=this.value" />
+    Max: <input class='maxrange2' type="number" name="maxdays" min="2" max="30" value=<%=max_d%> oninput="this.form.maxranged.value=this.value" />
     <br>
     <br>
     <p> Budget </p>
     <div class='multi-range' data-lbound='1' data-ubound='30'>
       <hr />
-      <input type='range' name='minrangeb' min='0' max='4000' step='50' value=  <%=min_b%> oninput='this.form.minbud.value=this.value;'/>
-      <input type='range' name='maxrangeb' min='50' max='4050' step='50' value= <%=max_b%> oninput='this.form.maxbud.value=this.value;'/>
+      <input class='minrange3' type='range' name='minrangeb' min='0' max='4000' step='50' value=  <%=min_b%> oninput='this.form.minbud.value=this.value;'/>
+      <input class='maxrange3' type='range' name='maxrangeb' min='50' max='4050' step='50' value= <%=max_b%> oninput='this.form.maxbud.value=this.value;'/>
     </div>
-    Min: <input type="number" name="minbud" min='0' max='4000' step='50' value= <%=min_b%> oninput="this.form.minrangeb.value=this.value" />
-    Max: <input type="number" name="maxbud" min='50' max='4050' step='50' value= <%=max_b%> oninput="this.form.maxrangeb.value=this.value" />
+    Min: <input class='minrange4' type="number" name="minbud" min='0' max='4000' step='50' value= <%=min_b%> oninput="this.form.minrangeb.value=this.value" />
+    Max: <input class='maxrange4' type="number" name="maxbud" min='50' max='4050' step='50' value= <%=max_b%> oninput="this.form.maxrangeb.value=this.value" />
     <br>
     <br>
     <button type="submit"><img src="<%= assetPath('search-icon.png') %>"></button>
