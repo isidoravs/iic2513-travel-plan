@@ -440,6 +440,14 @@
 .itinerary-list {
   display: flex;
   flex-direction: column;
+
+  input[type=text] {
+    width: 20%;
+    padding: 12px 20px 12px 10px;
+    border: 1px solid $border;
+    margin: 20px;
+    border-radius: 10px;
+  }
 }
 
 .itinerary-list-container {
