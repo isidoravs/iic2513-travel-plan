@@ -1,0 +1,31 @@
+<div class="form-container">
+        <% if (locals.errors) { %>
+          <div class="errors">
+            You need to fix the following errors:
+            <ul>
+              <% errors.forEach(error => { %>
+                <li><%= error.message %></li>
+              <% }); %>
+            </ul>
+          </div>
+        <% } %>
+        <form action="<%= submitUserPath %>" enctype="multipart/form-data" method="post">
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" name="email" value="" />
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input type="password" name="password" value="" />
+          </div>
+          <div class="field">
+            <label for="username">Username</label>
+            <input type="text" name="username" value="" />
+          </div>
+         
+          <div class="field">
+              <input type="submit" name="create" value="Create" />
+          </div>
+        </form>
+      </div>
+    

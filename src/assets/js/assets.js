@@ -7,5 +7,6 @@ import '../images/logo.png';
 import '../images/pin-icon.png';
 import '../images/search-icon.png';
 import '../images/user-icon.png';
+import './code/login';
 import './code/itinerariesindex';
 import './code/search.js';
