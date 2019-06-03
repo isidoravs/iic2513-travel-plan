@@ -42,7 +42,11 @@
       <% } %>
     </div>
     <div class="side-info__score">
+      <% if (itinerary.avgScore) { %>
         Score: <%- itinerary.avgScore %>
+      <% } else { %>
+        Score: No reviews
+      <% } %>
     </div>
   </div>
   <div class="main-info">
@@ -123,6 +127,13 @@
                   <% }) %>
                 <% } %>
               </div>
+              <% if (dayDestinationsList[index].length) { %>
+                <div class="day-container__destinations">
+                <% dayDestinationsList[index].forEach((dest) => { %>
+                  <div class="one-destination"><%- dest.destinationName %></div>
+                <% }) %>
+                </div>
+              <% } %>
             </div>
             <div class="day-container__image">
               <% if(day.dayPicture) { %>
