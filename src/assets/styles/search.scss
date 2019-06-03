@@ -1,4 +1,267 @@
 //http://danielstern.ca/range.css/#/
+.search-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: row;
+  // justify-content: space-between;
+}
+
+.filter-panel {
+  background-color: $bg-primary-color;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid $border;
+  height: max-content;
+
+  button {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    width: 100%;
+    background: $btn-bg;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background: $btn-hover-bg;
+    }
+  }
+
+  input[type=text] {
+    border-radius: 5px;
+    font-family: $main-font;
+    padding: 5px;
+    border: 1px solid $border;
+
+    &:not(:last-child) {
+      margin-bottom: 8px;
+    }
+  }
+
+  input[type=number] {
+    width: 70px;
+    border-radius: 5px;
+    font-family: $main-font;
+    padding: 5px;
+    border: 1px solid $border;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+
+  img {
+    max-width: 30px;
+  }
+
+  .filter {
+    &__rating {
+      margin-bottom: 15px;
+    }
+
+    &__destinations-option {
+      margin-bottom: 20px;
+    }
+
+    &__day-range {
+      margin-bottom: 15px;
+    }
+
+    &__budget-range {
+      margin-bottom: 15px;
+    }
+
+    &__btn {
+      align-content: center;
+      text-align: center;
+    }
+  }
+
+  #subtitle {
+    font-weight: bold;
+  }
+}
+
+.itinerary-list {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-left: 20px;
+
+  .destination-header {
+    font-family: $secondary-font;
+    text-transform: capitalize;
+    font-size: 15px;
+
+    &:not(:first-child) {
+      margin-top: 20px;
+      padding-top: 10px;
+      border-top: 1px solid $light-border;
+    }
+  }
+}
+
+.itinerary-list-container {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  border-radius: 10px;
+  border: 1px solid $border;
+  height: 200px;
+  background: $bg-primary-color;
+  min-width: 400px;
+
+  &__picture {
+    img {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      border-bottom-left-radius: 10px;
+      border-top-left-radius: 10px;
+      width: 400px;
+      height: 200px;
+      object-fit: cover;
+    }
+  }
+
+  &__info {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-width: 200px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 750px;
+
+    &__title {
+      font-weight: bold;
+      font-size: 20px;
+      display: flex;
+
+      a {
+        text-decoration: none;
+        color: $primary-text;
+      }
+
+      .day-container__info__edit {
+        margin-left: auto;
+        font-weight: 100;
+        flex-direction: column;
+        text-align: right;
+
+        a {
+          padding-bottom: 0;
+          margin-bottom: 0;
+        }
+
+        input {
+          padding-top: 0;
+          margin-top: 0;
+        }
+
+        form {
+          padding-top: 0;
+          margin-top: 0;
+        }
+      }
+    }
+
+    &__summary {
+      display: flex;
+      color: $secondary-text;
+      flex: 1;
+      overflow: auto;
+
+      #dates {
+        padding: 10px;
+      }
+
+      #budget {
+        padding: 10px;
+        color: $primary-shadow-color;
+      }
+
+      #score {
+        padding: 10px;
+      }
+    }
+
+    &__description {
+      font-style: italic;
+      padding: 10px;
+      color: $secondary-text;
+      border-top: 1px solid $light-border;
+      text-align: justify;
+      flex: 1;
+      display: flex;
+      overflow: auto;
+    }
+  }
+
+  &__author {
+    padding: 20px;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: bold;
+
+    &__picture {
+      display: flex;
+      justify-content: center;
+
+      img {
+        width: 60px;
+        height: 60px;
+        margin: 10px;
+        border-radius: 100%;
+      }
+    }
+
+    &__name {
+      padding: 10px;
+
+      a {
+        text-decoration: none;
+        color: $primary-text;
+      }
+    }
+  }
+}
+
+.star-ratings-css2 {
+  unicode-bidi: bidi-override;
+  color: #c5c5c5;
+  font-size: 25px;
+  height: 30px;
+  width: 100px;
+  margin: 0 auto;
+  position: relative;
+  padding: 0;
+  text-shadow: 0px 1px 0 #a2a2a2;
+
+  &-top2 {
+    color: #e7711b;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+  }
+  &-bottom2 {
+    padding: 0;
+    display: block;
+    z-index: 0;
+  }
+}
 
 input[type=range] {
   -webkit-appearance: none;
@@ -87,7 +350,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .multi-range, .multi-range * { box-sizing: border-box; padding: 0; margin: 0; }
 .multi-range {
-    position: relative; width: 160px; height: 28px; margin: 16px;
+    position: relative; width: 200px; height: 28px; margin: 16px;
     //border: 1px solid #ddd; font-family: monospace;
 }
 .multi-range > hr { position: absolute; width: 100%; top: 50%; }
@@ -102,67 +365,4 @@ input[type=range]:focus::-ms-fill-upper {
 //.multi-range > input[type=range]::-moz-range-track { -webkit-appearance: none; height: 0px; }
 //.multi-range > input[type=range]::-ms-thumb { transform: translateY(-18px); }
 // .multi-range > input[type=range]::-ms-track { -webkit-appearance: none; height: 0px; }
-.container-grid {
-  display: grid;
-  grid-template-columns: 300px 1500px; /*columns widths*/
-}
 
-.col-1 {
-  background-color: $bg-primary-color;
-  margin: 20px;
-  border-radius: 10px;
-  border: 1px solid $border;
-  height: 80vh;
-  button {
-    float: left;
-    padding: 4px 10px;
-    margin-top: 8px;
-    margin-bottom: 8px;
-    margin-left: 105px;
-    background: $btn-bg;
-    border: none;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    cursor: pointer;
-
-    &:hover {
-      background: $btn-hover-bg;
-    }
-  }
-  img {
-    max-width: 30px;
-  }
-}
-
-.col-2 {
-  background-color: $bg-primary-color;
-  font-weight: bold;
-  font-size: 40px;
-}
-.star-ratings-css2 {
-  unicode-bidi: bidi-override;
-  color: #c5c5c5;
-  font-size: 25px;
-  height: 30px;
-  width: 100px;
-  margin: 0 auto;
-  position: relative;
-  padding: 0;
-  text-shadow: 0px 1px 0 #a2a2a2;
-
-  &-top2 {
-    color: #e7711b;
-    padding: 0;
-    position: absolute;
-    z-index: 1;
-    display: block;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-  }
-  &-bottom2 {
-    padding: 0;
-    display: block;
-    z-index: 0;
-  }
-}
