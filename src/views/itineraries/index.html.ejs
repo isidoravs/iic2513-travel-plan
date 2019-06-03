@@ -34,9 +34,9 @@
             <% if (itinerary.avgScore) { %>
               <div id="score">Score: <%- itinerary.avgScore %></div>
               <!-- https://codepen.io/Bluetidepro/pen/GkpEa -->
-              <div class="star-ratings-css">
-                <div class="star-ratings-css-top" style="width: <%= (itinerary.avgScore/5)*100 %>%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              <div class="star-ratings-css"  id=<%- itinerary.itineraryName %>>
+                <div class="star-ratings-css-top" id=<%- itinerary.itineraryName %> style="width: <%= (itinerary.avgScore/5)*100 %>%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                <div class="star-ratings-css-bottom" id=<%- itinerary.itineraryName %>><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
               </div>
             <% } %>
             <!-- <div class="rate">
