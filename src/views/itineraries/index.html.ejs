@@ -1,10 +1,14 @@
-<div class="itinerary-list">
+<div>
+<script type="text/javascript" src="../../assets/js/code/itinerariesindex.js"></script>
+<input type="text" id="namefilter" placeholder="Search for names.." title="Type in a name">
+<p id = "ejemplo"></p>
+<div class="itinerary-list" id="it-list">
   <% if (!itinerariesList.length) { %>
     <p>No results</p>
   <% } else { %>
     <% itinerariesList.forEach((itinerary, index) => { %>
       <% user = usersList[index] %>
-      <div class="itinerary-list-container">
+      <div class="itinerary-list-container" id=<%- itinerary.itineraryName %>>
         <div class="itinerary-list-container__picture">
           <% if(itinerary.itineraryPicture) { %>
             <a href="/itineraries/<%= itinerary.id %>"><img src="<%= itinerary.itineraryPicture %>"></a>
@@ -14,7 +18,7 @@
         </div>
         <div class="itinerary-list-container__info">
           <div class="itinerary-list-container__info__title">
-            <div><a href="/itineraries/<%= itinerary.id %>"><%- itinerary.itineraryName %></a></div>
+            <div><a href="/itineraries/<%= itinerary.id %>"><p id='title'><%- itinerary.itineraryName %></p></a></div>
             <% if (currentUser && currentUser.id == itinerary.userId) { %>
               <div class="day-container__info__edit">
                 <a href="<%- editItineraryPath(itinerary) %>">edit</a>
@@ -64,4 +68,6 @@
       </div>
     <% }) %>
   <% } %>
+
+</div>
 </div>
