@@ -311,3 +311,23 @@ form {
     }
   }
 }
+
+.rate_btn{
+  font-family: $main-font;
+  font-weight: bold;
+  margin-top: 3px;
+  background-color: $btn-bg; 
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  font-size: 12px;
+  max-width:20em;
+  cursor: pointer;
+  &:hover {
+    background: $btn-hover-bg;
+  }
+}
