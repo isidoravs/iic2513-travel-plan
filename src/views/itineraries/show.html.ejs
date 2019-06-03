@@ -42,7 +42,11 @@
       <% } %>
     </div>
     <div class="side-info__score">
+      <% if (itinerary.avgScore) { %>
         Score: <%- itinerary.avgScore %>
+      <% } else { %>
+        Score: No reviews
+      <% } %>
     </div>
   </div>
   <div class="main-info">
