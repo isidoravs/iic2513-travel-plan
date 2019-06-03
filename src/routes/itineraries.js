@@ -385,10 +385,10 @@ router.patch('itineraries.days.activities.update', '/:id/days/:did/activities/:a
   const activity = await ctx.orm.activity.findById(ctx.params.aid);
   try {
     const {
-      title, activityPicture, description,
+      title, description,
     } = ctx.request.body;
     await activity.update({
-      title, activityPicture, description,
+      title, description,
     });
     ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
   } catch (validationError) {
