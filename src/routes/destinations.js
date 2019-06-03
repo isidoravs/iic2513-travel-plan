@@ -64,6 +64,16 @@ router.get('destinations.find', '/search', async (ctx) => {
   // eslint-disable-next-line max-len
   const itineraries = await Promise.all(destinationSearch.map(destination => destination.getItineraries()));
   await ctx.render('/search', {
+    min_b: 0,
+    max_b: 4050,
+    destination1: "",
+    destination2: "",
+    destination3: "",
+    min_b: 0,
+    max_b: 4050,
+    min_d: 0,
+    max_d: 30,
+    rating: 0,
     simple,
     destinationSearch,
     itineraries,
@@ -105,6 +115,15 @@ router.get('destinations.supersearch', '/ssearch', async (ctx) => {
         },
       },
     });
+  if (destination1 == "aabbccdddeeffghhiijjka"){
+    destination1 = ""
+  }
+  if (destination2 == "aabbccdddeeffghhiijjka"){
+    destination2 = ""
+  }
+  if (destination3 == "aabbccdddeeffghhiijjka"){
+    destination3 = ""
+  }
   let itinerary_fin = [];
   let itinerary_dest;
   const itineraries = await Promise.all(destinationSearch.map(destination => destination.getItineraries()));
@@ -126,6 +145,14 @@ router.get('destinations.supersearch', '/ssearch', async (ctx) => {
     simple,
     destinationSearch,
     itinerary_fin,
+    rating,
+    min_b,
+    max_b,
+    min_d,
+    max_d,
+    destination1,
+    destination2,
+    destination3,
     showItineraryPath: itinerary => ctx.router.url('itineraries.show', { id: itinerary.id }),
     editItineraryPath: itinerary => ctx.router.url('itineraries.edit', { id: itinerary.id }),
     deleteItineraryPath: itinerary => ctx.router.url('itineraries.delete', { id: itinerary.id }),
