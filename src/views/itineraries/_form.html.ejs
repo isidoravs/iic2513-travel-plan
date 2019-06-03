@@ -34,11 +34,11 @@
           <label for="description">Description</label>
           <textarea type="text" name="description" value="<%= itinerary.description %>"><%= itinerary.description %></textarea>
         </div>
-        <div class="field">
-          <label for="itineraryPicture">Itinerary Cover Picture</label>
-          <input type="file" name="file" value="<%= itinerary.itineraryPicture %>" />
-        </div>
       <% } %>
+      <div class="field">
+        <label for="itineraryPicture">Itinerary Cover Picture</label>
+        <input type="file" name="file" value="<%= itinerary.itineraryPicture %>" />
+      </div>
       <div class="field">
         <% if (itinerary.isNewRecord) { %>
           <input type="submit" name="create" value="Create" />

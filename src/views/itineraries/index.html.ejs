@@ -31,12 +31,14 @@
           <div class="itinerary-list-container__info__summary" id=<%- itinerary.itineraryName %>>
             <div id="dates"><%- itinerary.startDate %> - <%- itinerary.endDate %></div>
             <div id="budget">$ <%- itinerary.budget %> USD</div>
-            <div id="score">Score: <%- itinerary.avgScore %></div>
-            <!-- https://codepen.io/Bluetidepro/pen/GkpEa -->
-            <div class="star-ratings-css" id=<%- itinerary.itineraryName %>>
-              <div class="star-ratings-css-top" id=<%- itinerary.itineraryName %> style="width: <%= (itinerary.avgScore/5)*100 %>%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-              <div class="star-ratings-css-bottom" id=<%- itinerary.itineraryName %>><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-            </div>
+            <% if (itinerary.avgScore) { %>
+              <div id="score">Score: <%- itinerary.avgScore %></div>
+              <!-- https://codepen.io/Bluetidepro/pen/GkpEa -->
+              <div class="star-ratings-css">
+                <div class="star-ratings-css-top" style="width: <%= (itinerary.avgScore/5)*100 %>%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+              </div>
+            <% } %>
             <!-- <div class="rate">
               <input type="radio" id="star5" name="rate" value="5" />
               <label for="star5" title="5 stars">5 stars</label>
