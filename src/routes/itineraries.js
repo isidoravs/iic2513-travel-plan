@@ -282,6 +282,12 @@ router.post('itineraries.days.create', '/:id/days/create', loadItinerary, async 
   const { itinerary } = ctx.state;
   const day = ctx.orm.day.build(ctx.request.body);
   try {
+    const image = ctx.request.files.file;
+    cloudinary.uploader.upload(image.path, async (error, result) => {
+      const dayPicture = result.secure_url;
+      await day.update({ dayPicture });
+      day.save();
+    });
     await day.save({ fields: ['number', 'date', 'dayPicture'] });
     const itineraryId = itinerary.id;
     await day.update({ itineraryId });
