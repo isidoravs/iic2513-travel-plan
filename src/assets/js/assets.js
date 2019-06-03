@@ -10,3 +10,5 @@ import '../images/user-icon.png';
 import './code/login';
 import './code/itinerariesindex';
 import './code/search.js';
+import './code/newReview';
+

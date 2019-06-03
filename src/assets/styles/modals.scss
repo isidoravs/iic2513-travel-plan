@@ -40,3 +40,18 @@
 .hidden{
   display: none;
 }
+
+/* The Close Button */
+.commentClose {
+color: #aaaaaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.commentClose:hover,
+.commentClose:focus {
+color: #000;
+text-decoration: none;
+cursor: pointer;
+}
