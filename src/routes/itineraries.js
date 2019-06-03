@@ -72,6 +72,7 @@ router.get('itineraries.show', '/:id', ItineraryScoreUpdate, loadItinerary, asyn
     reviewsList,
     reviewsUsersList: await Promise.all(reviewsList.map(r => ctx.orm.user.findById(r.userId))),
     activitiesList: await Promise.all(daysList.map(d => d.getActivities())),
+    dayDestinationsList: await Promise.all(daysList.map(d => d.getDestinations())),
     destinationsList: await itinerary.getDestinations(),
     newReviewPath: ctx.router.url('itineraries.reviews.new', { id: itinerary.id }),
     deleteDestinationPath: destination => ctx.router.url('destinations.itineraries.delete', { id: itinerary.id, dest_id: destination.id }),
