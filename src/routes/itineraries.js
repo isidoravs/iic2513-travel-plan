@@ -246,7 +246,7 @@ router.del('itineraries.reviews.delete', '/:id/reviews/:rid', loadItinerary, loa
   const { review } = ctx.state;
   const { itinerary } = ctx.state;
   await review.destroy();
-  ctx.redirect(ctx.router.url('itineraries.reviews.list', { id: itinerary.id }));
+  ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
 });
 
 
