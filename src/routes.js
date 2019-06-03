@@ -10,6 +10,7 @@ const activities = require('./routes/activities');
 const reviews = require('./routes/reviews');
 const destinations = require('./routes/destinations');
 const sessions = require('./routes/sessions');
+const api = require('./routes/api');
 
 
 const router = new KoaRouter();
@@ -31,6 +32,7 @@ router.use(async (ctx, next) => {
   return next();
 });
 
+router.use('/api', api.routes());
 router.use('/', index.routes());
 router.use('/hello', hello.routes());
 router.use('/users', users.routes());

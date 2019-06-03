@@ -45,6 +45,7 @@
     "cloudinary": "^1.14.0",
     "dotenv": "^7.0.0",
     "faker": "^4.1.0",
+    "jsonapi-serializer": "^3.6.4",
     "koa": "^2.3.0",
     "koa-body": "^4.0.4",
     "koa-ejs": "^4.1.0",
@@ -61,6 +62,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-hot-loader": "^4.3.4",
+    "react-select": "^3.0.4",
     "sequelize": "^4.6.0",
     "sequelize-cli": "^4.1.1"
   },
