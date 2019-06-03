@@ -105,6 +105,12 @@ router.post('itineraries.create', '/', async (ctx) => {
     await itinerary.save({ fields: ['itineraryName', 'budget', 'startDate', 'endDate'] });
     const { userId } = ctx.session;
     const avgScore = 0;
+    const image = ctx.request.files.file;
+    cloudinary.uploader.upload(image.path, async (error, result) => {
+      const itineraryPicture = result.secure_url;
+      await itinerary.update({ itineraryPicture });
+      itinerary.save();
+    });
     await itinerary.update({ avgScore });
     await itinerary.update({ userId });
     ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
