@@ -37,8 +37,6 @@
   input {
     background-color: $btn-bg;
     padding: 5px;
-    margin-top: 8px;
-    margin-bottom: 8px;
     border: none;
     font-weight: bolder;
     color: $btn-color;
@@ -51,7 +49,6 @@
 
   &__btn {
     padding: 5px;
-    margin: 8px;
     background: $btn-bg;
     border: none;
     text-decoration: none;
@@ -63,6 +60,10 @@
     width: 35px;
     text-align: center;
     cursor: pointer;
+
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
 
     &:hover {
       background: $btn-hover-bg;
@@ -91,6 +92,19 @@
       max-width: 400px;
       max-height: 200px;
       object-fit: cover;
+    }
+  }
+
+  &__react-destinations {
+    margin: 10px;
+
+    .css-1wa3eu0-placeholder {
+      text-transform: none;
+    }
+
+    .css-2b097c-container {
+      text-transform: capitalize;
+      font-family: $main-font;
     }
   }
 
@@ -162,10 +176,15 @@
     display: flex;
     flex-direction: column;
 
+    &__title {
+      align-self: center;
+    }
+
     &__activities {
       flex-direction: column;
       display: flex;
       overflow: auto;
+      flex-grow: 1;
       margin: 10px;
 
       p {
@@ -216,19 +235,23 @@
       background: $primary-shadow-color;
       color: $home-title-color;
       font-weight: bold;
-      padding: 20px;
+      padding: 10px;
       font-size: 15px;
       border-top-left-radius: 20px;
+      display: flex;
+      justify-content: space-between;
     }
 
     &__header-no-pic {
       background: $primary-shadow-color;
       color: $home-title-color;
       font-weight: bold;
-      padding: 20px;
+      padding: 10px;
       font-size: 15px;
       border-top-left-radius: 20px;
       border-top-right-radius: 20px;
+      display: flex;
+      justify-content: space-between;
     }
   }
 

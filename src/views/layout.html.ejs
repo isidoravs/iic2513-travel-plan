@@ -126,14 +126,82 @@
                     </form>
                   </div>
               </div>
-
             </div>
-
           <% } %>
         </div>
       </div>
       <div class="app__container">
         <%- body %>
+        <!-- Trigger/Open The Modal -->
+        <div class="rate-itinerary">
+            <a id="newCommentBtn" class="hidden" >Rate!!!</a>
+          </div>
+          <!-- The Modal -->
+          <div id="commentModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+              <span class="commentClose">&times;</span>
+              <div class="login-container">
+                  <% if (locals.notice) { %>
+                    <div className="notice"><%= notice %></div>
+                  <% } %>
+                  <h2>New Review</h2>
+                  <% if (locals.error) { %>
+                    <div class="error">
+                      <%= error %>
+                    </div>
+                  <% } %>
+                  <form action="" method="post">
+                    <div class="field">
+                      <label for="score">Score</label>
+                      <input type="number" name="score" value="" min="0" max="5" />
+                    </div>
+                    <div class="field">
+                      <label for="comment">Comment</label>
+                      <textarea type="text" name="comment" value=""></textarea>
+                    </div>
+                    <div class="field">
+                        <input type="submit" name="create" value="Create" />
+                    </div>
+                  </form>
+                </div>
+            </div>
+          </div>
+          <!-- Trigger/Open The Modal -->
+
+          <a class="hidden" id="add-activity" title="Add activity">
+              + Activity
+          </a>
+          <!-- The Modal -->
+          <div id="activityModal" class="modal">
+          <!-- Modal content -->
+              <div class="modal-content">
+                  <span class="activityClose">&times;</span>
+                  <div class="login-container">
+                      <% if (locals.notice) { %>
+                      <div class="notice"><%= notice %></div>
+                      <% } %>
+                      <h2>New Activity</h2>
+                      <% if (locals.error) { %>
+                      <div class="error">
+                          <%= error %>
+                      </div>
+                      <% } %>
+                      <form action="" method="post">
+                          <div class="field">
+                            <label for="title">Title</label>
+                            <input type="text" name="title" value="" />
+                          </div>
+                          <div class="field">
+                            <label for="description">Description</label>
+                            <textarea type="text" name="description"></textarea>
+                          </div>
+                          <div class="field">
+                              <input type="submit" name="create" value="Create" />
+                          </div>
+                      </form>
+                  </div>
+              </div>
         <script src="<%= assetPath('app.js') %>"></script>
       </div>
       <div class="footer">
