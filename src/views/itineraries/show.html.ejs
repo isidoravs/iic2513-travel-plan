@@ -30,6 +30,7 @@
       $ <%- itinerary.budget %> USD
     </div>
     <div class="side-info__labels">
+      <div class="side-info__react-destinations" id="react-destinations" value=<%- itinerary.id %></div>></div>
       <% if (destinationsList) { %>
         <% destinationsList.forEach((label) => { %>
           <div class="side-info__labels one-label"><%- label.destinationName %></div>

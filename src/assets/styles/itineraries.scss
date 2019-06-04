@@ -95,6 +95,19 @@
     }
   }
 
+  &__react-destinations {
+    margin: 10px;
+
+    .css-1wa3eu0-placeholder {
+      text-transform: none;
+    }
+
+    .css-2b097c-container {
+      text-transform: capitalize;
+      font-family: $main-font;
+    }
+  }
+
   &__budget {
     color: $primary-shadow-color;
     font-weight: bold;
