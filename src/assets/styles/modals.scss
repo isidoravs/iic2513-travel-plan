@@ -55,3 +55,18 @@ color: #000;
 text-decoration: none;
 cursor: pointer;
 }
+
+/* The Close Button */
+.activityClose {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  }
+  
+  .activityClose:hover,
+  .activityClose:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  }
