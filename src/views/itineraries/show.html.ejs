@@ -130,7 +130,7 @@
               <% if (dayDestinationsList[index].length) { %>
                 <div class="day-container__destinations">
                 <% dayDestinationsList[index].forEach((dest) => { %>
-                  <div class="one-destination"><%- dest.destinationName %></div>
+                  <div class="one-destination"><a href="<%- searchDestinationPath(dest) %>"><%- dest.destinationName %></a></div>
                 <% }) %>
                 </div>
               <% } %>
@@ -202,4 +202,3 @@
 <div class="back-to-itineraries">
   <a href="/itineraries" class="back">Back to all itineraries</a>
 </div>
-

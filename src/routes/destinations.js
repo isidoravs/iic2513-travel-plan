@@ -51,7 +51,46 @@ router.get('destinations.assign', '/itineraries/:id/add_destination', async (ctx
 });
 
 router.get('destinations.find', '/search', async (ctx) => {
-  const name = ctx.request.query.search.toLowerCase();
+  console.log(ctx.state)
+  let name = ctx.request.query.search.toLowerCase();
+  if (name == ""){
+    name = "asaadadefewfrgvdsafe"
+  }
+  const simple = true;
+  const destinationSearch = await ctx.orm.destination.findAll({
+    where: {
+      destinationName: {
+        [op.like]: `%${name}%`
+      },
+    },
+  });
+
+  // eslint-disable-next-line max-len
+  const itineraries = await Promise.all(destinationSearch.map(destination => destination.getItineraries()));
+  await ctx.render('/search', {
+    min_b: 0,
+    max_b: 4050,
+    destination1: "",
+    destination2: "",
+    destination3: "",
+    min_b: 0,
+    max_b: 4050,
+    min_d: 0,
+    max_d: 30,
+    rating: 0,
+    simple,
+    destinationSearch,
+    itineraries,
+    showItineraryPath: itinerary => ctx.router.url('itineraries.show', { id: itinerary.id }),
+    editItineraryPath: itinerary => ctx.router.url('itineraries.edit', { id: itinerary.id }),
+    deleteItineraryPath: itinerary => ctx.router.url('itineraries.delete', { id: itinerary.id }),
+    showDestinationPath: destination => ctx.router.url('destinations.show', { id: destination.id }),
+    superSearchPath: ctx.router.url('destinations.supersearch'),
+  });
+});
+router.get('destinations.search', '/search/:id', async (ctx) => {
+  const dest = await ctx.orm.destination.findById(ctx.params.id)
+  const name = dest.destinationName.toLowerCase();
   const simple = true;
   const destinationSearch = await ctx.orm.destination.findAll({
     where: {
