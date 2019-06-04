@@ -91,6 +91,7 @@ router.get('itineraries.show', '/:id', ItineraryScoreUpdate, loadItinerary, asyn
     newDestinationPath: ctx.router.url('destinations.itinerary.new', { id: itinerary.id }),
     addDestinationPath: ctx.router.url('destinations.assign', { id: itinerary.id }),
     newDestinationDayPath: day => ctx.router.url('itineraries.days.destinations.new', { did: day.id, id: itinerary.id }),
+    searchDestinationPath: destination => ctx.router.url('destinations.search', {id:destination.id}),
     submitReviewPath: ctx.router.url('itineraries.reviews.create', { id: itinerary.id }),
     submitDayActivityPath: day => ctx.router.url('itineraries.days.activities.create', { id: itinerary.id, did: day.id }),
   });
