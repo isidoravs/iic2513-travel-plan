@@ -108,7 +108,7 @@
   margin-bottom: 8px;
   position: relative;
   display: inline-block;
-  z-index: 1;
+  z-index: 2;
 
   &:hover .user-dropcontent {
     display: block;
@@ -316,7 +316,7 @@ form {
   font-family: $main-font;
   font-weight: bold;
   margin-top: 3px;
-  background-color: $btn-bg; 
+  background-color: $btn-bg;
   border: none;
   border-radius: 8px;
   color: white;
