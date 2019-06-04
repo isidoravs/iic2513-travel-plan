@@ -30,6 +30,7 @@
       $ <%- itinerary.budget %> USD
     </div>
     <div class="side-info__labels">
+      <div class="side-info__react-destinations" id="react-destinations" value=<%- itinerary.id %></div>></div>
       <% if (destinationsList) { %>
         <% destinationsList.forEach((label) => { %>
           <div class="side-info__labels one-label"><%- label.destinationName %></div>
@@ -42,7 +43,11 @@
       <% } %>
     </div>
     <div class="side-info__score">
+      <% if (itinerary.avgScore) { %>
         Score: <%- itinerary.avgScore %>
+      <% } else { %>
+        Score: No reviews
+      <% } %>
     </div>
   </div>
   <div class="main-info">
@@ -72,7 +77,48 @@
               <% } else { %>
                 <div class="day-container__info__header-no-pic">
               <% } %>
-                Day <%- day.number%>: <%- day.date %>
+                <div class="day-container__info__title">Day <%- day.number%>: <%- day.date %></div>
+                <% if (currentUser && currentUser.id == itinerary.userId) { %>
+                  <div class="itinerary-edit">
+                    <a class="itinerary-edit__btn" id="add-activity" title="Add activity">
+                      + Activity
+                    </a>
+                    <!-- The Modal -->
+                    <div id="activityModal" class="modal">
+                      <!-- Modal content -->
+                      <div class="modal-content">
+                        <span class="activityClose">&times;</span>
+                        <div class="login-container">
+                          <% if (locals.notice) { %>
+                            <div class="notice"><%= notice %></div>
+                          <% } %>
+                            <div class="login-container__title">New Activity</div>
+                          <% if (locals.error) { %>
+                            <div class="error">
+                              <%= error %>
+                            </div>
+                          <% } %>
+                          <form action="<%= submitDayActivityPath(day) %>" method="post">
+                            <div class="field">
+                              <label for="title">Title</label>
+                              <input type="text" name="title" value="" />
+                            </div>
+                            <div class="field">
+                              <label for="description">Description</label>
+                              <textarea type="text" name="description"></textarea>
+                            </div>
+                            <div class="field">
+                              <input type="submit" name="create" value="Create" />
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    <a href="<%- newDestinationDayPath(day) %>" class="itinerary-edit__btn" id="add-destination" title="Add destination">
+                      + Destination
+                    </a>
+                  </div>
+                <% } %>
               </div>
               <% if (currentUser && currentUser.id == itinerary.userId) { %>
                 <div class="day-container__info__edit">
@@ -89,16 +135,6 @@
               </form> -->
               <div class="day-container__info__activities">
                 <p>Activities for this day:</p>
-                <% if (currentUser && currentUser.id == itinerary.userId) { %>
-                  <div class="itinerary-edit">
-                    <a href="<%- newDayActivityPath(day) %>" class="itinerary-edit__btn" id="add-activity" title="Add activity">
-                      + Activity
-                    </a>
-                    <a href="<%- newDestinationDayPath(day) %>" class="itinerary-edit__btn" id="add-destination" title="Add destination">
-                      + Destination
-                    </a>
-                  </div>
-                <% } %>
                 <% if (!activitiesList[index].length) { %>
                   No activities
                 <% } else { %>
@@ -123,6 +159,13 @@
                   <% }) %>
                 <% } %>
               </div>
+              <% if (dayDestinationsList[index].length) { %>
+                <div class="day-container__destinations">
+                <% dayDestinationsList[index].forEach((dest) => { %>
+                  <a href="<%- searchDestinationPath(dest) %>"><div class="one-destination"><%- dest.destinationName %></div></a>
+                <% }) %>
+                </div>
+              <% } %>
             </div>
             <div class="day-container__image">
               <% if(day.dayPicture) { %>
@@ -139,56 +182,87 @@
   <div class="review-container__title">
     Reviews
     <% if (currentUser) { %>
-      <div class="rate-itineray">
-        <a href="<%- newReviewPath %>" class="back">¡Rate this itinerary!</a>
+       <!-- Trigger/Open The Modal -->
+       <div>
+        <a id="newCommentBtn" class="rate_btn" >¡Rate this itinerary!</a>
+      </div>
+      <!-- The Modal -->
+      <div id="commentModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="commentClose">&times;</span>
+          <div class="login-container">
+              <% if (locals.notice) { %>
+                <div className="notice"><%= notice %></div>
+              <% } %>
+              <h2>New Review</h2>
+              <% if (locals.error) { %>
+                <div class="error">
+                  <%= error %>
+                </div>
+              <% } %>
+              <form action="<%= submitReviewPath %>" method="post">
+                <div class="field">
+                  <label for="score">Score</label>
+                  <input type="number" name="score" value="" min="0" max="5" />
+                </div>
+                <div class="field">
+                  <label for="comment">Comment</label>
+                  <textarea type="text" name="comment" value=""></textarea>
+                </div>
+                <div class="field">
+                    <input type="submit" name="create" value="Create" />
+                </div>
+              </form>
+            </div>
+        </div>
       </div>
     <% } %>
-  </div>
-  <div class="review-container__info">
-      <% reviewsList.forEach((review, index) => { %>
-        <% user = reviewsUsersList[index] %>
-        <div class="review">
-          <div class="review__author">
-            <div class="review__author__image">
-              <a href="/users/<%= review.userId %>">
-                <% if(user.photo) { %>
-                  <img src="<%= user.photo %>">
-                <% } else { %>
-                  <img src="<%= assetPath('default-user.png') %>">
-                <% } %>
-              </a>
-            </div>
-            <div class="review__author__info">
-              <div id="review-username">By <a href="/users/<%= review.userId %>">@<%=user.username%></a></div>
-              <div id="review-score">Score: <%- review.score %></div>
-              <%
-              var date = review.reviewDate;
-              var dd = String(date.getDate()).padStart(2, '0');
-              var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
-              var yyyy = date.getFullYear();
-
-              date = mm + '/' + dd + '/' + yyyy;
-              %>
-              <div id="review-date"><%= date %></div>
-            </div>
-          </div>
-          <div class="review__comment">
-            <% if (currentUser && currentUser.id == user.id) { %>
-              <div class="day-container__info__edit">
-                <a href="<%- editReviewPath(review) %>">edit</a>
-                <form action="<%- deleteReviewPath(review) %>" method="POST">
-                  <input type="hidden" name="_method" value="delete" />
-                  <input type="submit" value="delete" />
-                </form>
+    </div>
+    <div class="review-container__info">
+        <% reviewsList.forEach((review, index) => { %>
+          <% user = reviewsUsersList[index] %>
+          <div class="review">
+            <div class="review__author">
+              <div class="review__author__image">
+                <a href="/users/<%= review.userId %>">
+                  <% if(user.photo) { %>
+                    <img src="<%= user.photo %>">
+                  <% } else { %>
+                    <img src="<%= assetPath('default-user.png') %>">
+                  <% } %>
+                </a>
               </div>
-            <% } %>
-            <%- review.comment %>
+              <div class="review__author__info">
+                <div id="review-username">By <a href="/users/<%= review.userId %>">@<%=user.username%></a></div>
+                <div id="review-score">Score: <%- review.score %></div>
+                <%
+                var date = review.reviewDate;
+                var dd = String(date.getDate()).padStart(2, '0');
+                var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = date.getFullYear();
+
+                date = mm + '/' + dd + '/' + yyyy;
+                %>
+                <div id="review-date"><%= date %></div>
+              </div>
+            </div>
+            <div class="review__comment">
+              <% if (currentUser && currentUser.id == user.id) { %>
+                <div class="day-container__info__edit">
+                  <a href="<%- editReviewPath(review) %>">edit</a>
+                  <form action="<%- deleteReviewPath(review) %>" method="POST">
+                    <input type="hidden" name="_method" value="delete" />
+                    <input type="submit" value="delete" />
+                  </form>
+                </div>
+              <% } %>
+              <%- review.comment %>
+            </div>
           </div>
-        </div>
-      <% }) %>
-  </div>
+        <% }) %>
+    </div>
 </div>
 <div class="back-to-itineraries">
   <a href="/itineraries" class="back">Back to all itineraries</a>
 </div>
-

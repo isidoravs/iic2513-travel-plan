@@ -1,32 +1,32 @@
 <div class="form-container">
-        <% if (locals.errors) { %>
-          <div class="errors">
-            You need to fix the following errors:
-            <ul>
-              <% errors.forEach(error => { %>
-                <li><%= error.message %></li>
-              <% }); %>
-            </ul>
-          </div>
-        <% } %>
-        <form action="<%= submitDestinationPath %>" method="post">
-          <% if (!destination.isNewRecord) { %>
-            <input type="hidden" name="_method" value="patch" />
-          <% } %>
-          <div class="field">
-            <label for="destinationName">Destination Name</label>
-            <input type="text" name="destinationName" value="<%= destination.destinationName %>" />
-          </div>
-          <!-- <div class="field">
-            <label for="destinationPicture">Picture</label>
-            <input type="text" name="destinationPicture" value="<%= destination.destinationPicture %>" />
-          </div> -->
-          <div class="field">
-            <% if (destination.isNewRecord) { %>
-              <input type="submit" name="create" value="Create" />
-            <% } else { %>
-              <input type="submit" name="update" value="Update" />
-            <% } %>
-          </div>
-        </form>
-      </div>
+  <% if (locals.errors) { %>
+    <div class="errors">
+      You need to fix the following errors:
+      <ul>
+        <% errors.forEach(error => { %>
+          <li><%= error.message %></li>
+        <% }); %>
+      </ul>
+    </div>
+  <% } %>
+  <form action="<%= submitDestinationPath %>" method="post">
+    <% if (!destination.isNewRecord) { %>
+      <input type="hidden" name="_method" value="patch" />
+    <% } %>
+    <div class="field">
+      <label for="destinationName">Destination Name</label>
+      <input type="text" name="destinationName" value="<%= destination.destinationName %>" />
+    </div>
+    <!-- <div class="field">
+      <label for="destinationPicture">Picture</label>
+      <input type="text" name="destinationPicture" value="<%= destination.destinationPicture %>" />
+    </div> -->
+    <div class="field">
+      <% if (destination.isNewRecord) { %>
+        <input type="submit" name="create" value="Create" />
+      <% } else { %>
+        <input type="submit" name="update" value="Update" />
+      <% } %>
+    </div>
+  </form>
+</div>

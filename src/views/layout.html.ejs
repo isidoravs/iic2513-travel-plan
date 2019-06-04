@@ -8,6 +8,8 @@
     <% if (env !== 'development') { %>
       <link rel="stylesheet" href="<%= assetPath('app.css') %>">
     <% } %>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   </head>
 
   <body>
@@ -46,18 +48,160 @@
                 </div>
               </div>
             </div>
-          <% } else { %>
+            <!-- Trigger/Open The Modal -->
             <div class="header__btn-container">
-                <a class="header__btn" href="<%= newSessionPath %>">Log In</a>
+                <a id="myBtn" class="hidden">Log IIn</a>
+            </div>
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <div class="login-container">
+                      <% if (locals.notice) { %>
+                        <div className="notice"><%= notice %></div>
+                      <% } %>
+                      <h2>Log In</h2>
+                      <% if (locals.error) { %>
+                        <div class="error">
+                          <%= error %>
+                        </div>
+                      <% } %>
+                      <form action="<%= createSessionPath %>" method="post">
+                        <input type="hidden" name="_method" value="put" />
+                        <div class="field">
+                          <label for="email">Email</label>
+                          <input type="email" name="email" value="<%= locals.email %>" />
+                        </div>
+                        <div class="field">
+                          <label for="password">Password</label>
+                          <input type="password" name="password" value="<%= locals.password %>" />
+                        </div>
+                        <div class="field">
+                          <input type="submit" name="sign-in" value="Sign In" />
+                        </div>
+                      </form>
+                    </div>
+                </div>
+              </div>
+          <% } else { %>
+            <!-- Trigger/Open The Modal -->
+            <div class="header__btn-container">
+                <a id="myBtn" class="header__btn">Log In</a>
             </div>
             <div class="header__btn-container">
                 <a class="header__btn" href="/users/new">Sign Up</a>
+            </div>
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+
+              <!-- Modal content -->
+              <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="login-container">
+                    <% if (locals.notice) { %>
+                      <div className="notice"><%= notice %></div>
+                    <% } %>
+                    <h2>Log In</h2>
+                    <% if (locals.error) { %>
+                      <div class="error">
+                        <%= error %>
+                      </div>
+                    <% } %>
+                    <form action="<%= createSessionPath %>" method="post">
+                      <input type="hidden" name="_method" value="put" />
+                      <div class="field">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" value="<%= locals.email %>" />
+                      </div>
+                      <div class="field">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" value="<%= locals.password %>" />
+                      </div>
+                      <div class="field">
+                        <input type="submit" name="sign-in" value="Sign In" />
+                      </div>
+                    </form>
+                  </div>
+              </div>
             </div>
           <% } %>
         </div>
       </div>
       <div class="app__container">
         <%- body %>
+        <!-- Trigger/Open The Modal -->
+        <div class="rate-itinerary">
+            <a id="newCommentBtn" class="hidden" >Rate!!!</a>
+          </div>
+          <!-- The Modal -->
+          <div id="commentModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+              <span class="commentClose">&times;</span>
+              <div class="login-container">
+                  <% if (locals.notice) { %>
+                    <div className="notice"><%= notice %></div>
+                  <% } %>
+                  <h2>New Review</h2>
+                  <% if (locals.error) { %>
+                    <div class="error">
+                      <%= error %>
+                    </div>
+                  <% } %>
+                  <form action="" method="post">
+                    <div class="field">
+                      <label for="score">Score</label>
+                      <input type="number" name="score" value="" min="0" max="5" />
+                    </div>
+                    <div class="field">
+                      <label for="comment">Comment</label>
+                      <textarea type="text" name="comment" value=""></textarea>
+                    </div>
+                    <div class="field">
+                        <input type="submit" name="create" value="Create" />
+                    </div>
+                  </form>
+                </div>
+            </div>
+          </div>
+          <!-- Trigger/Open The Modal -->
+
+          <a class="hidden" id="add-activity" title="Add activity">
+              + Activity
+          </a>
+          <!-- The Modal -->
+          <div id="activityModal" class="modal">
+          <!-- Modal content -->
+              <div class="modal-content">
+                  <span class="activityClose">&times;</span>
+                  <div class="login-container">
+                      <% if (locals.notice) { %>
+                      <div class="notice"><%= notice %></div>
+                      <% } %>
+                      <h2>New Activity</h2>
+                      <% if (locals.error) { %>
+                      <div class="error">
+                          <%= error %>
+                      </div>
+                      <% } %>
+                      <form action="" method="post">
+                          <div class="field">
+                            <label for="title">Title</label>
+                            <input type="text" name="title" value="" />
+                          </div>
+                          <div class="field">
+                            <label for="description">Description</label>
+                            <textarea type="text" name="description"></textarea>
+                          </div>
+                          <div class="field">
+                              <input type="submit" name="create" value="Create" />
+                          </div>
+                      </form>
+                  </div>
+              </div>
+            </div>
         <script src="<%= assetPath('app.js') %>"></script>
       </div>
       <div class="footer">

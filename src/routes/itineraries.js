@@ -72,6 +72,7 @@ router.get('itineraries.show', '/:id', ItineraryScoreUpdate, loadItinerary, asyn
     reviewsList,
     reviewsUsersList: await Promise.all(reviewsList.map(r => ctx.orm.user.findById(r.userId))),
     activitiesList: await Promise.all(daysList.map(d => d.getActivities())),
+    dayDestinationsList: await Promise.all(daysList.map(d => d.getDestinations())),
     destinationsList: await itinerary.getDestinations(),
     newReviewPath: ctx.router.url('itineraries.reviews.new', { id: itinerary.id }),
     deleteDestinationPath: destination => ctx.router.url('destinations.itineraries.delete', { id: itinerary.id, dest_id: destination.id }),
@@ -90,6 +91,9 @@ router.get('itineraries.show', '/:id', ItineraryScoreUpdate, loadItinerary, asyn
     newDestinationPath: ctx.router.url('destinations.itinerary.new', { id: itinerary.id }),
     addDestinationPath: ctx.router.url('destinations.assign', { id: itinerary.id }),
     newDestinationDayPath: day => ctx.router.url('itineraries.days.destinations.new', { did: day.id, id: itinerary.id }),
+    searchDestinationPath: destination => ctx.router.url('destinations.search', {id:destination.id}),
+    submitReviewPath: ctx.router.url('itineraries.reviews.create', { id: itinerary.id }),
+    submitDayActivityPath: day => ctx.router.url('itineraries.days.activities.create', { id: itinerary.id, did: day.id }),
   });
 });
 router.get('itineraries.edit', '/:id/edit', loadItinerary, async (ctx) => {
@@ -105,6 +109,12 @@ router.post('itineraries.create', '/', async (ctx) => {
     await itinerary.save({ fields: ['itineraryName', 'budget', 'startDate', 'endDate'] });
     const { userId } = ctx.session;
     const avgScore = 0;
+    const image = ctx.request.files.file;
+    cloudinary.uploader.upload(image.path, async (error, result) => {
+      const itineraryPicture = result.secure_url;
+      await itinerary.update({ itineraryPicture });
+      itinerary.save();
+    });
     await itinerary.update({ avgScore });
     await itinerary.update({ userId });
     ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
@@ -240,7 +250,7 @@ router.del('itineraries.reviews.delete', '/:id/reviews/:rid', loadItinerary, loa
   const { review } = ctx.state;
   const { itinerary } = ctx.state;
   await review.destroy();
-  ctx.redirect(ctx.router.url('itineraries.reviews.list', { id: itinerary.id }));
+  ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
 });
 
 
@@ -282,6 +292,12 @@ router.post('itineraries.days.create', '/:id/days/create', loadItinerary, async 
   const { itinerary } = ctx.state;
   const day = ctx.orm.day.build(ctx.request.body);
   try {
+    const image = ctx.request.files.file;
+    cloudinary.uploader.upload(image.path, async (error, result) => {
+      const dayPicture = result.secure_url;
+      await day.update({ dayPicture });
+      day.save();
+    });
     await day.save({ fields: ['number', 'date', 'dayPicture'] });
     const itineraryId = itinerary.id;
     await day.update({ itineraryId });
@@ -385,10 +401,10 @@ router.patch('itineraries.days.activities.update', '/:id/days/:did/activities/:a
   const activity = await ctx.orm.activity.findById(ctx.params.aid);
   try {
     const {
-      title, activityPicture, description,
+      title, description,
     } = ctx.request.body;
     await activity.update({
-      title, activityPicture, description,
+      title, description,
     });
     ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
   } catch (validationError) {

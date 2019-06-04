@@ -29,4 +29,10 @@
     background: $bg-secondary-color;
     border-radius: 20px;
     padding: 40px;
+
+    &__title {
+        font-weight: bold;
+        font-size: 15px;
+        color: $primary-text;
+    }
 }

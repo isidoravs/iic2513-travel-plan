@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const KoaRouter = require('koa-router');
 
 const hello = require('./routes/hello');
@@ -9,21 +10,29 @@ const activities = require('./routes/activities');
 const reviews = require('./routes/reviews');
 const destinations = require('./routes/destinations');
 const sessions = require('./routes/sessions');
+const api = require('./routes/api');
 
 
 const router = new KoaRouter();
 
 router.use(async (ctx, next) => {
+  const last_path = ctx.session.path;
+  ctx.session.path = ctx.path;
+  ctx.session.lastPath = last_path;
+  console.log('**************');
+  console.log(last_path);
   Object.assign(ctx.state, {
     currentUser: ctx.session.userId && await ctx.orm.user.findById(ctx.session.userId),
     newSessionPath: ctx.router.url('sessions.new'),
     destroySessionPath: ctx.router.url('sessions.destroy'),
     itinerariesPath: ctx.router.url('itineraries.list'),
     searchPath: ctx.router.url('destinations.find'),
+    createSessionPath: ctx.router.url('sessions.create'),
   });
   return next();
 });
 
+router.use('/api', api.routes());
 router.use('/', index.routes());
 router.use('/hello', hello.routes());
 router.use('/users', users.routes());

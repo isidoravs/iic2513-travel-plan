@@ -1,69 +1,47 @@
-<h2>Search results</h2>
-<div class="container-grid">
-  <div class="col-1">
+<div class="search-title">Search results</div>
+<div class="search-container">
+  <div class="filter-panel">
     <form method="get" action="<%= superSearchPath %>">
-      <p> Rating </p>
-      <input type="radio" name="rating" value=5> 5 stars<br>
-      <input type="radio" name="rating" value=4> 4 stars or more<br>
-      <input type="radio" name="rating" value=3> 3 stars or more<br>
-      <input type="radio" name="rating" value=2> 2 stars or more<br>
-      <input type="radio" name="rating" value=1> 1 star or more<br>
-      <input type="radio" name="rating" value=0 checked> Any rating<br>
-      <!-- Cambiar donde dice "n stars" por fotos de estrellas de ratings -->
-    <!-- <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-      <script>
-        $( function() {
-          $( "#slider-range" ).slider({
-            range: true,
-            min: 0,
-            max: 2000000,
-            values: [ 0, 300000 ],
-            slide: function( event, ui ) {
-              $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-            }
-          });
-          $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-            " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-        } );
-        </script>
-        <p>
-          <label for="amount">Price range:</label>
-          <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-        </p>
-        <div id="slider-range"></div> -->
-    <br>
-    <p> Include at least one of these destinations </p>
-    <input type="text" placeholder="Desination 1..." name="destination1"><br>
-    <input type="text" placeholder="Desination 2..." name="destination2"><br>
-    <input type="text" placeholder="Desination 3..." name="destination3"><br>
-    <br>
-    <br>
-    <p> Range of days </p>
-    <div class='multi-range' data-lbound='1' data-ubound='30'>
-      <hr />
-      <input type='range' name='minranged' min='1' max='29' step='1' value='1' oninput='this.form.mindays.value=this.value;'/>
-      <input type='range' name='maxranged' min='2' max='30' step='1' value='30'oninput='this.form.maxdays.value=this.value;'/>
-    </div>
-    Min: <input type="number" name="mindays" min="1" max="29" value="1" oninput="this.form.minranged.value=this.value" />
-    Max: <input type="number" name="maxdays" min="2" max="30" value="30" oninput="this.form.maxranged.value=this.value" />
-    <br>
-    <br>
-    <p> Budget </p>
-    <div class='multi-range' data-lbound='1' data-ubound='30'>
-      <hr />
-      <input type='range' name='minrangeb' min='50000' max='950000' step='50000' value='50000' oninput='this.form.minbud.value=this.value;'/>
-      <input type='range' name='maxrangeb' min='100000' max='1000000' step='50000' value='1000000'oninput='this.form.maxbud.value=this.value;'/>
-    </div>
-    Min: <input type="number" name="minbud" min="50000" max="950000" value="50000" step='50000' oninput="this.form.minrangeb.value=this.value" />
-    Max: <input type="number" name="maxbud" min="100000" max="1000000" value="1000000" step='50000' oninput="this.form.maxrangeb.value=this.value" />
-    <br>
-    <br>
-    <button type="submit"><img src="<%= assetPath('search-icon.png') %>"></button>
+      <div class="filter__rating">
+        <div id="subtitle"> Rating </div>
+        <div id='rating-<%= rating %>'>
+          <input type="radio" name="rating" value=5 id="5"> 5 stars<br>
+          <input type="radio" name="rating" value=4 id="4"> 4 stars or more<br>
+          <input type="radio" name="rating" value=3 id="3"> 3 stars or more<br>
+          <input type="radio" name="rating" value=2 id="2"> 2 stars or more<br>
+          <input type="radio" name="rating" value=1 id="1"> 1 star or more<br>
+          <input type="radio" name="rating" value=0 id="0"> Any rating<br>
+        </div>
+      </div>
+      <div class="filter__destinations-option">
+        <div id="subtitle"> Include more than one destination? </div>
+        <input type="text" placeholder="Destination 1..." name="destination1" value='<%= destination1 %>'><br>
+        <input type="text" placeholder="Destination 2..." name="destination2" value='<%= destination2 %>'><br>
+        <input type="text" placeholder="Destination 3..." name="destination3" value='<%= destination3 %>'><br>
+      </div>
+      <div class="filter__day-range">
+        <div id="subtitle"> Range of days </div>
+        <div class='multi-range' data-lbound='1' data-ubound='30'>
+          <hr />
+          <input class='minrange1' type='range' name='minranged' min='1' max='29' step='1' value=<%=min_d%> oninput='this.form.mindays.value=this.value;'/>
+          <input class='maxrange1' type='range' name='maxranged' min='2' max='30' step='1' value=<%=max_d%> oninput='this.form.maxdays.value=this.value;'/>
+        </div>
+        Min <input class='minrange2' type="number" name="mindays" min="1" max="29" value=<%=min_d%> oninput="this.form.minranged.value=this.value" />
+        Max <input class='maxrange2' type="number" name="maxdays" min="2" max="30" value=<%=max_d%> oninput="this.form.maxranged.value=this.value" />
+      </div>
+      <div class="filter__budget-range">
+        <div id="subtitle"> Budget </div>
+        <div class='multi-range' data-lbound='1' data-ubound='30'>
+          <hr />
+          <input class='minrange3' type='range' name='minrangeb' min='0' max='4000' step='50' value=  <%=min_b%> oninput='this.form.minbud.value=this.value;'/>
+          <input class='maxrange3' type='range' name='maxrangeb' min='50' max='4050' step='50' value= <%=max_b%> oninput='this.form.maxbud.value=this.value;'/>
+        </div>
+        Min <input class='minrange4' type="number" name="minbud" min='0' max='4000' step='50' value= <%=min_b%> oninput="this.form.minrangeb.value=this.value" />
+        Max <input class='maxrange4' type="number" name="maxbud" min='50' max='4050' step='50' value= <%=max_b%> oninput="this.form.maxrangeb.value=this.value" />
+      </div>
+      <div class="filter__btn">
+        <button type="submit"><img src="<%= assetPath('search-icon.png') %>"></button>
+      </div>
     </form>
   </div>
   <div class="itinerary-list">
@@ -74,65 +52,59 @@
       <% } else { %>
           <% let itin_index = 0 %>
           <% destinationSearch.forEach((destination) => { %>
-          <h3>Destination name: <%- destination.destinationName %><h3>
-          <% itineraries[itin_index].forEach((itinerary) => { %>
-            <div class="itinerary-list-container">
-              <div class="itinerary-list-container__picture">
-                <% if ((itin_index % 2) == 0) { %>
-                  <a href="/itineraries/<%= itinerary.id %>"><img src="<%= assetPath('itinerary-pic1.jpg') %>"></a>
-                <% } else { %>
-                  <a href="/itineraries/<%= itinerary.id %>"><img src="<%= assetPath('itinerary-pic2.jpg') %>"></a>
-                <% } %>
-              </div>
-              <div class="itinerary-list-container__info">
-                <div class="itinerary-list-container__info__title">
-                  <div><a href="/itineraries/<%= itinerary.id %>"><%- itinerary.itineraryName %></a></div>
-                  <% if (currentUser && currentUser.id == itinerary.userId) { %>
-                    <div class="day-container__info__edit">
-                      <a href="<%- editItineraryPath(itinerary) %>">edit</a>
-                      <form action="<%- deleteItineraryPath(itinerary) %>" method="POST">
-                        <input type="hidden" name="_method" value="delete" />
-                        <input type="submit" value="delete" />
-                      </form>
-                    </div>
+          <% if (itineraries[itin_index].length) { %>
+            <div class="destination-header">
+              Destination: <%- destination.destinationName %>
+            </div>
+            <% itineraries[itin_index].forEach((itinerary) => { %>
+              <div class="itinerary-list-container">
+                <div class="itinerary-list-container__picture">
+                  <% if(itinerary.itineraryPicture) { %>
+                    <a href="/itineraries/<%= itinerary.id %>"><img src="<%= itinerary.itineraryPicture %>"></a>
+                  <% } else { %>
+                    <a href="/itineraries/<%= itinerary.id %>"><img src="<%= assetPath('default-itinerary.png') %>"></a>
                   <% } %>
                 </div>
-                <div class="itinerary-list-container__info__summary">
-                  <div id="dates"><%- itinerary.startDate %> - <%- itinerary.endDate %></div>
-                  <div id="budget">$ <%- itinerary.budget %> USD</div>
-                  <div id="score">Score: <%- itinerary.avgScore %></div>
-                  <!-- https://codepen.io/Bluetidepro/pen/GkpEa -->
-                  <div class="star-ratings-css">
-                    <div class="star-ratings-css-top" style="width: <%= (itinerary.avgScore/5)*100 %>%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                    <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                <div class="itinerary-list-container__info">
+                  <div class="itinerary-list-container__info__title">
+                    <div><a href="/itineraries/<%= itinerary.id %>"><%- itinerary.itineraryName %></a></div>
+                    <% if (currentUser && currentUser.id == itinerary.userId) { %>
+                      <div class="day-container__info__edit">
+                        <a href="<%- editItineraryPath(itinerary) %>">edit</a>
+                        <form action="<%- deleteItineraryPath(itinerary) %>" method="POST">
+                          <input type="hidden" name="_method" value="delete" />
+                          <input type="submit" value="delete" />
+                        </form>
+                      </div>
+                    <% } %>
                   </div>
-                  <!-- <div class="rate">
-                    <input type="radio" id="star5" name="rate" value="5" />
-                    <label for="star5" title="5 stars">5 stars</label>
-                    <input type="radio" id="star4" name="rate" value="4" />
-                    <label for="star4" title="4 stars">4 stars</label>
-                    <input type="radio" id="star3" name="rate" value="3" />
-                    <label for="star3" title="3 stars">3 stars</label>
-                    <input type="radio" id="star2" name="rate" value="2" />
-                    <label for="star2" title="2 stars">2 stars</label>
-                    <input type="radio" id="star1" name="rate" value="1" />
-                    <label for="star1" title="1 star">1 star</label>
-                  </div> -->
+                  <div class="itinerary-list-container__info__summary">
+                    <div id="dates"><%- itinerary.startDate %> - <%- itinerary.endDate %></div>
+                    <div id="budget">$ <%- itinerary.budget %> USD</div>
+                    <% if (itinerary.avgScore) { %>
+                      <div id="score">Score: <%- itinerary.avgScore %></div>
+                      <!-- https://codepen.io/Bluetidepro/pen/GkpEa -->
+                      <div class="star-ratings-css">
+                        <div class="star-ratings-css-top" style="width: <%= (itinerary.avgScore/5)*100 %>%"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                        <div class="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                      </div>
+                    <% } %>
+                  </div>
+                  <div class="itinerary-list-container__info__description"><%- itinerary.description %></div>
                 </div>
-                <div class="itinerary-list-container__info__description"><%- itinerary.description %></div>
+                <div class="itinerary-list-container__author">
+                  <div class="itinerary-list-container__author__picture">
+                    <img src="<%= assetPath('default-user.png') %>">
+                  </div>
+                  <div class="itinerary-list-container__author__name">
+                    <a href="/users/<%= itinerary.userId %>">@username</a>
+                  </div>
+                </div>
               </div>
-              <div class="itinerary-list-container__author">
-                <div class="itinerary-list-container__author__picture">
-                  <img src="<%= assetPath('default-user.png') %>">
-                </div>
-                <div class="itinerary-list-container__author__name">
-                  <a href="/users/<%= itinerary.userId %>">@username</a>
-                </div>
-              </div>
-            </div>
-          <% }) %>
+            <% }) %>
+          <% } %>
           <% itin_index += 1;%>
-          <% }) %>
+        <% }) %>
       <% } %>
     <%# --------------Busqueda avanzada con varios filtros----------------- %>
      <% } else {%>

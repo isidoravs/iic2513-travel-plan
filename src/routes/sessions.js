@@ -11,13 +11,24 @@ router.get('sessions.new', '/new', async ctx => ctx.render('sessions/new', {
 }));
 
 router.put('sessions.create', '/', async (ctx) => {
+  // eslint-disable-next-line camelcase
+  console.log('*******************************');
+  console.log(ctx.session.lastPath);
   const { email, password } = ctx.request.body;
   const user = await ctx.orm.user.find({ where: { email } });
   const isPasswordCorrect = user && await user.checkPassword(password);
   if (isPasswordCorrect) {
     // sendLoginAlertEmail(ctx, { user });
     ctx.session.userId = user.id;
-    return ctx.redirect(ctx.router.url('itineraries.list'));
+    // eslint-disable-next-line eqeqeq
+    if (ctx.session.lastPath == '/sessions/') {
+      return ctx.redirect(ctx.router.url('itineraries.list'));
+    }
+    // eslint-disable-next-line eqeqeq
+    if (ctx.session.lastPath == '/sessions/new') {
+      return ctx.redirect(ctx.router.url('itineraries.list'));
+    }
+    return ctx.redirect(ctx.session.lastPath);
   }
   return ctx.render('sessions/new', {
     email,
