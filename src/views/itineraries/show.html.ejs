@@ -76,7 +76,17 @@
               <% } else { %>
                 <div class="day-container__info__header-no-pic">
               <% } %>
-                Day <%- day.number%>: <%- day.date %>
+                <div class="day-container__info__title">Day <%- day.number%>: <%- day.date %></div>
+                <% if (currentUser && currentUser.id == itinerary.userId) { %>
+                  <div class="itinerary-edit">
+                    <a href="<%- newDayActivityPath(day) %>" class="itinerary-edit__btn" id="add-activity" title="Add activity">
+                      + Activity
+                    </a>
+                    <a href="<%- newDestinationDayPath(day) %>" class="itinerary-edit__btn" id="add-destination" title="Add destination">
+                      + Destination
+                    </a>
+                  </div>
+                <% } %>
               </div>
               <% if (currentUser && currentUser.id == itinerary.userId) { %>
                 <div class="day-container__info__edit">
