@@ -47,11 +47,16 @@ router.get('itineraries.list', '/', async (ctx) => {
     itinerariesList,
     usersList: await Promise.all(itinerariesList.map(i => ctx.orm.user.findById(i.userId))),
     newItineraryPath: ctx.router.url('itineraries.new'),
+    topPath: ctx.router.url('itineraries.top'),
     showItineraryPath: itinerary => ctx.router.url('itineraries.show', { id: itinerary.id }),
     editItineraryPath: itinerary => ctx.router.url('itineraries.edit', { id: itinerary.id }),
     deleteItineraryPath: itinerary => ctx.router.url('itineraries.delete', { id: itinerary.id }),
   });
 });
+router.get('itineraries.top', '/top', async (ctx) => {
+  await ctx.render('itineraries/top', {});
+});
+
 router.get('itineraries.new', '/new', async (ctx) => {
   const itinerary = ctx.orm.itinerary.build();
   await ctx.render('itineraries/new', {
@@ -91,7 +96,7 @@ router.get('itineraries.show', '/:id', ItineraryScoreUpdate, loadItinerary, asyn
     newDestinationPath: ctx.router.url('destinations.itinerary.new', { id: itinerary.id }),
     addDestinationPath: ctx.router.url('destinations.assign', { id: itinerary.id }),
     newDestinationDayPath: day => ctx.router.url('itineraries.days.destinations.new', { did: day.id, id: itinerary.id }),
-    searchDestinationPath: destination => ctx.router.url('destinations.search', {id:destination.id}),
+    searchDestinationPath: destination => ctx.router.url('destinations.search', { id: destination.id }),
     submitReviewPath: ctx.router.url('itineraries.reviews.create', { id: itinerary.id }),
     submitDayActivityPath: day => ctx.router.url('itineraries.days.activities.create', { id: itinerary.id, did: day.id }),
   });
@@ -119,6 +124,7 @@ router.post('itineraries.create', '/', async (ctx) => {
     await itinerary.update({ userId });
     ctx.redirect(ctx.router.url('itineraries.show', { id: itinerary.id }));
   } catch (validationError) {
+    console.log(validationError);
     await ctx.render('itineraries/new', {
       itinerary,
       errors: validationError.errors,
