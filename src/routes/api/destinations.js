@@ -17,24 +17,27 @@ router.get('api.destinations.list', '/', async (ctx) => {
 
 router.get('api.destination.show', '/:id', async (ctx) => {
   const destination = await ctx.orm.destination.findById(ctx.params.id);
+  const itinerariesList = await destination.getItineraries();
+  const data = JSON.parse(JSON.stringify(destination));
+  data.itineraries = itinerariesList;
   ctx.body = ctx.jsonSerializer('destination', {
-    attributes: ['destinationName'],
+    attributes: ['destinationName', 'itineraries'],
     topLevelLinks: {
-      self: `${ctx.origin}${ctx.router.url('api.destinations.list')}:id`,
+      self: `${ctx.origin}${ctx.router.url('api.destinations.list')}${destination.id}`,
     },
-  }).serialize(destination);
+  }).serialize(data);
 });
 
-router.post('api.destinations.create', '/', async (ctx) => {
-  const data = JSON.parse(ctx.request.body);
-  data.forEach(async (dest) => {
-    console.log(dest);
-    // eslint-disable-next-line no-underscore-dangle
-    if (dest.__isNew__) {
-      const destination = ctx.orm.destination.build();
-      // const itinerary = await ctx.orm.itinerary.findById(ctx.params.id);
-    }
-  });
-});
+// router.post('api.destinations.create', '/', async (ctx) => {
+//   const data = JSON.parse(ctx.request.body);
+//   data.forEach(async (dest) => {
+//     console.log(dest);
+//     // eslint-disable-next-line no-underscore-dangle
+//     if (dest.__isNew__) {
+//       const destination = ctx.orm.destination.build();
+//       // const itinerary = await ctx.orm.itinerary.findById(ctx.params.id);
+//     }
+//   });
+// });
 
 module.exports = router;
