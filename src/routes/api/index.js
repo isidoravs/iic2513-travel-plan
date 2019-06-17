@@ -4,8 +4,8 @@ const jwt = require('koa-jwt');
 const authApi = require('./auth');
 const destinationsApi = require('./destinations');
 const itinerariesApi = require('./itineraries');
-const usersApi = require('./users');
 
+const usersApi = require('./users');
 const router = new KoaRouter();
 
 router.use('/destinations', destinationsApi.routes());
