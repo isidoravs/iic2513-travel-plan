@@ -25,35 +25,37 @@
 
 
     <div>
-      <% if (allflights) {%>
-        <table id="users-list">
-          <thead>
-              <tr>
-                <th>Origin</th>
-                <th>Destination</th>
-                <th>Departure Date</th>
-                <th>Airline</th>
-                <th>Return Date</th>
-                <th>Price</th>
-              </tr>
-          </thead>
-          <tbody>
-            <% allflights.forEach((flight) => { %>
-              <tr>
-                <td><%- flight.origout.CityName %></td>
-                <td><%- flight.destout.CityName %></td>
-                <td><%- flight.quote.OutboundLeg.DepartureDate  %></td>
-                <td><%- flight.oneWayCarrier.Name %></td>
-                <td><%- flight.quote.InboundLeg.DepartureDate %></td>
-                <td><%- flight.quote.MinPrice %> $ <%- Currencies[0].Code %></td>
-              </tr>
-            <% }) %>
-          </tbody>
-        </table>
+      <% if (params){ %>
+        <% if (allflights.length) {%>
+          <table id="users-list">
+            <thead>
+                <tr>
+                  <th>Origin</th>
+                  <th>Destination</th>
+                  <th>Departure Date</th>
+                  <th>Airline</th>
+                  <th>Return Date</th>
+                  <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+              <% allflights.forEach((flight) => { %>
+                <tr>
+                  <td><%- flight.origout.CityName %></td>
+                  <td><%- flight.destout.CityName %></td>
+                  <td><%- flight.quote.OutboundLeg.DepartureDate  %></td>
+                  <td><%- flight.oneWayCarrier.Name %></td>
+                  <td><%- flight.quote.InboundLeg.DepartureDate %></td>
+                  <td><%- flight.quote.MinPrice %> $ <%- Currencies[0].Code %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
 
-      <%} else {%>
-        <p> No flights Available.</p>
-      <% } %>
+        <%} else {%>
+          <p> No flights Available.</p>
+        <% } %>
+    <% } %>
    </div>
   </body>
 </html>

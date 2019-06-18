@@ -226,7 +226,7 @@ router.get('destinations.supersearch', '/ssearch', async (ctx) => {
 
 router.get('destinations.book','/book', async (ctx) =>{
   await ctx.render('/booking',{
-    allflights: False,
+    params: false,
     flightsPath: ctx.router.url('destinations.flights')
   })
 });
@@ -243,7 +243,6 @@ router.get('destinations.flights','/booking/flights', async(ctx) => {
         "X-RapidAPI-Key":"99e67c76famsh6f0e0b458c67747p12ae57jsnca0007c820a8",
         "X-RapidAPI-Host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
       }}).then(response => response.json());
-      console.log(ciudadesori)
       // .header("X-RapidAPI-Key", "99e67c76famsh6f0e0b458c67747p12ae57jsnca0007c820a8")
       // .header("X-RapidAPI-Host", "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com")
       // .end(function (result) {
@@ -253,37 +252,44 @@ router.get('destinations.flights','/booking/flights', async(ctx) => {
         "X-RapidAPI-Key":"99e67c76famsh6f0e0b458c67747p12ae57jsnca0007c820a8",
         "X-RapidAPI-Host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
       }}).then(response => response.json());
-    console.log(ciudadesdest);
-  const queryString = ciudadesori.Places[0].PlaceId + '/' + ciudadesdest.Places[0].PlaceId + '/' + ida + '/' + vuelta;
-  let vuelos = await fetch("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/CL/USD/en-US/" + queryString,
-  {headers:{
-    "X-RapidAPI-Key":"99e67c76famsh6f0e0b458c67747p12ae57jsnca0007c820a8",
-    "X-RapidAPI-Host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
-  }}).then(response => response.json());
-  console.log(vuelos);
-  const quotes = vuelos.Quotes;
-  const places = vuelos.Places;
-  const carriers = vuelos.Carriers;
-  const Currencies = vuelos.Currencies;
-  const allflights = []
-  quotes.forEach((quote) => {
-  dic = {
-  quote: quote,
-  origout: places.find(p => p.PlaceId == quote.OutboundLeg.OriginId),
-  destout: places.find(p => p.PlaceId == quote.OutboundLeg.DestinationId),
-  retOrig: places.find(p => p.PlaceId == quote.InboundLeg.OriginId),
-  retDest: places.find(p => p.PlaceId == quote.InboundLeg.DestinationId),
-  oneWayCarrier: carriers.find(c => c.CarrierId == quote.OutboundLeg.CarrierIds[0]),
-  returnCarrier: carriers.find(c => c.CarrierId == quote.InboundLeg.CarrierIds[0]),
-  }
-  allflights.push(dic);
-});
+  const allflights = [];
+  let places;
+  let Currencies;
+  let carriers;
+  console.log(ciudadesori);
+  if (ciudadesori.Places.length && ciudadesdest.Places.length){
+    const queryString = ciudadesori.Places[0].PlaceId + '/' + ciudadesdest.Places[0].PlaceId + '/' + ida + '/' + vuelta;
+    let vuelos = await fetch("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/CL/USD/en-US/" + queryString,
+    {headers:{
+      "X-RapidAPI-Key":"99e67c76famsh6f0e0b458c67747p12ae57jsnca0007c820a8",
+      "X-RapidAPI-Host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
+    }}).then(response => response.json());
+    const quotes = vuelos.Quotes;
+    places = vuelos.Places;
+    carriers = vuelos.Carriers;
+    Currencies = vuelos.Currencies;
+    if (quotes){
+      quotes.forEach((quote) => {
+      dic = {
+      quote: quote,
+      origout: places.find(p => p.PlaceId == quote.OutboundLeg.OriginId),
+      destout: places.find(p => p.PlaceId == quote.OutboundLeg.DestinationId),
+      retOrig: places.find(p => p.PlaceId == quote.InboundLeg.OriginId),
+      retDest: places.find(p => p.PlaceId == quote.InboundLeg.DestinationId),
+      oneWayCarrier: carriers.find(c => c.CarrierId == quote.OutboundLeg.CarrierIds[0]),
+      returnCarrier: carriers.find(c => c.CarrierId == quote.InboundLeg.CarrierIds[0]),
+      }
+      allflights.push(dic);
+    });
+  };
+};
   console.log(allflights);
   await ctx.render('/booking',{
     places,
     carriers,
     allflights,
     Currencies,
+    params:true,
     flightsPath: ctx.router.url('destinations.flights')
 
   })
