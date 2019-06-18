@@ -1,0 +1,132 @@
+label
+{
+	display: block;
+	line-height:1.8em;
+	font-size: 14px;
+	margin-left: 30px;
+	margin-top: 5px;
+}
+
+form#bform
+{
+	border: 1px solid #DFDFDF;
+	width: 100%;
+  height: 100px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.contenainer-left
+{
+  float:left;
+}
+
+input.query-input, select
+{
+   width: 160px;
+   height: 20px;
+   margin-right: 30px;
+   margin-bottom: 10px;
+   margin-left: 30px;
+   padding: 0;
+}
+
+
+div#wholeresult
+{
+	margin: 10px 10px;
+}
+
+div.market
+{
+	padding-left: 20px;
+	padding-right: 10px;
+	margin-right: 33px;
+  float: left;
+  padding-top: 15px;
+}
+
+div.market input
+{
+	width:50px;
+	margin-left:10px;
+	margin-right: 0px;
+}
+
+div.market label
+{
+	margin-left:10px;
+	margin-right: 0px;
+  float: left;
+}
+
+
+div.debug label, input
+{
+	display:inline-block;
+}
+
+div.debug input
+{
+   width:20px;
+   margin-left:0px;
+   margin-right:0px;
+}
+
+input.btn-flights
+{
+   margin-top: 15px;
+	 margin-right: 30px;
+	 margin-left: 30px;
+	 margin-bottom: 10px;
+	 width: 160px;
+}
+
+div.createinfo {
+	margin-top: 10px;
+	margin-bottom:10px
+}
+
+.ajax-loader {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+
+.infoheader
+{
+    border-top-color: white;
+	text-shadow: rgba(255, 255, 255, 0.796875) 0px 1px 0px;
+	font-weight: normal;
+	padding: 0px 7px 0px 7px;
+	text-align: left;
+	line-height: 1.3em;
+	font-size: 14px;
+    color: black;
+}
+
+.infodata
+{
+    border-top-color: white;
+	color: #555;
+	font-size: 12px;
+	padding: 1px 0 0 30px;
+	vertical-align: top;
+}
+
+#info_div_pricing
+{
+    height: 240px;
+}
+
+#info_div_browse
+{
+    height: 120px;
+}
+
+#bookingdetails_div, .pollbooking_btn
+{
+    margin: 5px 300px;
+}
