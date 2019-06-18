@@ -268,7 +268,7 @@ router.get('destinations.flights','/booking/flights', async(ctx) => {
     places = vuelos.Places;
     carriers = vuelos.Carriers;
     Currencies = vuelos.Currencies;
-    if (quotes){
+    if (quotes.length){
       quotes.forEach((quote) => {
       dic = {
       quote: quote,
@@ -283,6 +283,7 @@ router.get('destinations.flights','/booking/flights', async(ctx) => {
     });
   };
 };
+  console.log('abajo');
   console.log(allflights);
   await ctx.render('/booking',{
     places,
