@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 const KoaRouter = require('koa-router');
 const cloudinary = require('cloudinary').v2;
+const airbnb = require('airbnbapijs');
 
 const router = new KoaRouter();
-
 
 function getSum(total, rev) {
   return total + rev.score;
@@ -108,8 +108,32 @@ router.get('itineraries.show', '/:id', ItineraryScoreUpdate, loadItinerary, asyn
     addDestinationPath: ctx.router.url('destinations.assign', { id: itinerary.id }),
     newDestinationDayPath: day => ctx.router.url('itineraries.days.destinations.new', { did: day.id, id: itinerary.id }),
     searchDestinationPath: destination => ctx.router.url('destinations.search', { id: destination.id }),
+    airbnbPath: destination => ctx.router.url('itinerary.airbnb', { id: itinerary.id, did: destination.id }),
     submitReviewPath: ctx.router.url('itineraries.reviews.create', { id: itinerary.id }),
     submitDayActivityPath: day => ctx.router.url('itineraries.days.activities.create', { id: itinerary.id, did: day.id }),
+  });
+});
+
+router.get('itinerary.airbnb', '/:id/options/:did', loadItinerary, async (ctx) => {
+  const { itinerary } = ctx.state;
+  const destination = await ctx.orm.destination.findById(ctx.params.did);
+  const token = await airbnb.newAccessToken({ username: 'fjlarach@uc.cl', password: 'FJ311nov' });
+  const aproved = await airbnb.testAuth(token.token);
+
+  console.log('Aquí viene lo de la api');
+  console.log(aproved);
+
+  const results2 = await airbnb.listingSearch({
+    location: destination.destinationName,
+  });
+  console.log(results2.search_results[0]);
+  const search_results = results2.search_results.slice(0, 3);
+  await ctx.render('itineraries/airbnb', {
+    destination,
+    itinerary,
+    search_results,
+    showItineraryPath: ctx.router.url('itineraries.show', { id: itinerary.id }),
+    searchDestinationPath: ctx.router.url('destinations.search', { id: destination.id }),
   });
 });
 router.get('itineraries.edit', '/:id/edit', loadItinerary, async (ctx) => {

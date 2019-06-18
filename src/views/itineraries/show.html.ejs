@@ -31,9 +31,10 @@
     </div>
     <div class="side-info__labels">
       <div class="side-info__react-destinations" id="react-destinations" value=<%- itinerary.id %></div>></div>
+      <h4>Presiona destino para tu recomendación airbnb (puede tomar unos segundos)</h4>
       <% if (destinationsList) { %>
         <% destinationsList.forEach((label) => { %>
-          <div class="side-info__labels one-label"><%- label.destinationName %></div>
+          <div class="side-info__labels one-label"><a href="<%- airbnbPath(label)%>"><%- label.destinationName %></a></div>
           <!--
           <form action="<%- deleteDestinationPath(label) %>" method="POST">
               <input type="hidden" name="_method" value="delete" />

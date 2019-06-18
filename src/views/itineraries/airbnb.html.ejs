@@ -1,0 +1,38 @@
+<div class="back-to-itineraries">
+    <a href= "<%= showItineraryPath%>" class="back">Back to itinerary</a>
+</div>
+
+<div class="back-to-itineraries">
+    <a href= "<%= searchDestinationPath%>" class="back">Mas info sobre el destino</a>
+</div>
+<% if (!search_results.length) { %>
+    <p>Ups, no te tenemos sugerencias para este destino</p>
+  <% } else { %>
+    <% search_results.forEach((res, index) => { %>
+    <div class="itinerary-container">
+        <div class="side-info">
+            <div class="side-info__image">
+                <h3>Host:</h3>
+                <img src="<%=search_results[index].listing.primary_host.picture_url%>">
+            </div>
+            <div class="side-info__budget">
+            $ <%= search_results[index].pricing_quote.nightly_price%> USD [Por noche]
+            </div>
+            <div class="side-info__score">
+                Score: <%= search_results[index].listing.star_rating%> de 5
+            </div>
+        </div>
+        <div class="main-info">
+                <div class="main-info__description">
+                    <%= search_results[index].listing.primary_host.first_name%> quiere recibirte en su casa de <%= search_results[index].listing.bedrooms%> piezas y <%= search_results[index].listing.bathrooms%> baños.
+                </div>
+                <div class="main-info__content">
+                        <div class="side-info__image">
+                                <h3>Hogar:</h3>
+                                <img src="<%= search_results[index].listing.picture_url%>">
+                        </div>
+                </div>
+        </div>
+    </div>
+    <%})%>
+<%}%>

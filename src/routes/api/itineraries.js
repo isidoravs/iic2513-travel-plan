@@ -5,7 +5,7 @@ const router = new KoaRouter();
 router.get('api.itineraries.list', '/', async (ctx) => {
   const itinerariesList = await ctx.orm.itinerary.findAll();
   ctx.body = ctx.jsonSerializer('itinerary', {
-    attributes: ['itineraryName', 'description', 'budget', 'avgScore', 'startDate', 'endDate'],
+    attributes: ['itineraryName','itineraryPicture', 'description', 'budget', 'avgScore', 'startDate', 'endDate', 'userId'],
     topLevelLinks: {
       self: `${ctx.origin}${ctx.router.url('api.itineraries.list')}`,
     },
