@@ -1,0 +1,61 @@
+<html>
+  <body>
+    <h1>Flights</h1>
+
+    <div id="wholeresult">
+      <form name="query" id="bform" method="get" action="<%= flightsPath %>">
+              <div>
+                  <div class='contenainer-left'><label for="originplace">From</label><input class="query-input" type="text" name="origen"/></div>
+                  <div class='contenainer-left'><label for="destinationplace">To</label><input class="query-input" type="text" name="destino"/></div>
+                  <div class='contenainer-left'><label for="outbounddate">Depart</label><input class="query-input" type="date" name="ida" value=""/></div>
+                  <div class='contenainer-left'><label for="inbounddate">Return</label><input class="query-input" type="date" name="vuelta" value=""/></div>
+                  <div class="passengers">
+                      <div class='contenainer-left'><label for="adults">Passengers</label><input class="query-input" type="text" name="adults" value="1"/></div>
+                  </div>
+              </div>
+
+              <div>
+                  <input type="submit" value="Find Flights" id="btn-call" class="btn-flights"/>
+                  <span id="hourglass"></span>
+              </div>
+
+              <div><table id="resultstable" style="border: 0"></table></div>
+      </form>
+    </div>
+
+
+    <div>
+      <% if (params){ %>
+        <% if (allflights.length) {%>
+          <table class="zui-table zui-table-horizontal zui-table-highlight">
+            <thead>
+                <tr>
+                  <th>Origin</th>
+                  <th>Destination</th>
+                  <th>Departure Date</th>
+                  <th>Airline</th>
+                  <th>Return Date</th>
+                  <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+              <% allflights.forEach((flight) => { %>
+                <tr>
+                  <td><%- flight.origout.CityName %></td>
+                  <td><%- flight.destout.CityName %></td>
+                  <td><%- flight.quote.OutboundLeg.DepartureDate  %></td>
+                  <td><%- flight.oneWayCarrier.Name %></td>
+                  <td><%- flight.quote.InboundLeg.DepartureDate %></td>
+                  <td><%- flight.quote.MinPrice %> $ <%- Currencies[0].Code %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+
+        <%} else {%>
+          <p> No flights Available.</p>
+        <% } %>
+    <% } %>
+   </div>
+  </body>
+</html>

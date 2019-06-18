@@ -1,7 +1,11 @@
 <div>
 <script type="text/javascript" src="../../assets/js/code/itinerariesindex.js"></script>
 <div class="itinerary-list" id="it-list">
+  <div id="top-15">
+      <a id="newCommentBtn" class="rate_btn" href=<%= topPath %>>Top 15</a>
+  </div>
   <input type="text" id="namefilter" placeholder="Filter by name.." title="Type in a name">
+  <a href="/itineraries/dashboard">Check our top 10 itineraries!</a>
   <% if (!itinerariesList.length) { %>
     <p>No results</p>
   <% } else { %>

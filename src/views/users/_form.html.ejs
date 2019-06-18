@@ -15,7 +15,8 @@
       <% } %>
       <div class="field">
         <label for="email">Email</label>
-        <input type="email" name="email" value="<%= user.email %>" />
+        <input type="email" id= "email" name="email" value="<%= user.email %>" />
+        <p id='emailerror'></p>
       </div>
       <div class="field">
         <label for="password">Password</label>
@@ -23,7 +24,7 @@
       </div>
       <div class="field">
         <label for="username">Username</label>
-        <input type="text" name="username" value="<%= user.username %>" />
+        <input type="text" id="username" name="username" value="<%= user.username %>" />
       </div>
       <% if (!(user.isNewRecord)) { %>
         <div class="field">
