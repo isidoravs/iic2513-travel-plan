@@ -6,6 +6,7 @@ const destinationsApi = require('./destinations');
 const itinerariesApi = require('./itineraries');
 
 const usersApi = require('./users');
+
 const router = new KoaRouter();
 
 router.use('/destinations', destinationsApi.routes());

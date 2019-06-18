@@ -9,7 +9,7 @@ router.get('api.itineraries.list_by_score', '/list_by_score', async (ctx) => {
   const itinerariesList = itineraries2.slice(0, 15);
   ctx.body = ctx.jsonSerializer('itinerary', {
     attributes: ['itineraryName', 'itineraryPicture', 'budget', 'startDate', 'endDate', 'avgScore', 'userId'],
-   topLevelLinks: {
+    topLevelLinks: {
       self: `${ctx.origin}${ctx.router.url('api.itineraries.list')}`,
     },
     dataLinks: {
