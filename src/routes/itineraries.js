@@ -57,6 +57,17 @@ router.get('itineraries.top', '/top', async (ctx) => {
   await ctx.render('itineraries/top', {});
 });
 
+router.get('itineraries.dashboard', '/dashboard', async (ctx) => {
+  const itinerariesList = await ctx.orm.itinerary.findAll();
+  await ctx.render('itineraries/dashboard', {
+    itinerariesList,
+    usersList: await Promise.all(itinerariesList.map(i => ctx.orm.user.findById(i.userId))),
+    newItineraryPath: ctx.router.url('itineraries.new'),
+    showItineraryPath: itinerary => ctx.router.url('itineraries.show', { id: itinerary.id }),
+    editItineraryPath: itinerary => ctx.router.url('itineraries.edit', { id: itinerary.id }),
+    deleteItineraryPath: itinerary => ctx.router.url('itineraries.delete', { id: itinerary.id }),
+  });
+});
 router.get('itineraries.new', '/new', async (ctx) => {
   const itinerary = ctx.orm.itinerary.build();
   await ctx.render('itineraries/new', {

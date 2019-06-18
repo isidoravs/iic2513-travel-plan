@@ -6,6 +6,10 @@ const Sequelize = require('sequelize');
 
 const op = Sequelize.Op;
 
+const fetch = require("node-fetch");
+
+const unirest = require("unirest")
+
 async function loadDestination(ctx, next) {
   ctx.state.destination = await ctx.orm.destination.findById(ctx.params.id);
   return next();
@@ -64,13 +68,15 @@ router.get('destinations.find', '/search', async (ctx) => {
       },
     },
   });
-
+  if (name == "asaadadefewfrgvdsafe"){
+    name = ""
+  }
   // eslint-disable-next-line max-len
   const itineraries = await Promise.all(destinationSearch.map(destination => destination.getItineraries()));
   await ctx.render('/search', {
     min_b: 0,
     max_b: 4050,
-    destination1: "",
+    destination1: name,
     destination2: "",
     destination3: "",
     min_b: 0,
@@ -105,7 +111,7 @@ router.get('destinations.search', '/search/:id', async (ctx) => {
   await ctx.render('/search', {
     min_b: 0,
     max_b: 4050,
-    destination1: "",
+    destination1: name,
     destination2: "",
     destination3: "",
     min_b: 0,
@@ -216,6 +222,119 @@ router.get('destinations.supersearch', '/ssearch', async (ctx) => {
   //   showItineraryPath: itinerary => ctx.router.url('itineraries.show', { id: itinerary.id }),
   //   showDestinationPath: destination => ctx.router.url('destinations.show', { id: destination.id }),
   // });
+});
+
+router.get('destinations.book','/book', async (ctx) =>{
+  await ctx.render('/booking',{
+    params: false,
+    flightsPath: ctx.router.url('destinations.flights')
+  })
+});
+
+router.get('destinations.flights','/booking/flights', async(ctx) => {
+  console.log(ctx.query)
+  let origen = ctx.query.origen;
+  let destino = ctx.query.destino;
+  const vuelta = ctx.query.vuelta;
+  const ida = ctx.query.ida;
+  const adultos = ctx.query.adults;
+  let ciudadesori = await fetch("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/US/USD/en-US/?query=" + origen,
+      {headers:{
+        "X-RapidAPI-Key":"99e67c76famsh6f0e0b458c67747p12ae57jsnca0007c820a8",
+        "X-RapidAPI-Host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
+      }}).then(response => response.json());
+      // .header("X-RapidAPI-Key", "99e67c76famsh6f0e0b458c67747p12ae57jsnca0007c820a8")
+      // .header("X-RapidAPI-Host", "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com")
+      // .end(function (result) {
+      //     origen = result.body.Places[0].PlaceId;});
+  let ciudadesdest = await fetch("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/US/USD/en-US/?query=" + destino,
+      {headers:{
+        "X-RapidAPI-Key":"99e67c76famsh6f0e0b458c67747p12ae57jsnca0007c820a8",
+        "X-RapidAPI-Host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
+      }}).then(response => response.json());
+  const allflights = [];
+  let places;
+  let Currencies;
+  let carriers;
+  console.log(ciudadesori);
+  if (ciudadesori.Places.length && ciudadesdest.Places.length){
+    const queryString = ciudadesori.Places[0].PlaceId + '/' + ciudadesdest.Places[0].PlaceId + '/' + ida + '/' + vuelta;
+    let vuelos = await fetch("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/CL/USD/en-US/" + queryString,
+    {headers:{
+      "X-RapidAPI-Key":"99e67c76famsh6f0e0b458c67747p12ae57jsnca0007c820a8",
+      "X-RapidAPI-Host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
+    }}).then(response => response.json());
+    const quotes = vuelos.Quotes;
+    places = vuelos.Places;
+    carriers = vuelos.Carriers;
+    Currencies = vuelos.Currencies;
+    if (quotes){
+      quotes.forEach((quote) => {
+      dic = {
+      quote: quote,
+      origout: places.find(p => p.PlaceId == quote.OutboundLeg.OriginId),
+      destout: places.find(p => p.PlaceId == quote.OutboundLeg.DestinationId),
+      retOrig: places.find(p => p.PlaceId == quote.InboundLeg.OriginId),
+      retDest: places.find(p => p.PlaceId == quote.InboundLeg.DestinationId),
+      oneWayCarrier: carriers.find(c => c.CarrierId == quote.OutboundLeg.CarrierIds[0]),
+      returnCarrier: carriers.find(c => c.CarrierId == quote.InboundLeg.CarrierIds[0]),
+      }
+      allflights.push(dic);
+    });
+  };
+};
+  console.log(allflights);
+  await ctx.render('/booking',{
+    places,
+    carriers,
+    allflights,
+    Currencies,
+    params:true,
+    flightsPath: ctx.router.url('destinations.flights')
+
+  })
+  // var userMarket = "US";
+  // var currency = "USD";
+  // var locale = "en-US";
+  // var origin = "NYCA-sky"; // New york (any airport)
+  // var destiration = "PARI-sky"; // Paris (any airport)
+  // var tomorrow = new Date(new Date().getTime()+2*86400000).toISOString().slice(0, 10);
+  // var afterTomorrow = new Date(new Date().getTime()+(3*86400000)).toISOString().slice(0, 10);
+  // var departureDate = tomorrow; // format yyyy-mm-dd , ie: 2020-01-30
+  // var returnDate = afterTomorrow; // format yyyy-mm-dd , ie: 2020-02-28
+  //
+  // var queryString = userMarket + '/' + currency + '/' + locale + '/' + origin + '/' + destiration + '/' + departureDate + '/' + returnDate;
+  // unirest.get("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/" + queryString)
+  // .header("X-RapidAPI-Key", "99e67c76famsh6f0e0b458c67747p12ae57jsnca0007c820a8")
+  // .header("X-RapidAPI-Host", "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com")
+  // .end(function (result) {
+  //    result.body.Quotes.forEach(q => printFlightSearchResult(q, result.body))
+  // });
+  // function printFlightSearchResult( quote, apiResponse){
+  //    var places = apiResponse.Places;
+  //    var carriers = apiResponse.Carriers;
+  //    var origOut = places.find(p => p.PlaceId == quote.OutboundLeg.OriginId);
+  //    var destOut = places.find(p => p.PlaceId == quote.OutboundLeg.DestinationId);
+  //
+  //    var retOrig = places.find(p => p.PlaceId == quote.InboundLeg.OriginId);
+  //    var retDest = places.find(p => p.PlaceId == quote.InboundLeg.DestinationId);
+  //    var oneWayCarrier = carriers.find(c => c.CarrierId == quote.OutboundLeg.CarrierIds[0]);
+  //    var returnCarrier = carriers.find(c => c.CarrierId == quote.InboundLeg.CarrierIds[0]);
+  //
+  //    console.log(`The cheapest ${quote.Direct ? "" : "in"}direct flight is
+  //    on ${quote.OutboundLeg.DepartureDate}
+  //    from ${origOut.CityName} (${origOut.IataCode} - ${origOut.Name}) ` +
+  //    `to ${destOut.CityName} (${destOut.IataCode} - ${destOut.Name})
+  //    operated by ${oneWayCarrier.Name}
+  //    and returning
+  //
+  //    on ${quote.InboundLeg.DepartureDate}
+  //    from ${retOrig.CityName} (${retOrig.IataCode} - ${retOrig.Name}) `+
+  //    `to ${retDest.CityName} (${retDest.IataCode} - ${retDest.Name})
+  //    operated by ${returnCarrier.Name}
+  //    will cost you ${quote.MinPrice} ${apiResponse.Currencies[0].Code}
+  //    `);
+  // }
 });
 
 router.get('destinations.new', '/new', async (ctx) => {
