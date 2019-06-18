@@ -71,6 +71,64 @@
   }
 }
 
+.react-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.react-info {
+  max-width: 750px;
+  height: auto !important;
+  margin: auto;
+
+  &__description {
+    font-style: italic;
+    padding: 10px;
+    color: $secondary-text;
+    border-top: 1px solid $light-border;
+    text-align: justify;
+    flex: 1;
+    display: flex;
+    overflow: auto;
+    min-height: 100px;
+  }
+
+  &__back {
+    padding: 5px;
+    color: $btn-bg;
+    font-weight: bolder;
+    background: none;
+    border: none;
+    font-family: $primary-text;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.react-container {
+  max-width: 150px;
+  height: auto !important;
+  margin: auto;
+
+  &__btn {
+    padding: 5px;
+    color: $btn-bg;
+    font-weight: bolder;
+    background: none;
+    border: none;
+    font-family: $primary-text;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 .itinerary-container {
   display: flex;
   flex-direction: row;
@@ -286,29 +344,29 @@
       }
     }
 
-    // .one-destination {
-    //   flex: 1 1 auto;
-    //   padding: 5px 12px 5px 12px;
-    //   border-radius: 5px;
-    //   height: 30px;
-    //   font-weight: bold;
-    //   text-align: center;
-    //   text-transform: capitalize;
-    //   color: $home-title-color;
-    //   background: $primary-color;
-    //   border: 1px solid $primary-color;
-    //   margin-right: 10px;
+    .one-destination-react {
+      flex: 1 1 auto;
+      padding: 5px 12px 5px 12px;
+      border-radius: 5px;
+      height: 30px;
+      font-weight: bold;
+      text-align: center;
+      text-transform: capitalize;
+      color: $home-title-color;
+      background: $primary-color;
+      border: 1px solid $primary-color;
+      margin-right: 10px;
 
-    //   &:not(:last-child) {
-    //     margin-bottom: 8px;
-    //   }
+      &:not(:last-child) {
+        margin-bottom: 8px;
+      }
 
-    //   &:hover {
-    //     background: $home-title-color;
-    //     color: $primary-color;
-    //     cursor: pointer;
-    //   }
-    // }
+      // &:hover {
+      //   background: $home-title-color;
+      //   color: $primary-color;
+      //   cursor: pointer;
+      // }
+    }
   }
 
   &__image {
@@ -526,6 +584,14 @@
     border: 1px solid $border;
     margin: 20px;
     border-radius: 10px;
+  }
+
+  a {
+    text-decoration: none;
+    color: $btn-bg;
+    font-weight: bolder;
+    text-align: right;
+    margin-right: 15px;
   }
 }
 
