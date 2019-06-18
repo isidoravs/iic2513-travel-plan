@@ -15,6 +15,12 @@ router.get('api.itineraries.list', '/', async (ctx) => {
     },
   }).serialize(itinerariesList);
 });
+
+router.get('api.itineraries.top', '/top', async (ctx) => {
+  const itinerariesList = await ctx.orm.itinerary.findAll({ order: [['avgScore', 'DESC']] });
+  ctx.body = itinerariesList.filter(it => !!it.avgScore).slice(0, 10).map(it => it.id);
+});
+
 router.get('api.itineraries.list_by_score', '/list_by_score', async (ctx) => {
   console.log('------------------------asdasd---------------------------');
   const itineraries = await ctx.orm.itinerary.findAll({ order: [['avgScore', 'DESC']] });
@@ -60,6 +66,7 @@ router.get('api.itineraries.show', '/:id', async (ctx) => {
     },
   }).serialize(data);
 });
+
 router.get('api.itineraries.show', '/:id', async (ctx) => {
   const itinerary = await ctx.orm.itinerary.findById(ctx.params.id);
   const daysList = await itinerary.getDays({ order: [['number', 'ASC']] });
@@ -73,6 +80,23 @@ router.get('api.itineraries.show', '/:id', async (ctx) => {
       self: `${ctx.origin}${ctx.router.url('api.itineraries.list')}${itinerary.id}`,
       user: `${ctx.origin}/api/users/${itinerary.userId}`,
     },
+  }).serialize(data);
+});
+
+router.get('api.itineraries.summary', '/:id/summary', async (ctx) => {
+  const itinerary = await ctx.orm.itinerary.findById(ctx.params.id);
+  ctx.body = ctx.jsonSerializer('itinerary', {
+    attributes: ['itineraryName', 'budget', 'avgScore', 'startDate', 'endDate'],
+  }).serialize(itinerary);
+});
+
+router.get('api.itineraries.text', '/:id/text', async (ctx) => {
+  const itinerary = await ctx.orm.itinerary.findById(ctx.params.id);
+  const destinationsList = await itinerary.getDestinations();
+  const data = JSON.parse(JSON.stringify(itinerary));
+  data.destinations = destinationsList;
+  ctx.body = ctx.jsonSerializer('itinerary', {
+    attributes: ['itineraryName', 'description', 'destinations'],
   }).serialize(data);
 });
 
