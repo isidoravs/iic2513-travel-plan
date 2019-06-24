@@ -591,7 +591,7 @@
     border-radius: 10px;
   }
 
-  a {
+  .check-top {
     text-decoration: none;
     color: $btn-bg;
     font-weight: bolder;
@@ -777,7 +777,7 @@
     height: 100px;
     background: $bg-primary-color;
     max-width: 700px;
-  
+
     &__picture {
       img {
         align-items: center;
@@ -790,7 +790,7 @@
         object-fit: cover;
       }
     }
-  
+
     &__info {
       padding: 10px;
       display: center;
@@ -800,40 +800,40 @@
       text-overflow: ellipsis;
       overflow: hidden;
       max-width: 250px;
-  
+
       &__title {
         font-weight: bold;
         font-size: 25px;
         display: flex;
-  
+
         a {
           text-decoration: none;
           color: $primary-text;
         }
-  
+
         .day-container__info__edit {
           margin-left: auto;
           font-weight: 100;
           flex-direction: column;
           text-align: right;
-  
+
           a {
             padding-bottom: 0;
             margin-bottom: 0;
           }
-  
+
           input {
             padding-top: 0;
             margin-top: 0;
           }
-  
+
           form {
             padding-top: 0;
             margin-top: 0;
           }
         }
       }
-  
+
       &__summary {
         display: flex;
         color: $secondary-text;
@@ -841,21 +841,21 @@
         overflow: auto;
         max-width: 350px;
 
-  
+
         #dates {
           padding: 10px;
         }
-  
+
         #budget {
           padding: 10px;
           color: $primary-shadow-color;
         }
-  
+
         #score {
           padding: 10px;
         }
       }
-  
+
       &__description {
         font-style: italic;
         padding: 10px;
@@ -867,7 +867,7 @@
         overflow: auto;
       }
     }
-  
+
     &__author {
       padding: 20px;
       margin-left: auto;
@@ -875,11 +875,11 @@
       flex-direction: column;
       justify-content: center;
       font-weight: bold;
-  
+
       &__picture {
         display: flex;
         justify-content: center;
-  
+
         img {
           width: 60px;
           height: 60px;
@@ -887,10 +887,10 @@
           border-radius: 100%;
         }
       }
-  
+
       &__name {
         padding: 10px;
-  
+
         a {
           text-decoration: none;
           color: $primary-text;
